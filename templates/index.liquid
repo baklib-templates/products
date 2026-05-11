@@ -1,0 +1,220 @@
+{% assign sort_rule = site.settings.sort_rule.value | default: site.settings.sort_rule | default: '-created_at' %}
+{% assign hub = site.pages['/partner-hub'] %}
+{% if hub %}
+  {% assign partners_src = hub.children_in_list | order_by: sort_rule %}
+{% else %}
+  {% assign partners_src = site.pages['/'].children_in_list | order_by: sort_rule %}
+{% endif %}
+{% assign idx_pt_src = site.settings.partner_type.value | default: site.settings.partner_type | default: '' %}
+{% assign idx_pt_lines = idx_pt_src | strip | newline_to_br | split: '<br />' %}
+{% assign type_integration_key = idx_pt_lines[0] | strip %}
+{% assign type_agency_key = idx_pt_lines[1] | strip %}
+{% if type_integration_key == blank %}
+  {% assign type_integration_key = 'partners.type_integration' | t | strip %}
+{% endif %}
+{% if type_agency_key == blank %}
+  {% assign type_agency_key = 'partners.type_agency' | t | strip %}
+{% endif %}
+{% assign idx_reg_src = site.settings.partner_region.value | default: site.settings.partner_region | default: '' %}
+{% assign idx_reg_lines = idx_reg_src | strip | newline_to_br | split: '<br />' %}
+{% assign region_na_key = idx_reg_lines[0] | strip %}
+{% assign region_nordic_key = idx_reg_lines[1] | strip %}
+{% assign region_apac_key = idx_reg_lines[2] | strip %}
+{% if region_na_key == blank %}
+  {% assign region_na_key = 'partners.region_na' | t | strip %}
+{% endif %}
+{% if region_nordic_key == blank %}
+  {% assign region_nordic_key = 'partners.region_nordic' | t | strip %}
+{% endif %}
+{% if region_apac_key == blank %}
+  {% assign region_apac_key = 'partners.region_apac' | t | strip %}
+{% endif %}
+{% assign idx_tier_src = site.settings.partner_tier.value | default: site.settings.partner_tier | default: '' %}
+{% assign idx_tier_lines = idx_tier_src | strip | newline_to_br | split: '<br />' %}
+{% assign tier_gold_key = idx_tier_lines[0] | strip %}
+{% assign tier_silver_key = idx_tier_lines[1] | strip %}
+{% if tier_gold_key == blank %}
+  {% assign tier_gold_key = 'partners.tier_gold' | t | strip %}
+{% endif %}
+{% if tier_silver_key == blank %}
+  {% assign tier_silver_key = 'partners.tier_silver' | t | strip %}
+{% endif %}
+
+{%- comment -%}
+  背景光斑：与正文同处一个 relative + isolate 容器内，z-0 在 z-10 内容之下；
+  浅色主题下需适当提高透明度，否则易被不透明白卡片完全挡住而「看不见」。
+{%- endcomment -%}
+<div class="relative isolate w-full min-w-0 flex-1">
+  <div class="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
+    <div class="absolute -left-1/4 top-0 h-96 w-96 rounded-full bg-primary/30 blur-3xl"></div>
+    <div class="absolute -right-1/4 bottom-0 h-80 w-80 rounded-full bg-secondary/25 blur-3xl"></div>
+  </div>
+
+  <div class="relative z-10 mx-auto flex w-full max-w-6xl flex-col gap-10 space-y-12 px-4 pb-16 pt-6 sm:px-6 lg:px-8">
+  <header class="partners-glass-card max-w-full p-6 sm:p-8">
+    <p class="text-xs font-medium uppercase tracking-widest text-primary">{{ site.settings.slogan }}</p>
+    <h2 class="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">{{ page.link_text }}</h2>
+    {% if page.settings.description != blank %}
+      <div class="mt-3 text-sm leading-relaxed text-slate-600 sm:text-base">{{ page.settings.description }}</div>
+    {% endif %}
+    <div class="mt-6 flex flex-wrap gap-3">
+      {% if hub %}
+        <a href="{{ hub.path }}" class="btn btn-primary btn-sm sm:btn-md" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ 'partners.browse_directory' | t }}</a>
+      {% endif %}
+      <a href="{{ statics['become-a-partner'] }}" class="btn btn-outline btn-sm border-slate-300 text-slate-800 hover:border-primary hover:bg-primary/10 sm:btn-md">{{ 'partners.become_partner' | t }}</a>
+    </div>
+  </header>
+
+  <section class="space-y-4" aria-labelledby="featured-integrations-heading">
+    <div class="flex items-end justify-between gap-4">
+      <h3 id="featured-integrations-heading" class="text-lg font-semibold text-slate-900 sm:text-xl">{{ 'partners.featured_integrations' | t }}</h3>
+    </div>
+    {%- comment -%} 横向滚动 + scroll-snap：触摸/拖拽滑动，卡片固定宽度 {%- endcomment -%}
+    <div class="-mx-4 sm:-mx-6">
+      <div
+        class="flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain scroll-smooth px-4 pb-3 pt-1 sm:px-6 [scrollbar-width:thin]"
+        role="region"
+        aria-label="{{ 'partners.featured_integrations' | t }}"
+        tabindex="0"
+      >
+        {% assign int_shown = 0 %}
+        {% for p in partners_src %}
+          {% if p.template_name == 'page' and int_shown < 6 %}
+            {% assign ptype_raw = p.settings.partner_type %}
+            {% assign ptype = ptype_raw.value | default: ptype_raw | default: '' %}
+            {% if type_integration_key != blank and ptype == 'integration' %}
+              {% assign ptype = type_integration_key %}
+            {% endif %}
+            {% if type_integration_key != blank and ptype == type_integration_key %}
+              <article class="partners-glass-card flex w-[min(20rem,calc(100vw-2.5rem))] shrink-0 snap-start flex-col justify-between p-5 sm:w-80 sm:p-6">
+                  <div class="flex items-start gap-4">
+                    {% assign logo_u = p.settings.logo_image_url | presence %}
+                    {% if logo_u %}
+                      <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-white p-2 ring-1 ring-slate-200">
+                        <img src="{{ logo_u }}" alt="" class="max-h-full max-w-full object-contain" loading="lazy" width="56" height="56" />
+                      </div>
+                    {% endif %}
+                    <div class="min-w-0 flex-1">
+                      <div class="flex flex-wrap items-center gap-2">
+                        <span class="rounded-full bg-primary/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">{{ ptype | escape_once }}</span>
+                        {% assign tier_raw = p.settings.partner_tier %}
+                        {% assign tier = tier_raw.value | default: tier_raw | default: '' %}
+                        {% if tier_gold_key != blank and tier == 'gold' %}
+                          {% assign tier = tier_gold_key %}
+                        {% elsif tier_silver_key != blank and tier == 'silver' %}
+                          {% assign tier = tier_silver_key %}
+                        {% endif %}
+                        {% if tier != blank %}
+                          <span class="rounded-full bg-slate-200 px-2 py-0.5 text-[10px] font-semibold text-slate-700">{{ tier | escape_once }}</span>
+                        {% endif %}
+                      </div>
+                      <h4 class="mt-2 line-clamp-2 text-base font-semibold leading-snug text-slate-900 sm:text-lg">
+                        <a class="hover:underline" href="{{ p.path }}" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ p.settings.title | default: p.link_text }}</a>
+                      </h4>
+                      {% assign tag = p.settings.tagline | strip %}
+                      {% if tag != blank %}
+                        <p class="mt-1 line-clamp-2 text-sm text-slate-600">{{ tag }}</p>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="mt-4 flex flex-wrap gap-2">
+                    {% assign act = p.settings.action_link | strip %}
+                    {% if act != blank %}
+                      {% assign al = p.settings.action_label | strip %}
+                      <a href="{{ act }}" class="btn btn-primary btn-xs sm:btn-sm" {% if act contains 'http' %}target="_blank" rel="noopener noreferrer"{% endif %}>{% if al != blank %}{{ al }}{% else %}{{ 'partners.install_app' | t }}{% endif %}</a>
+                    {% endif %}
+                    <a href="{{ p.path }}" class="btn btn-ghost btn-xs text-slate-700 hover:bg-slate-100 sm:btn-sm" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ 'partners.view_detail' | t }}</a>
+                  </div>
+                </article>
+                {% assign int_shown = int_shown | plus: 1 %}
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        {% if int_shown == 0 %}
+          <div class="partners-glass-card w-full min-w-full shrink-0 snap-start p-8 text-center text-sm text-slate-600">{{ 'generic.empty' | t }}</div>
+        {% endif %}
+      </div>
+    </div>
+    {% if int_shown > 0 %}
+      <p class="text-xs text-slate-500 sm:hidden">{{ 'partners.swipe_hint' | t }}</p>
+    {% endif %}
+  </section>
+
+  <section class="space-y-4">
+    <h3 class="text-lg font-semibold text-slate-900 sm:text-xl">{{ 'partners.top_solution_partners' | t }}</h3>
+    <div class="grid grid-cols-12 gap-4">
+      {% assign ag_shown = 0 %}
+      {% assign ag_span = 'md:col-span-6,md:col-span-6,md:col-span-4,md:col-span-4,md:col-span-4' | split: ',' %}
+      {% for p in partners_src %}
+        {% if p.template_name == 'page' and ag_shown < 6 %}
+          {% assign ptype_raw = p.settings.partner_type %}
+          {% assign ptype = ptype_raw.value | default: ptype_raw | default: '' %}
+          {% if type_agency_key != blank and ptype == 'agency' %}
+            {% assign ptype = type_agency_key %}
+          {% endif %}
+          {% if type_agency_key != blank and ptype == type_agency_key %}
+            {% assign span = ag_span[ag_shown] | strip %}
+            <article class="partners-glass-card {{ span }} col-span-12 flex flex-col p-5 sm:p-6">
+              <div class="flex items-start gap-4">
+                {% assign logo_u = p.settings.logo_image_url | presence %}
+                {% if logo_u %}
+                  <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-white p-1.5 ring-1 ring-slate-200">
+                    <img src="{{ logo_u }}" alt="" class="max-h-full max-w-full object-contain" loading="lazy" width="48" height="48" />
+                  </div>
+                {% endif %}
+                <div class="min-w-0 flex-1">
+                  <span class="inline-flex rounded-full bg-sky-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-sky-800">{{ ptype | escape_once }}</span>
+                  <h4 class="mt-2 text-base font-semibold text-slate-900">
+                    <a class="hover:underline" href="{{ p.path }}" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ p.settings.title | default: p.link_text }}</a>
+                  </h4>
+                  {% assign tag = p.settings.tagline | strip %}
+                  {% if tag != blank %}
+                    <p class="mt-1 line-clamp-2 text-sm text-slate-600">{{ tag }}</p>
+                  {% endif %}
+                </div>
+              </div>
+              <a href="{{ p.path }}" class="btn btn-outline btn-sm mt-4 w-fit border-slate-300 text-slate-800" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ 'partners.contact_partner' | t }}</a>
+            </article>
+            {% assign ag_shown = ag_shown | plus: 1 %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      {% if ag_shown == 0 %}
+        <div class="partners-glass-card col-span-12 p-8 text-center text-sm text-slate-600">{{ 'generic.empty' | t }}</div>
+      {% endif %}
+    </div>
+  </section>
+
+  <section class="relative overflow-hidden rounded-3xl border border-primary/20 bg-gradient-to-br from-primary via-primary to-primary-700 p-8 text-white shadow-[0_16px_48px_rgba(0,0,0,0.12)] sm:p-10">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.25),transparent_45%)]" aria-hidden="true"></div>
+    <div class="relative max-w-2xl">
+      <h3 class="text-2xl font-bold tracking-tight sm:text-3xl">{{ 'partners.become_partner' | t }}</h3>
+      <p class="mt-3 text-sm leading-relaxed text-white/85 sm:text-base">{{ 'partners.become_partner_sub' | t }}</p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a href="{{ statics['become-a-partner'] }}" class="btn btn-secondary border-0 shadow-lg">{{ 'partners.become_partner' | t }}</a>
+        {% if hub %}
+          <a href="{{ hub.path }}" class="btn btn-ghost border border-white/30 text-white hover:bg-white/10" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ 'partners.browse_directory' | t }}</a>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "t:schema.templates.index.name",
+    "description": "t:schema.templates.index.description",
+    "thumb_url": "images/theme/index-card.png",
+    "preview_image_urls": ["images/theme/index-card.png"],
+    "sub_page_templates": ["page", "channel"],
+    "settings": [
+      {
+        "id": "description",
+        "type": "richtext",
+        "label": "t:schema.templates.index.settings.description.label",
+        "info": "t:schema.templates.index.settings.description.info"
+      }
+    ]
+  }
+{% endschema %}

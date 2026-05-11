@@ -1,0 +1,92 @@
+pages:
+  name: "生态门户"
+  slug: "index"
+  template_name: "index"
+  settings:
+    description: "<p>连接<strong>技术集成</strong>与<strong>渠道服务商</strong>，统一展示、筛选与线索分发。</p>"
+
+  children:
+    - name: "伙伴目录"
+      slug: "partner-hub"
+      template_name: "channel"
+      settings:
+        intro: "按类型、区域与等级筛选合作伙伴；卡片进入详情页获取集成说明或联系渠道。"
+      children:
+        - name: "NorthBridge Analytics"
+          slug: "northbridge-analytics"
+          template_name: "page"
+          settings:
+            title: "NorthBridge Analytics"
+            tagline: "将站点行为数据实时同步至您的数据栈。"
+            logo_image_url: "images/theme/page.png"
+            partner_type: "技术&集成"
+            region: "北美"
+            partner_tier: "金牌"
+            website_url: "https://example.com"
+            action_link: "https://example.com/install"
+            action_label: "Install App"
+            body: |
+              <h2>集成概述</h2>
+              <p>通过 OAuth 与 Webhook，将 Baklib 站点事件推送到 NorthBridge 管道。</p>
+              <ul><li>实时同步</li><li>字段映射</li><li>沙箱环境</li></ul>
+            resource_links: |
+              技术文档|https://example.com/docs
+              状态页|https://example.com/status
+            contact_email: "integration@example.com"
+            industries: "SaaS, 企业软件, 开发者工具"
+
+        - name: "Aurora Channel Partners"
+          slug: "aurora-channel-partners"
+          template_name: "page"
+          settings:
+            title: "Aurora Channel Partners"
+            tagline: "北欧区企业级实施与客户成功。"
+            logo_image_url: "images/theme/index-list.png"
+            partner_type: "渠道&服务商"
+            region: "北欧"
+            partner_tier: "金牌"
+            website_url: "https://example.com"
+            action_link: "mailto:sales@example.com"
+            action_label: ""
+            body: |
+              <h2>服务能力</h2>
+              <p>覆盖实施、培训、定制开发与上线护航。</p>
+            resource_links: |
+              案例集|https://example.com/cases
+            contact_email: "hello@example.com"
+            industries: "制造, 医疗, 公共部门"
+
+        - name: "Pacific API Hub"
+          slug: "pacific-api-hub"
+          template_name: "page"
+          settings:
+            title: "Pacific API Hub"
+            tagline: "亚太区 API 聚合与低代码连接。"
+            logo_image_url: "images/theme/index-card.png"
+            partner_type: "技术&集成"
+            region: "亚太"
+            partner_tier: "银牌"
+            website_url: "https://example.com"
+            action_link: "https://example.com/app"
+            body: |
+              <p>以连接器方式对接常见 CRM 与工单系统。</p>
+            resource_links: ""
+            contact_email: "support@example.com"
+            industries: "金融科技, 电商"
+
+        - name: "Silverline Consulting"
+          slug: "silverline-consulting"
+          template_name: "page"
+          settings:
+            title: "Silverline Consulting"
+            tagline: "北美银牌咨询伙伴，专注内容运营与迁移。"
+            logo_image_url: "images/theme/release-guide.png"
+            partner_type: "渠道&服务商"
+            region: "北美"
+            partner_tier: "银牌"
+            website_url: "https://example.com"
+            action_link: "https://example.com/contact"
+            body: |
+              <p>提供工作坊、内容审计与迁移项目管理。</p>
+            contact_email: "contact@example.com"
+            industries: "咨询, 教育"

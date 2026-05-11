@@ -1,0 +1,116 @@
+{
+  "snippets": {
+    "feedback_form": {
+      "title": "フィードバックを送信",
+      "message_label": "メッセージ",
+      "message_placeholder": "フィードバック内容を入力してください",
+      "message_required": "フィードバック内容は必須です",
+      "submit": "送信",
+      "cancel": "キャンセル"
+    },
+    "feedback_button": {
+      "title_posted": "ご意見ありがとうございます",
+      "title_unposted": "フィードバックを送信"
+    }
+  },
+  "partners": {
+    "featured_integrations": "おすすめインテグレーション",
+    "swipe_hint": "横にスワイプしてさらに表示",
+    "top_solution_partners": "トップソリューションパートナー",
+    "become_partner": "パートナーになる",
+    "become_partner_sub": "エコシステムに参加し、より多くの顧客と開発者にリーチ。",
+    "browse_directory": "ディレクトリを見る",
+    "portal": "パートナーポータル",
+    "dashboard": {
+      "meta_title": "パートナーポータル",
+      "hero_title": "必要な機能を",
+      "hero_title_accent": "柔軟に組み合わせ",
+      "hero_subtitle": "チャネルパートナー向けに、ディレクトリ、トレーニング、リソース、マーケティング支援を一つの体験に。",
+      "cta_hub": "その他のソリューション",
+      "demo_alt": "パートナーポータル画面のプレビュー",
+      "features_heading": "主な機能",
+      "card_directory_title": "パートナーディレクトリ",
+      "card_directory_desc": "エコシステムのパートナーを一覧・絞り込みし、連携やチャネルサービスを素早く把握します。",
+      "card_training_title": "パートナートレーニング",
+      "card_training_desc": "オンライン研修と認定プログラムで、パートナーの成功を後押しします。",
+      "card_resources_title": "パートナーリソース",
+      "card_resources_desc": "ダウンロード可能でカスタマイズできる資料を提供し、適切な相手に最適なコンテンツを届けます。",
+      "card_mdf_title": "MDFプログラム",
+      "card_mdf_desc": "マーケティング活動を共同で支援。市場開発ファンドは売上拡大に効果的な手段です。",
+      "card_more": "詳しく見る"
+    },
+    "install_app": "アプリをインストール",
+    "contact_partner": "パートナーに連絡",
+    "visit_website": "公式サイト",
+    "sidebar_resources": "リソースリンク",
+    "sidebar_contact": "連絡メール",
+    "sidebar_industries": "対象業種",
+    "tier_gold": "ゴールド",
+    "tier_silver": "シルバー",
+    "type_integration": "技術連携",
+    "type_agency": "代理店",
+    "filter_type": "パートナー種別",
+    "filter_region": "地域",
+    "filter_tier": "ティア",
+    "filter_all": "すべて",
+    "region_na": "北米",
+    "region_nordic": "北欧",
+    "region_apac": "アジア太平洋",
+    "no_match": "条件に一致するパートナーがありません",
+    "form_step1": "企業情報",
+    "form_step2": "提携意向",
+    "form_step3": "連絡先",
+    "form_company": "企業名",
+    "form_intent": "提携意向",
+    "form_email": "勤務先メール",
+    "form_phone": "電話番号",
+    "form_next": "次へ",
+    "form_back": "戻る",
+    "form_submit": "申請する",
+    "form_summary": "内容の確認",
+    "form_done_mailto": "メールで送信",
+    "form_done_copy": "要約をコピー",
+    "view_detail": "詳細を見る",
+    "form_lead_hint": "サイトの「一般設定」で「パートナーリード受信メール」を設定すると、ワンクリック mailto が使えます。",
+    "form_submit_feedback": "申請を送信",
+    "form_feedback_placeholder": "内容を確認・編集してください。フィードバック本文として送信されます。",
+    "form_feedback_hint": "サイトのフィードバック機能経由で送信され、CMS で一元管理できます。",
+    "form_feedback_unavailable": "オンライン送信にはフィードバックの有効化とメッセージ欄が必要です。要約のコピーやメールをご利用ください。"
+  },
+  "templates": {
+    "index": {
+      "list": {
+        "all": "すべて"
+      }
+    },
+    "page": {
+      "current_version": "現在のバージョン",
+      "visit_count": "アクセス数"
+    }
+  },
+  "generic": {
+    "feedback_created_at": "最終フィードバック日時",
+    "empty": "データなし",
+    "all_tags": "すべてのタグ",
+    "recent_updates": "最新の更新",
+    "back_to_home": "ホームに戻る",
+    "copyright": "著作権",
+    "submit": "送信",
+    "placeholders": {
+      "search": "検索",
+      "input_feedback": "フィードバックを入力してください"
+    },
+    "buttons": {
+      "close": "閉じる",
+      "signout": "ログアウト",
+      "signin": "ログイン"
+    }
+  },
+  "paginate": {
+    "showing": "現在表示されている",
+    "total": "合計",
+    "records": "バーレコード",
+    "previous": "前のページ",
+    "next": "次のページ"
+  }
+}

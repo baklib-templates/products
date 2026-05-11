@@ -1,0 +1,229 @@
+{% assign site_pt_src = site.settings.partner_type.value | default: site.settings.partner_type | default: '' %}
+{% assign site_pt_lines = site_pt_src | strip | newline_to_br | split: '<br />' %}
+{% assign type_integration_key = site_pt_lines[0] | strip %}
+{% assign type_agency_key = site_pt_lines[1] | strip %}
+{% if type_integration_key == blank %}
+  {% assign type_integration_key = 'partners.type_integration' | t | strip %}
+{% endif %}
+{% if type_agency_key == blank %}
+  {% assign type_agency_key = 'partners.type_agency' | t | strip %}
+{% endif %}
+{% assign ptype_raw = page.settings.partner_type %}
+{% assign ptype = ptype_raw.value | default: ptype_raw | default: type_agency_key | default: type_integration_key | default: '' %}
+{% if type_integration_key != blank and ptype == 'integration' %}
+  {% assign ptype = type_integration_key %}
+{% elsif type_agency_key != blank and ptype == 'agency' %}
+  {% assign ptype = type_agency_key %}
+{% endif %}
+{% assign display_title = page.settings.title | default: page.link_text %}
+{% assign tagline = page.settings.tagline | strip %}
+{% assign logo_u = page.settings.logo_image_url | presence %}
+{% assign act = page.settings.action_link | strip %}
+{% assign al = page.settings.action_label | strip %}
+{% assign web_raw = page.settings.website_url %}
+{% assign web = web_raw.value | default: web_raw | strip %}
+
+<div class="relative z-10 mx-auto w-full max-w-6xl px-4 pb-16 pt-4 sm:px-6 lg:px-8">
+  <div class="mb-4 hidden md:block">
+    {% render 'breadcrumb', breadcrumb: page.breadcrumb %}
+  </div>
+
+  <section class="partners-glass-card overflow-hidden p-6 sm:p-10">
+    <div class="flex flex-col items-start gap-8 lg:flex-row lg:items-center lg:justify-between">
+      <div class="flex w-full flex-col gap-6 sm:flex-row sm:items-center">
+        {% if logo_u %}
+          <div class="flex h-24 w-24 shrink-0 items-center justify-center rounded-2xl bg-white p-3 shadow-inner ring-1 ring-slate-200 sm:h-28 sm:w-28">
+            <img src="{{ logo_u }}" alt="{{ display_title | escape }}" class="max-h-full max-w-full object-contain" width="112" height="112" />
+          </div>
+        {% endif %}
+        <div class="min-w-0 flex-1">
+          <div class="flex flex-wrap gap-2">
+            {% if ptype != blank %}
+              <span class="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-semibold text-primary">{{ ptype | escape_once }}</span>
+            {% endif %}
+            {% assign tier_raw = page.settings.partner_tier %}
+            {% assign tier_v = tier_raw.value | default: tier_raw %}
+            {% if tier_v != blank %}
+              <span class="rounded-full bg-slate-200 px-2.5 py-0.5 text-xs font-semibold text-slate-700">{{ tier_v | escape_once }}</span>
+            {% endif %}
+          </div>
+          <h1 class="mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">{{ display_title }}</h1>
+          {% if tagline != blank %}
+            <p class="mt-2 max-w-2xl text-base text-slate-600 sm:text-lg">{{ tagline }}</p>
+          {% endif %}
+        </div>
+      </div>
+      <div class="flex w-full shrink-0 flex-col gap-2 sm:flex-row lg:w-auto lg:flex-col">
+        {% if act != blank %}
+          <a href="{{ act }}" class="btn btn-primary btn-lg w-full sm:w-auto" {% if act contains 'http' %}target="_blank" rel="noopener noreferrer"{% endif %}>
+            {% if al != blank %}{{ al }}{% elsif ptype == type_integration_key or ptype_raw.value == 'integration' or ptype_raw == 'integration' %}{{ 'partners.install_app' | t }}{% else %}{{ 'partners.contact_partner' | t }}{% endif %}
+          </a>
+        {% endif %}
+        {% if web != blank %}
+          <a href="{{ web }}" class="btn btn-outline btn-lg w-full border-slate-300 text-slate-800 sm:w-auto" target="_blank" rel="noopener noreferrer">{{ 'partners.visit_website' | t }}</a>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+  <div class="mt-8 flex flex-col gap-8 lg:flex-row lg:items-start">
+    <article class="partners-glass-card min-h-[320px] min-w-0 flex-1 p-6 sm:p-8">
+      <div id="page-content" class="partners-prose ProseMirror prose max-w-none">
+        {{ page.settings.body }}
+      </div>
+      {% if site.settings.is_allow_feedback %}
+        <div class="mt-10 border-t border-slate-200 pt-8">
+          {% render 'feedback_button', page: page %}
+        </div>
+      {% endif %}
+    </article>
+
+    <aside class="w-full shrink-0 space-y-4 lg:w-80 lg:sticky lg:top-28">
+      <div class="partners-glass-card p-5">
+        <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500">{{ 'partners.sidebar_resources' | t }}</h2>
+        {% assign rl = page.settings.resource_links | strip %}
+        {% if rl != blank %}
+          <ul class="mt-3 space-y-2 text-sm">
+            {% assign res_lines = rl | reg_split: '/\r?\n/' %}
+            {% for line in res_lines %}
+              {% assign line = line | strip %}
+              {% if line != blank %}
+                {% assign parts = line | reg_split: '/\|/' %}
+                {% assign p0 = parts[0] | strip %}
+                {% assign p1 = parts[1] | strip %}
+                <li>
+                  {% if p1 != blank %}
+                    <a href="{{ p1 }}" class="link link-primary break-all" target="_blank" rel="noopener noreferrer">{{ p0 | default: p1 }}</a>
+                  {% else %}
+                    <a href="{{ p0 }}" class="link link-primary break-all" target="_blank" rel="noopener noreferrer">{{ p0 }}</a>
+                  {% endif %}
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="mt-2 text-sm text-slate-500">—</p>
+        {% endif %}
+      </div>
+      <div class="partners-glass-card p-5">
+        <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500">{{ 'partners.sidebar_contact' | t }}</h2>
+        {% assign em = page.settings.contact_email | strip %}
+        {% if em != blank %}
+          <a class="mt-2 block break-all text-sm text-primary hover:underline" href="mailto:{{ em }}">{{ em }}</a>
+        {% else %}
+          <p class="mt-2 text-sm text-slate-500">—</p>
+        {% endif %}
+      </div>
+      <div class="partners-glass-card p-5">
+        <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500">{{ 'partners.sidebar_industries' | t }}</h2>
+        {% assign ind = page.settings.industries | strip %}
+        {% if ind != blank %}
+          <ul class="mt-3 flex flex-wrap gap-2">
+            {% assign ind_parts = ind | reg_split: '/[,，\n]+/' %}
+            {% for it in ind_parts %}
+              {% assign it = it | strip %}
+              {% if it != blank %}
+                <li class="rounded-full bg-slate-100 px-2.5 py-1 text-xs text-slate-800 ring-1 ring-slate-200/80">{{ it }}</li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="mt-2 text-sm text-slate-500">—</p>
+        {% endif %}
+      </div>
+    </aside>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "t:schema.templates.page.name",
+    "description": "t:schema.templates.page.description",
+    "thumb_url": "images/theme/page.png",
+    "sub_page_templates": ["page"],
+    "settings": [
+      {
+        "id": "title",
+        "type": "text",
+        "label": "t:schema.templates.page.settings.title.label",
+        "info": "t:schema.templates.page.settings.title.info"
+      },
+      {
+        "id": "tagline",
+        "type": "text",
+        "label": "t:schema.templates.page.settings.tagline.label",
+        "info": "t:schema.templates.page.settings.tagline.info"
+      },
+      {
+        "id": "logo_image_url",
+        "type": "image_picker",
+        "label": "t:schema.templates.page.settings.logo_image_url.label",
+        "info": "t:schema.templates.page.settings.logo_image_url.info"
+      },
+      {
+        "id": "body",
+        "type": "richtext",
+        "label": "t:schema.templates.page.settings.body.label",
+        "info": "t:schema.templates.page.settings.body.info"
+      },
+      {
+        "id": "partner_type",
+        "type": "select",
+        "label": "t:schema.templates.page.settings.partner_type.label",
+        "info": "t:schema.templates.page.settings.partner_type.info",
+        "choices_from": "$site.partner_type",
+        "default": "渠道&服务商"
+      },
+      {
+        "id": "region",
+        "type": "select",
+        "label": "t:schema.templates.page.settings.region.label",
+        "info": "t:schema.templates.page.settings.region.info",
+        "choices_from": "$site.partner_region",
+        "default": "亚太"
+      },
+      {
+        "id": "partner_tier",
+        "type": "select",
+        "label": "t:schema.templates.page.settings.partner_tier.label",
+        "info": "t:schema.templates.page.settings.partner_tier.info",
+        "choices_from": "$site.partner_tier",
+        "default": "银牌"
+      },
+      {
+        "id": "website_url",
+        "type": "text",
+        "label": "t:schema.templates.page.settings.website_url.label"
+      },
+      {
+        "id": "action_link",
+        "type": "text",
+        "label": "t:schema.templates.page.settings.action_link.label",
+        "info": "t:schema.templates.page.settings.action_link.info"
+      },
+      {
+        "id": "action_label",
+        "type": "text",
+        "label": "t:schema.templates.page.settings.action_label.label",
+        "info": "t:schema.templates.page.settings.action_label.info"
+      },
+      {
+        "id": "resource_links",
+        "type": "textarea",
+        "label": "t:schema.templates.page.settings.resource_links.label",
+        "info": "t:schema.templates.page.settings.resource_links.info"
+      },
+      {
+        "id": "contact_email",
+        "type": "text",
+        "label": "t:schema.templates.page.settings.contact_email.label"
+      },
+      {
+        "id": "industries",
+        "type": "textarea",
+        "label": "t:schema.templates.page.settings.industries.label",
+        "info": "t:schema.templates.page.settings.industries.info"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,218 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "partners",
+    "theme_label": "partners",
+    "theme_description": "企业级生态系统与集成枢纽。采用前沿的 Bento Grid 与玻璃拟物风格，完美承载技术集成（Integrations）与渠道代理商（Agencies）的展示与线索分发，助力企业构建坚实的商业生态护城河。",
+    "theme_version": "1.0.0",
+    "theme_syntax_version": "v2",
+    "theme_scope": "cms",
+    "theme_author": "Baklib",
+    "theme_documentation_url": "https://help.baklib.cn/",
+    "theme_support_url": "https://help.baklib.cn/",
+    "theme_thumb_url": "images/theme/thumb.png",
+    "theme_preview_images": [
+      "images/theme/release-guide.png",
+      "images/theme/index-card.png",
+      "images/theme/page.png"
+    ],
+    "theme_languages": [
+      { "name": "中文简体", "value": "zh-CN" },
+      { "name": "中文繁體", "value": "zh-TW" },
+      { "name": "한국어", "value": "ko" },
+      { "name": "English", "value": "en" },
+      { "name": "日本語", "value": "ja" }
+    ],
+    "recommendations": {
+      "color_schemas": {
+        "ecosystem": {
+          "name": "生态深空",
+          "colors": {
+            "--theme-color-primary": "#0f172a",
+            "--theme-color-secondary": "#1d4ed8",
+            "--theme-color-accent": "#94a3b8",
+            "--theme-color-info": "#38bdf8",
+            "--theme-color-success": "#22c55e",
+            "--theme-color-warning": "#f59e0b"
+          }
+        },
+        "fashion": {
+          "name": "时尚",
+          "colors": {
+            "--theme-color-primary": "#3D50E0",
+            "--theme-color-secondary": "#E91E63",
+            "--theme-color-accent": "#AAAAAA",
+            "--theme-color-info": "#2196F3",
+            "--theme-color-success": "#4CAF50",
+            "--theme-color-warning": "#FFC107"
+          }
+        },
+        "old_school": {
+          "name": "复古",
+          "colors": {
+            "--theme-color-primary": "#9C27B0",
+            "--theme-color-secondary": "#673AB7",
+            "--theme-color-accent": "#AAAAAA",
+            "--theme-color-info": "#418CC8",
+            "--theme-color-success": "#29B52F",
+            "--theme-color-warning": "#FFC107"
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "t:schema.generic.name",
+    "settings": [
+      {
+        "id": "slogan",
+        "type": "text",
+        "label": "t:schema.generic.settings.slogan.label",
+        "default": "t:schema.generic.settings.slogan.default"
+      },
+      {
+        "id": "company_name",
+        "label": "t:schema.generic.settings.company_name.label",
+        "type": "text",
+        "default": "t:schema.generic.settings.company_name.default",
+        "info": "t:schema.generic.settings.company_name.info"
+      },
+      {
+        "id": "copyright_info",
+        "type": "text",
+        "label": "t:schema.generic.settings.copyright_info.label",
+        "placeholder": "t:schema.generic.settings.copyright_info.placeholder"
+      },
+      {
+        "id": "partner_lead_email",
+        "type": "text",
+        "label": "t:schema.generic.settings.partner_lead_email.label",
+        "info": "t:schema.generic.settings.partner_lead_email.info",
+        "placeholder": "partners@example.com"
+      },
+      {
+        "id": "partner_type",
+        "type": "textarea",
+        "label": "t:schema.generic.settings.partner_type.label",
+        "info": "t:schema.generic.settings.partner_type.info",
+        "rows": 6,
+        "default": "技术&集成\n渠道&服务商"
+      },
+      {
+        "id": "partner_region",
+        "type": "textarea",
+        "label": "t:schema.generic.settings.partner_region.label",
+        "info": "t:schema.generic.settings.partner_region.info",
+        "rows": 6,
+        "default": "北美\n北欧\n亚太"
+      },
+      {
+        "id": "partner_tier",
+        "type": "textarea",
+        "label": "t:schema.generic.settings.partner_tier.label",
+        "info": "t:schema.generic.settings.partner_tier.info",
+        "rows": 6,
+        "default": "金牌\n银牌"
+      },
+      {
+        "id": "sort_rule",
+        "type": "select",
+        "label": "t:schema.generic.settings.sort_rule.label",
+        "choices": [
+          {"label": "t:schema.generic.settings.sort_rule.options.created_at_desc", "value": "-created_at"},
+          {"label": "t:schema.generic.settings.sort_rule.options.created_at_asc", "value": "created_at"},
+          {"label": "t:schema.generic.settings.sort_rule.options.edited_at_desc", "value": "-edited_at"},
+          {"label": "t:schema.generic.settings.sort_rule.options.edited_at_asc", "value": "edited_at"},
+          {"label": "t:schema.generic.settings.sort_rule.options.visit_count_desc", "value": "-visit_count"},
+          {"label": "t:schema.generic.settings.sort_rule.options.visit_count_asc", "value": "visit_count"},
+          {"label": "t:schema.generic.settings.sort_rule.options.manual", "value": ""}
+        ],
+        "default": "-created_at"
+      },
+      {
+        "id": "is_allow_feedback",
+        "type": "checkbox",
+        "label": "t:schema.generic.settings.is_allow_feedback.label",
+        "default": true
+      },
+      {
+        "id": "is_show_visit_count",
+        "type": "checkbox",
+        "label": "t:schema.generic.settings.is_show_visit_count.label",
+        "default": true
+      },
+      {
+        "id": "is_allow_header",
+        "type": "checkbox",
+        "label": "t:schema.generic.settings.is_allow_header.label",
+        "default": true
+      },
+      {
+        "id": "is_allow_footer",
+        "type": "checkbox",
+        "label": "t:schema.generic.settings.is_allow_footer.label",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "t:schema.custom_html.name",
+    "settings": [
+      {
+        "id": "head_html",
+        "type": "html",
+        "label": "t:schema.custom_html.settings.head_html.label",
+        "info": "t:schema.custom_html.settings.head_html.info",
+        "rows": 10,
+        "placeholder": "t:schema.custom_html.settings.head_html.placeholder"
+      },
+      {
+        "id": "header_menu_html",
+        "type": "html",
+        "label": "t:schema.custom_html.settings.header_menu_html.label",
+        "info": "t:schema.custom_html.settings.header_menu_html.info",
+        "rows": 6,
+        "placeholder": "t:schema.custom_html.settings.header_menu_html.placeholder"
+      },
+      {
+        "id": "footer_menu_html",
+        "type": "html",
+        "label": "t:schema.custom_html.settings.footer_menu_html.label",
+        "info": "t:schema.custom_html.settings.footer_menu_html.info",
+        "rows": 6,
+        "placeholder": "t:schema.custom_html.settings.footer_menu_html.placeholder"
+      }
+    ]
+  },
+  {
+    "name": "t:schema.settings.weixin_share.title",
+    "settings": [
+      {
+        "id": "weixin_app_id",
+        "type": "text",
+        "label": "t:schema.settings.weixin_share.weixin_app_id.label",
+        "info": "t:schema.settings.weixin_share.weixin_app_id.info"
+      },
+      {
+        "id": "weixin_app_secret",
+        "type": "text",
+        "label": "t:schema.settings.weixin_share.weixin_app_secret.label",
+        "info": "t:schema.settings.weixin_share.weixin_app_secret.info"
+      },
+      {
+        "id": "weixin_enabled",
+        "type": "checkbox",
+        "label": "t:schema.settings.weixin_share.weixin_enabled.label",
+        "default": false,
+        "info": "t:schema.settings.weixin_share.weixin_enabled.info"
+      },
+      {
+        "id": "weixin_debug",
+        "type": "checkbox",
+        "label": "t:schema.settings.weixin_share.weixin_debug.label",
+        "default": false,
+        "info": "t:schema.settings.weixin_share.weixin_debug.info"
+      }
+    ]
+  }
+]

@@ -1,0 +1,189 @@
+{
+  "theme_label": "partners",
+  "theme_description": "엔터프라이즈 생태계·연동 허브. 벤토 그리드와 글래스모피즘으로 통합·에이전시를 소개하고 리드 확보와 파트너 프로그램을 지원합니다.",
+  "templates": {
+    "index": {
+      "name": "생태계 홈",
+      "description": "추천 통합·솔루션 파트너 벤토, 파트너 CTA",
+      "settings": {
+        "description": {
+          "label": "홈 소개",
+          "info": "히어로 글래스 카드에 표시할 리치 텍스트"
+        }
+      }
+    },
+    "channel": {
+      "name": "파트너 디렉터리",
+      "description": "유형·지역·등급으로 필터",
+      "settings": {
+        "intro": {
+          "label": "디렉터리 소개",
+          "info": "제목 아래 짧은 설명"
+        }
+      }
+    },
+    "page": {
+      "name": "파트너 / 연동 상세",
+      "description": "히어로, 2단 본문과 사이드바",
+      "settings": {
+        "title": {
+          "label": "파트너 / 앱 이름",
+          "info": "내비 제목과 별도 설정 가능"
+        },
+        "tagline": {
+          "label": "제휴 슬로건",
+          "info": "히어로 제목 아래 표시"
+        },
+        "logo_image_url": {
+          "label": "로고 이미지",
+          "info": "히어로·카드용. 투명 PNG/SVG 권장"
+        },
+        "body": {
+          "label": "본문",
+          "info": "메인 컬럼 리치 텍스트"
+        },
+        "partner_type": {
+          "label": "파트너 유형",
+          "info": "선택지는 「일반 설정」→「파트너 유형 옵션(전역)」에서 가져옵니다."
+        },
+        "region": {
+          "label": "지역",
+          "info": "선택지는 「일반 설정」→「파트너 지역 옵션(전역)」에서 가져옵니다."
+        },
+        "partner_tier": {
+          "label": "등급",
+          "info": "선택지는 「일반 설정」→「파트너 등급 옵션(전역)」에서 가져옵니다."
+        },
+        "website_url": {
+          "label": "웹사이트 URL"
+        },
+        "action_link": {
+          "label": "주요 CTA 링크",
+          "info": "앱 설치, 파트너 문의 등"
+        },
+        "action_label": {
+          "label": "주요 CTA 라벨",
+          "info": "비어 있으면 유형별 기본 문구"
+        },
+        "resource_links": {
+          "label": "리소스 링크",
+          "info": "한 줄에 하나: 제목|https://..."
+        },
+        "contact_email": {
+          "label": "연락 이메일"
+        },
+        "industries": {
+          "label": "커버 산업",
+          "info": "쉼표 또는 줄바꿈 구분"
+        }
+      }
+    },
+    "static_become_a_partner": {
+      "name": "파트너 되기",
+      "description": "다단계 리드 폼"
+    },
+    "static_dashboard": {
+      "name": "파트너 포털(미리보기)",
+      "description": "로그인 후 샘플 홈: 히어로 이미지와 기능 카드"
+    }
+  },
+  "generic": {
+    "name": "일반 설정",
+    "settings": {
+      "slogan": {
+        "label": "슬로건",
+        "default": "파트너·연동 생태계 포털"
+      },
+      "company_name": {
+        "label": "회사명",
+        "default": "Baklib.cn",
+        "info": "푸터 섹션에 표시"
+      },
+      "copyright_info": {
+        "label": "저작권/ICP 정보",
+        "placeholder": "ICP No.15035023"
+      },
+      "partner_lead_email": {
+        "label": "파트너 리드 수신 이메일",
+        "info": "신청 폼의 mailto 수신 주소. 비어 있으면 복사용 요약만 표시"
+      },
+      "partner_type": {
+        "label": "파트너 유형 옵션(전역)",
+        "info": "한 줄에 하나의 값(표시·저장 동일). Liquid에서는 newline_to_br | split: '<br />'로 배열화. 홈 추천 연동은 첫 줄 유형, 솔루션 파트너는 둘째 줄 유형과 일치하는 페이지를 표시."
+      },
+      "partner_region": {
+        "label": "파트너 지역 옵션(전역)",
+        "info": "한 줄에 하나의 지역명. Liquid에서는 newline_to_br | split: '<br />'로 배열화. 상세 페이지·목록 필터에 사용."
+      },
+      "partner_tier": {
+        "label": "파트너 등급 옵션(전역)",
+        "info": "한 줄에 하나의 등급명. Liquid에서는 newline_to_br | split: '<br />'로 배열화. 상세 페이지·목록 필터에 사용."
+      },
+      "is_allow_feedback": {
+        "label": "사용자 피드백 표시"
+      },
+      "is_show_visit_count": {
+        "label": "방문 수 표시"
+      },
+      "is_allow_header": {
+        "label": "헤더 섹션 표시"
+      },
+      "is_allow_footer": {
+        "label": "푸터 섹션 표시"
+      },
+      "sort_rule": {
+        "label": "목록 정렬",
+        "options": {
+          "created_at_desc": "생성일 - 내림차순",
+          "created_at_asc": "생성일 - 오름차순",
+          "edited_at_desc": "수정일 - 내림차순",
+          "edited_at_asc": "수정일 - 오름차순",
+          "visit_count_desc": "방문 수 (많은 순)",
+          "visit_count_asc": "방문 수 (적은 순)",
+          "manual": "수동 정렬"
+        }
+      }
+    }
+  },
+  "custom_html": {
+    "name": "사용자 정의 HTML 코드",
+    "settings": {
+      "head_html": {
+        "label": "<head></head> 태그 내 사용자 정의 HTML",
+        "info": "HTML 태그와 제한된 TailwindCSS 스타일 코드 지원",
+        "placeholder": "일반적으로 분석, 고객 서비스 봇 등을 삽입"
+      },
+      "header_menu_html": {
+        "label": "상단 네비게이션 영역에 HTML 삽입",
+        "info": "HTML 태그와 제한된 TailwindCSS 스타일 코드 지원",
+        "placeholder": "일반적으로 회사의 다른 웹사이트 네비게이션 링크를 삽입"
+      },
+      "footer_menu_html": {
+        "label": "푸터 영역에 HTML 삽입",
+        "info": "HTML 태그와 제한된 TailwindCSS 스타일 코드 지원",
+        "placeholder": "일반적으로 외부 네비게이션 링크, 친구 링크, SEO 최적화 링크 등을 삽입"
+      }
+    }
+  },
+  "settings": {
+    "weixin_share": {
+      "title": "위챗 설정",
+      "weixin_app_id": {
+        "label": "개발자 ID(AppID)",
+        "info": "<a href='https://mp.weixin.qq.com/cgi-bin/frame'> 위챗 대중번호/설정 및 개발/개발 인터페이스 관리 </a> 에서 획득"
+      },
+      "weixin_app_secret": {
+        "label": "개발자 암호(AppSecret)",
+        "info": ""
+      },
+      "weixin_enabled": {
+        "label": "위챗 공유 사용 여부",
+        "info": "사이트 페이지 위챗 공유 능력 제공 </br>1. 위챗 대중번호에 ip 화이트리스트 (ip: ${service_ip}) 를 설정하십시오. 설정 후 일정 기간 효력이 지연됩니다.</br>2.위챗 공유 권한 설정 여부, 위챗 대중번호/설정 및 개발/개발 인터페이스 관리: <a href='https://mp.weixin.qq.com/cgi-bin/frame'> 웹 서비스 / 공유 인터페이스 </a>. </br>3. 공유 링크가 카드인지 여부: 카드 형식에서 공유 카드 형식으로, 링크 형식에서 공유 링크 형식으로,웹 페이지의 초기 링크 공유는 회사의 서비스 번호나 소장 후에 카드 공유를 진행할 수 있습니다 (이 규칙은 위챗 공유 제한입니다)."
+      },
+      "weixin_debug": {
+        "label": "debug 프롬프트 설정 여부",
+        "info": "구성 단계에서만 이 옵션을 켜십시오.오픈 후 프런트엔드 사이트에 액세스할 때 위챗 공유를 제대로 구성하지 않으면 오류 메시지가 자동으로 표시됩니다."
+      }
+    }
+  }
+}

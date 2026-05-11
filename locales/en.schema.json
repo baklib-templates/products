@@ -1,0 +1,189 @@
+{
+  "theme_label": "partners",
+  "theme_description": "Enterprise ecosystem and integration hub. Bento grid and glassmorphism for integrations and agencies, lead capture, and partner programs.",
+  "templates": {
+    "index": {
+      "name": "Ecosystem home",
+      "description": "Bento grid for featured integrations and solution partners, plus partner CTA",
+      "settings": {
+        "description": {
+          "label": "Home intro",
+          "info": "Rich text shown in the hero glass card"
+        }
+      }
+    },
+    "channel": {
+      "name": "Partner directory",
+      "description": "Filter by type, region, and tier",
+      "settings": {
+        "intro": {
+          "label": "Directory intro",
+          "info": "Short text shown under the title"
+        }
+      }
+    },
+    "page": {
+      "name": "Partner / integration detail",
+      "description": "Hero, two-column body and sidebar",
+      "settings": {
+        "title": {
+          "label": "Partner / app name",
+          "info": "Can differ from navigation title"
+        },
+        "tagline": {
+          "label": "Partnership tagline",
+          "info": "Shown under the hero title"
+        },
+        "logo_image_url": {
+          "label": "Logo image",
+          "info": "Hero and cards; transparent PNG/SVG recommended"
+        },
+        "body": {
+          "label": "Body content",
+          "info": "Main column rich text"
+        },
+        "partner_type": {
+          "label": "Partner type",
+          "info": "Options come from General settings → Partner type options (global)."
+        },
+        "region": {
+          "label": "Region",
+          "info": "Options come from General settings → Partner region options (global); used for directory filters."
+        },
+        "partner_tier": {
+          "label": "Tier",
+          "info": "Options come from General settings → Partner tier options (global)."
+        },
+        "website_url": {
+          "label": "Website URL"
+        },
+        "action_link": {
+          "label": "Primary CTA link",
+          "info": "Install app, contact partner, etc."
+        },
+        "action_label": {
+          "label": "Primary CTA label",
+          "info": "Defaults by partner type if empty"
+        },
+        "resource_links": {
+          "label": "Resource links",
+          "info": "One per line: Title|https://..."
+        },
+        "contact_email": {
+          "label": "Contact email"
+        },
+        "industries": {
+          "label": "Industries covered",
+          "info": "Comma or newline separated"
+        }
+      }
+    },
+    "static_become_a_partner": {
+      "name": "Become a partner",
+      "description": "Multi-step lead form"
+    },
+    "static_dashboard": {
+      "name": "Partner portal (preview)",
+      "description": "Sample partner portal home after sign-in: hero demo image and feature cards"
+    }
+  },
+  "generic": {
+    "name": "General Settings",
+    "settings": {
+      "slogan": {
+        "label": "Slogan",
+        "default": "Partner & integration ecosystem portal"
+      },
+      "company_name": {
+        "label": "Company Name",
+        "default": "Baklib.cn",
+        "info": "Displayed in the footer section"
+      },
+      "copyright_info": {
+        "label": "Copyright/ICP Information",
+        "placeholder": "ICP No.15035023"
+      },
+      "partner_lead_email": {
+        "label": "Partner lead inbox email",
+        "info": "Become-a-partner form opens a mailto to this address when set; otherwise shows a copyable summary"
+      },
+      "partner_type": {
+        "label": "Partner type options (global)",
+        "info": "One value per line (e.g. Technology & Integration); that string is both label and stored value. In Liquid, split with newline_to_br | split: '<br />'. Home featured integrations use line 1; solution partners use line 2; directory filters and page selects follow the same list."
+      },
+      "partner_region": {
+        "label": "Partner region options (global)",
+        "info": "One region name per line (e.g. APAC). Split in Liquid with newline_to_br | split: '<br />'; used on partner pages and directory filters."
+      },
+      "partner_tier": {
+        "label": "Partner tier options (global)",
+        "info": "One tier name per line (e.g. Gold). Split in Liquid with newline_to_br | split: '<br />'; used on partner pages and directory filters."
+      },
+      "is_allow_feedback": {
+        "label": "Show User Feedback"
+      },
+      "is_show_visit_count": {
+        "label": "Show Visit Count"
+      },
+      "is_allow_header": {
+        "label": "Show Header Section"
+      },
+      "is_allow_footer": {
+        "label": "Show Footer Section"
+      },
+      "sort_rule": {
+        "label": "List sort order",
+        "options": {
+          "created_at_desc": "By Creation Date - Descending",
+          "created_at_asc": "By Creation Date - Ascending",
+          "edited_at_desc": "By Update Date - Descending",
+          "edited_at_asc": "By Update Date - Ascending",
+          "visit_count_desc": "By Visit Count (High to Low)",
+          "visit_count_asc": "By Visit Count (Low to High)",
+          "manual": "Manual Sort"
+        }
+      }
+    }
+  },
+  "custom_html": {
+    "name": "Custom HTML Code",
+    "settings": {
+      "head_html": {
+        "label": "Custom HTML in <head></head> tags",
+        "info": "Supports HTML tags and limited TailwindCSS style code",
+        "placeholder": "Usually used for analytics, customer service bot, etc."
+      },
+      "header_menu_html": {
+        "label": "Insert HTML in Top Navigation Area",
+        "info": "Supports HTML tags and limited TailwindCSS style code",
+        "placeholder": "Usually used for company website navigation links"
+      },
+      "footer_menu_html": {
+        "label": "Insert HTML in Footer Area",
+        "info": "Supports HTML tags and limited TailwindCSS style code",
+        "placeholder": "Usually used for external navigation links, friend links, SEO optimization links, etc."
+      }
+    }
+  },
+  "settings": {
+    "weixin_share": {
+      "title": "WeChat configuration",
+      "weixin_app_id": {
+        "label": "Developer ID (AppID)",
+        "info": "<a href='https://mp.weixin.qq.com/cgi-bin/frame'>WeChat official account/setting and development/development interface management</a>"
+      },
+      "weixin_app_secret": {
+        "label": "Developer Password (AppSecret)",
+        "info": ""
+      },
+      "weixin_enabled": {
+        "label": "Do you want to enable WeChat sharing",
+        "info": "Provide the ability to share site pages on WeChat"
+      },
+      "weixin_debug": {
+        "label": "Do you want to enable debug prompt",
+        "info": "Please only enable this option during the configuration phase"
+      }
+    }
+  }
+}

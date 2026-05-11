@@ -1,0 +1,123 @@
+{% assign _dash_meta = 'partners.dashboard.meta_title' | t | strip %}
+{% set_meta_title _dash_meta %}
+{% assign hub = site.pages['/partner-hub'] %}
+{% assign become_path = statics['become-a-partner'] %}
+{% assign dash_img = 'images/dashboard.jpg' | asset_url %}
+
+<div class="relative z-10 mx-auto w-full max-w-6xl px-4 pb-20 pt-8 sm:px-6 lg:px-8">
+  <section aria-labelledby="dashboard-hero-heading" class="border-b border-slate-200/80 pb-12 lg:pb-16">
+    <div class="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
+      <div class="min-w-0 max-w-2xl">
+        <h1 id="dashboard-hero-heading" class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-[2.5rem] lg:leading-tight">
+          {{ 'partners.dashboard.hero_title' | t }}<span class="text-primary">{{ 'partners.dashboard.hero_title_accent' | t }}</span>
+        </h1>
+        <p class="mt-4 text-base leading-relaxed text-slate-600 sm:text-lg">{{ 'partners.dashboard.hero_subtitle' | t }}</p>
+        <div class="mt-5 h-1.5 w-16 shrink-0 rounded-full bg-primary" aria-hidden="true"></div>
+      </div>
+      <div class="flex shrink-0 lg:pt-1">
+        {% if hub %}
+          <a
+            href="{{ hub.path }}"
+            class="btn btn-outline btn-sm border-slate-300 text-xs font-semibold uppercase tracking-wide text-slate-700 hover:border-primary hover:bg-primary/5 sm:btn-md sm:text-[0.65rem]"
+            data-turbo-frame="main-content-frame"
+            data-turbo-action="advance"
+          >
+            {{ 'partners.dashboard.cta_hub' | t }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="mt-10 overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-[0_8px_40px_rgb(15,23,42,0.08)] ring-1 ring-slate-200/60">
+      <img
+        src="{{ dash_img }}"
+        class="w-full object-cover object-top"
+        alt="{{ 'partners.dashboard.demo_alt' | t }}"
+        loading="eager"
+        decoding="async"
+      />
+    </div>
+  </section>
+
+  <section class="mt-14 sm:mt-16" aria-labelledby="dashboard-features-heading">
+    <h2 id="dashboard-features-heading" class="sr-only">{{ 'partners.dashboard.features_heading' | t }}</h2>
+    <div class="grid gap-6 sm:grid-cols-2 lg:gap-8">
+      <article id="feature-directory" class="partners-glass-card flex flex-col p-6 sm:p-7">
+        <div class="flex gap-4">
+          <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 text-primary">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+              <path d="M4 6h16M4 10h16M4 14h10M4 18h10" stroke-linecap="round" />
+              <circle cx="17" cy="16" r="2" fill="currentColor" stroke="none" />
+            </svg>
+          </div>
+          <div class="min-w-0 flex-1">
+            <h3 class="text-lg font-bold text-slate-900">{{ 'partners.dashboard.card_directory_title' | t }}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">{{ 'partners.dashboard.card_directory_desc' | t }}</p>
+          </div>
+        </div>
+        {% if hub %}
+          <a href="{{ hub.path }}" class="link link-primary mt-5 inline-flex items-center gap-0.5 text-sm font-medium no-underline hover:underline" data-turbo-frame="main-content-frame" data-turbo-action="advance">
+            {{ 'partners.dashboard.card_more' | t }}<span aria-hidden="true">&gt;</span>
+          </a>
+        {% else %}
+          <a href="{{ site.index_path }}" class="link link-primary mt-5 inline-flex items-center gap-0.5 text-sm font-medium no-underline hover:underline" data-turbo-frame="main-content-frame" data-turbo-action="advance">
+            {{ 'partners.dashboard.card_more' | t }}<span aria-hidden="true">&gt;</span>
+          </a>
+        {% endif %}
+      </article>
+
+      <article id="feature-training" class="partners-glass-card flex flex-col p-6 sm:p-7">
+        <div class="flex gap-4">
+          <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 text-primary">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+              <path d="M12 14l9-5-9-5-9 5 9 5z" stroke-linejoin="round" />
+              <path d="M12 14l6.16-3.42M12 14v7" stroke-linecap="round" />
+            </svg>
+          </div>
+          <div class="min-w-0 flex-1">
+            <h3 class="text-lg font-bold text-slate-900">{{ 'partners.dashboard.card_training_title' | t }}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">{{ 'partners.dashboard.card_training_desc' | t }}</p>
+          </div>
+        </div>
+        <a href="{{ become_path }}" class="link link-primary mt-5 inline-flex items-center gap-0.5 text-sm font-medium no-underline hover:underline" data-turbo-frame="main-content-frame" data-turbo-action="advance">
+          {{ 'partners.dashboard.card_more' | t }}<span aria-hidden="true">&gt;</span>
+        </a>
+      </article>
+
+      <article id="feature-resources" class="partners-glass-card flex flex-col p-6 sm:p-7">
+        <div class="flex gap-4">
+          <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 text-primary">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke-linejoin="round" />
+              <path d="M14 2v6h6M12 18v-6M9 15h6" stroke-linecap="round" />
+            </svg>
+          </div>
+          <div class="min-w-0 flex-1">
+            <h3 class="text-lg font-bold text-slate-900">{{ 'partners.dashboard.card_resources_title' | t }}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">{{ 'partners.dashboard.card_resources_desc' | t }}</p>
+          </div>
+        </div>
+        <a href="{{ become_path }}" class="link link-primary mt-5 inline-flex items-center gap-0.5 text-sm font-medium no-underline hover:underline" data-turbo-frame="main-content-frame" data-turbo-action="advance">
+          {{ 'partners.dashboard.card_more' | t }}<span aria-hidden="true">&gt;</span>
+        </a>
+      </article>
+
+      <article id="feature-mdf" class="partners-glass-card flex flex-col p-6 sm:p-7">
+        <div class="flex gap-4">
+          <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 text-primary">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <div class="min-w-0 flex-1">
+            <h3 class="text-lg font-bold text-slate-900">{{ 'partners.dashboard.card_mdf_title' | t }}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">{{ 'partners.dashboard.card_mdf_desc' | t }}</p>
+          </div>
+        </div>
+        <a href="{{ become_path }}" class="link link-primary mt-5 inline-flex items-center gap-0.5 text-sm font-medium no-underline hover:underline" data-turbo-frame="main-content-frame" data-turbo-action="advance">
+          {{ 'partners.dashboard.card_more' | t }}<span aria-hidden="true">&gt;</span>
+        </a>
+      </article>
+    </div>
+  </section>
+</div>

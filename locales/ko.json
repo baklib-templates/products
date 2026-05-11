@@ -1,0 +1,116 @@
+{
+  "snippets": {
+    "feedback_form": {
+      "title": "피드백 제출",
+      "message_label": "메시지",
+      "message_placeholder": "피드백 내용을 입력해 주세요",
+      "message_required": "피드백 내용은 비워둘 수 없습니다",
+      "submit": "제출",
+      "cancel": "취소"
+    },
+    "feedback_button": {
+      "title_posted": "피드백을 보내주셔서 감사합니다",
+      "title_unposted": "피드백 제출"
+    }
+  },
+  "partners": {
+    "featured_integrations": "추천 통합",
+    "swipe_hint": "옆으로 밀어 더 보기",
+    "top_solution_partners": "톱 솔루션 파트너",
+    "become_partner": "파트너 되기",
+    "become_partner_sub": "생태계에 참여해 더 많은 고객과 개발자에게 도달하세요.",
+    "browse_directory": "디렉터리 보기",
+    "portal": "파트너 포털",
+    "dashboard": {
+      "meta_title": "파트너 포털",
+      "hero_title": "필요한 기능을 ",
+      "hero_title_accent": "유연하게 조합",
+      "hero_subtitle": "채널 파트너를 위해 디렉터리, 교육, 리소스, 마케팅 성장 프로그램을 한 경험으로 제공합니다.",
+      "cta_hub": "추가 파트너 관리",
+      "demo_alt": "파트너 포털 대시보드 미리보기",
+      "features_heading": "포털 기능",
+      "card_directory_title": "파트너 디렉터리",
+      "card_directory_desc": "에코시스템 파트너를 한곳에서 찾아보고 필터링해 통합과 채널 역량을 빠르게 파악합니다.",
+      "card_training_title": "파트너 교육",
+      "card_training_desc": "온라인 교육과 인증 프로그램으로 파트너의 성공을 돕습니다.",
+      "card_resources_title": "파트너 리소스",
+      "card_resources_desc": "다운로드 및 맞춤 가능한 자료를 제공하고, 적합한 파트너에게 정확히 전달합니다.",
+      "card_mdf_title": "MDF 프로그램",
+      "card_mdf_desc": "파트너 마케팅 활동을 함께 지원합니다. 시장 개발 기금은 매출 성장에 효과적인 수단입니다.",
+      "card_more": "자세히 보기"
+    },
+    "install_app": "앱 설치",
+    "contact_partner": "파트너 문의",
+    "visit_website": "웹사이트 방문",
+    "sidebar_resources": "리소스 링크",
+    "sidebar_contact": "이메일",
+    "sidebar_industries": "산업",
+    "tier_gold": "골드",
+    "tier_silver": "실버",
+    "type_integration": "기술 통합",
+    "type_agency": "에이전시",
+    "filter_type": "파트너 유형",
+    "filter_region": "지역",
+    "filter_tier": "등급",
+    "filter_all": "전체",
+    "region_na": "북미",
+    "region_nordic": "북유럽",
+    "region_apac": "아시아 태평양",
+    "no_match": "조건에 맞는 파트너가 없습니다",
+    "form_step1": "기업 정보",
+    "form_step2": "제휴 의향",
+    "form_step3": "연락처",
+    "form_company": "기업명",
+    "form_intent": "제휴 의향",
+    "form_email": "직장 이메일",
+    "form_phone": "전화번호",
+    "form_next": "다음",
+    "form_back": "이전",
+    "form_submit": "신청 제출",
+    "form_summary": "내용 확인",
+    "form_done_mailto": "메일로 보내기",
+    "form_done_copy": "요약 복사",
+    "view_detail": "자세히 보기",
+    "form_lead_hint": "사이트 「일반 설정」에서 「파트너 리드 수신 이메일」을 입력하면 원클릭 mailto를 사용할 수 있습니다.",
+    "form_submit_feedback": "신청 제출",
+    "form_feedback_placeholder": "내용을 확인·수정한 뒤 제출하세요. 피드백 본문으로 전송됩니다.",
+    "form_feedback_hint": "사이트 피드백 시스템으로 전송되어 CMS에서 일괄 확인할 수 있습니다.",
+    "form_feedback_unavailable": "온라인 제출은 피드백과 메시지 입력이 켜져 있어야 합니다. 요약 복사 또는 이메일을 이용하세요."
+  },
+  "templates": {
+    "index": {
+      "list": {
+        "all": "전체"
+      }
+    },
+    "page": {
+      "current_version": "현재 버전",
+      "visit_count": "방문 수"
+    }
+  },
+  "generic": {
+    "feedback_created_at": "마지막 피드백 일시",
+    "empty": "데이터 없음",
+    "all_tags": "모든 태그",
+    "recent_updates": "최근 업데이트",
+    "back_to_home": "홈으로 돌아가기",
+    "copyright": "저작권",
+    "submit": "제출",
+    "placeholders": {
+      "search": "검색",
+      "input_feedback": "피드백을 입력하세요"
+    },
+    "buttons": {
+      "close": "닫기",
+      "signout": "로그아웃",
+      "signin": "로그인"
+    }
+  },
+  "paginate": {
+    "showing": "현재 표시 단계",
+    "total": "합계",
+    "records": "막대 레코드",
+    "previous": "이전 페이지",
+    "next": "다음 페이지"
+  }
+}

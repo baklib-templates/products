@@ -1,0 +1,116 @@
+{
+  "snippets": {
+    "feedback_form": {
+      "title": "提交回饋",
+      "message_label": "留言",
+      "message_placeholder": "請輸入回饋內容",
+      "message_required": "回饋內容不能為空",
+      "submit": "提交",
+      "cancel": "取消"
+    },
+    "feedback_button": {
+      "title_posted": "感謝您的回饋",
+      "title_unposted": "提交回饋"
+    }
+  },
+  "partners": {
+    "featured_integrations": "推薦整合",
+    "swipe_hint": "左右滑動查看更多",
+    "top_solution_partners": "頂級服務商",
+    "become_partner": "成為夥伴",
+    "become_partner_sub": "加入生態，觸達更多企業客戶與開發者。",
+    "browse_directory": "瀏覽夥伴目錄",
+    "portal": "夥伴門戶",
+    "dashboard": {
+      "meta_title": "夥伴門戶",
+      "hero_title": "按需組合，",
+      "hero_title_accent": "靈活擴展",
+      "hero_subtitle": "為渠道夥伴打造可拼裝的能力中心：目錄、培訓、資源與行銷增長，一站式支援業務拓展。",
+      "cta_hub": "更多夥伴管理方案",
+      "demo_alt": "夥伴門戶控制台介面示意圖",
+      "features_heading": "夥伴門戶功能",
+      "card_directory_title": "合作夥伴目錄",
+      "card_directory_desc": "集中瀏覽與篩選生態夥伴，快速定位技術整合與渠道服務能力。",
+      "card_training_title": "合作夥伴培訓",
+      "card_training_desc": "透過線上培訓與認證專案，幫助合作夥伴取得成功。",
+      "card_resources_title": "合作夥伴資源",
+      "card_resources_desc": "為合作夥伴提供可下載與可客製的資源。將合適的資料精準推送給合適的合作夥伴。",
+      "card_mdf_title": "MDF專案",
+      "card_mdf_desc": "支援合作夥伴的行銷活動，攜手共贏。行銷發展基金計畫是提升銷售額的有效途徑。",
+      "card_more": "了解更多"
+    },
+    "install_app": "安裝應用",
+    "contact_partner": "聯絡夥伴",
+    "visit_website": "造訪官網",
+    "sidebar_resources": "資源連結",
+    "sidebar_contact": "聯絡信箱",
+    "sidebar_industries": "涵蓋產業",
+    "tier_gold": "金牌",
+    "tier_silver": "銀牌",
+    "type_integration": "技術整合",
+    "type_agency": "服務商",
+    "filter_type": "夥伴類型",
+    "filter_region": "區域",
+    "filter_tier": "等級",
+    "filter_all": "全部",
+    "region_na": "北美",
+    "region_nordic": "北歐",
+    "region_apac": "亞太",
+    "no_match": "沒有符合篩選條件的夥伴",
+    "form_step1": "企業資訊",
+    "form_step2": "合作意向",
+    "form_step3": "聯絡方式",
+    "form_company": "企業名稱",
+    "form_intent": "合作意向",
+    "form_email": "工作信箱",
+    "form_phone": "聯絡電話",
+    "form_next": "下一步",
+    "form_back": "上一步",
+    "form_submit": "提交申請",
+    "form_summary": "請確認資訊",
+    "form_done_mailto": "使用郵件發送",
+    "form_done_copy": "複製摘要",
+    "view_detail": "查看詳情",
+    "form_lead_hint": "請在站點「通用設置」中填寫「夥伴入駐線索信箱」，以啟用一鍵郵件發送。",
+    "form_submit_feedback": "提交申請",
+    "form_feedback_placeholder": "請核對或修改以下正文，將作為一則「回饋」提交給站點管理員。",
+    "form_feedback_hint": "透過站點回饋系統提交，便於在 CMS 中統一檢視與跟進。",
+    "form_feedback_unavailable": "線上提交需開啟站點回饋並啟用留言欄位。請先複製摘要或使用下方郵件。"
+  },
+  "templates": {
+    "index": {
+      "list": {
+        "all": "全部"
+      }
+    },
+    "page": {
+      "current_version": "當前版本",
+      "visit_count": "訪問量"
+    }
+  },
+  "generic": {
+    "feedback_created_at": "上次回饋於",
+    "empty": "暫無數據",
+    "all_tags": "所有標籤",
+    "recent_updates": "最新更新",
+    "back_to_home": "返回首頁",
+    "copyright": "版權所有",
+    "submit": "提交",
+    "placeholders": {
+      "search": "搜索",
+      "input_feedback": "請輸入反饋內容"
+    },
+    "buttons": {
+      "close": "關閉",
+      "signout": "退出登錄",
+      "signin": "登錄"
+    }
+  },
+  "paginate": {
+    "showing": "當前顯示第",
+    "total": "總共",
+    "records": "條記錄",
+    "previous": "上一頁",
+    "next": "下一頁"
+  }
+}

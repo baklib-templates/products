@@ -1,0 +1,189 @@
+{
+  "theme_label": "partners",
+  "theme_description": "企业级生态系统与集成枢纽。采用前沿的 Bento Grid 与玻璃拟物风格，完美承载技术集成（Integrations）与渠道代理商（Agencies）的展示与线索分发，助力企业构建坚实的商业生态护城河。",
+  "templates": {
+    "index": {
+      "name": "生态门户首页",
+      "description": "Bento Grid 推荐集成与服务商、成为伙伴 CTA",
+      "settings": {
+        "description": {
+          "label": "首页说明",
+          "info": "显示在首屏玻璃卡片中的介绍文案"
+        }
+      }
+    },
+    "channel": {
+      "name": "伙伴分类与检索",
+      "description": "按类型、区域、等级筛选伙伴目录",
+      "settings": {
+        "intro": {
+          "label": "目录页说明",
+          "info": "显示在目录顶部的简短介绍"
+        }
+      }
+    },
+    "page": {
+      "name": "伙伴 / 集成详情",
+      "description": "Hero、双栏正文与侧栏信息",
+      "settings": {
+        "title": {
+          "label": "伙伴 / 应用名称",
+          "info": "与导航标题可独立配置"
+        },
+        "tagline": {
+          "label": "合作 Slogan",
+          "info": "显示在 Hero 区副标题"
+        },
+        "logo_image_url": {
+          "label": "Logo 图",
+          "info": "Hero 与卡片展示用，建议透明底 PNG/SVG"
+        },
+        "body": {
+          "label": "详细介绍与正文",
+          "info": "主栏富文本内容"
+        },
+        "partner_type": {
+          "label": "伙伴类型",
+          "info": "候选项来自「通用设置」→「伙伴类型选项（全局）」。"
+        },
+        "region": {
+          "label": "区域",
+          "info": "候选项来自「通用设置」→「伙伴区域选项（全局）」；用于目录筛选。"
+        },
+        "partner_tier": {
+          "label": "等级",
+          "info": "候选项来自「通用设置」→「伙伴等级选项（全局）」。"
+        },
+        "website_url": {
+          "label": "伙伴官网"
+        },
+        "action_link": {
+          "label": "转化按钮链接",
+          "info": "如安装应用、联系伙伴等"
+        },
+        "action_label": {
+          "label": "转化按钮文案",
+          "info": "未填则按伙伴类型给出默认文案"
+        },
+        "resource_links": {
+          "label": "资源链接",
+          "info": "每行一条：标题|https://..."
+        },
+        "contact_email": {
+          "label": "联系邮箱"
+        },
+        "industries": {
+          "label": "覆盖行业",
+          "info": "逗号或换行分隔"
+        }
+      }
+    },
+    "static_become_a_partner": {
+      "name": "入驻申请页",
+      "description": "多步骤线索表单"
+    },
+    "static_dashboard": {
+      "name": "伙伴门户（预览）",
+      "description": "登录后可查看的伙伴门户样例：Hero 示意图与能力特性卡片"
+    }
+  },
+  "generic": {
+    "name": "通用设置",
+    "settings": {
+      "slogan": {
+        "label": "一句话描述",
+        "default": "企业级生态与集成伙伴门户"
+      },
+      "company_name": {
+        "label": "公司名称",
+        "default": "Baklib.cn",
+        "info": "显示在页面底部页脚位置"
+      },
+      "copyright_info": {
+        "label": "备案/版权信息",
+        "placeholder": "蜀ICP备15035023号"
+      },
+      "partner_lead_email": {
+        "label": "伙伴入驻线索邮箱",
+        "info": "「成为伙伴」多步表单最终会通过邮件客户端发送到此地址；留空则仅展示表单汇总供复制"
+      },
+      "partner_type": {
+        "label": "伙伴类型选项（全局）",
+        "info": "每行一条，即选项的展示与存储值（例：技术&集成）。在 Liquid 中可用 newline_to_br | split: '<br />' 拆成数组。首页「精选集成」取第一行类型，「方案伙伴」取第二行；伙伴目录筛选与详情页下拉与此一致。"
+      },
+      "partner_region": {
+        "label": "伙伴区域选项（全局）",
+        "info": "每行一条区域名称（例：亚太）。在 Liquid 中可用 newline_to_br | split: '<br />' 拆成数组；供详情页与目录筛选。"
+      },
+      "partner_tier": {
+        "label": "伙伴等级选项（全局）",
+        "info": "每行一条等级名称（例：金牌）。在 Liquid 中可用 newline_to_br | split: '<br />' 拆成数组；供详情页与目录筛选。"
+      },
+      "is_allow_feedback": {
+        "label": "是否展示用户反馈"
+      },
+      "is_show_visit_count": {
+        "label": "是否展示访问量"
+      },
+      "is_allow_header": {
+        "label": "是否展示页头Header部分"
+      },
+      "is_allow_footer": {
+        "label": "是否展示页脚Footer部分"
+      },
+      "sort_rule": {
+        "label": "列表排序规则",
+        "options": {
+          "created_at_desc": "按创建日期-倒序",
+          "created_at_asc": "按创建日期-正序",
+          "edited_at_desc": "按更新日期-倒序",
+          "edited_at_asc": "按更新日期-正序",
+          "visit_count_desc": "按访问量（从多到少）",
+          "visit_count_asc": "按访问量（从少到多）",
+          "manual": "手动排序"
+        }
+      }
+    }
+  },
+  "custom_html": {
+    "name": "自定义 HTML 代码",
+    "settings": {
+      "head_html": {
+        "label": "自定义 <head></head> 标签中的 HTML",
+        "info": "支持HTML标签和有限的TailwindCSS样式代码",
+        "placeholder": "通常在这里插入访问统计、客服机器人等嵌入代码"
+      },
+      "header_menu_html": {
+        "label": "顶部导航区域插入 HTML 代码",
+        "info": "支持HTML标签和有限的TailwindCSS样式代码",
+        "placeholder": "通常在这里插入公司其他网站的导航链接"
+      },
+      "footer_menu_html": {
+        "label": "底部区域插入 HTML 代码",
+        "info": "支持HTML标签和有限的TailwindCSS样式代码",
+        "placeholder": "通常在这里插入公司其他网站的外部导航链接、友情链接、SEO 优化链接等"
+      }
+    }
+  },
+  "settings": {
+    "weixin_share": {
+      "title": "微信配置",
+      "weixin_app_id": {
+        "label": "开发者ID(AppID)",
+        "info": "<a href='https://mp.weixin.qq.com/cgi-bin/frame'>微信公众号/设置与开发/开发接口管理</a>中获取 "
+      },
+      "weixin_app_secret": {
+        "label": "开发者密码(AppSecret)",
+        "info": ""
+      },
+      "weixin_enabled": {
+        "label": "是否启用微信分享",
+        "info": "提供站点页面微信分享的能力</br>1. 请在微信公众号中配置ip白名单（ip: ${service_ip}）, 配置后将有一段时间的生效延迟。</br>2. 检查是否开启微信分享权限，微信公众号/设置与开发/开发接口管理: <a href='https://mp.weixin.qq.com/cgi-bin/frame'>网页服务/分享接口</a>。</br>3. 分享链接是否为卡片：从卡片形式进入分享卡片形式，链接形式进入分享链接形式；网页初始链接分享可由公司的服务号中或收藏后进行卡片分享（此规则为微信分享限制）。"
+      },
+      "weixin_debug": {
+        "label": "是否开启debug提示",
+        "info": "请仅在配置阶段开启此选项；开启后在访问前端站点时若未正确配置微信分享将自动提示错误信息"
+      }
+    }
+  }
+}

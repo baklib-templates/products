@@ -1,0 +1,264 @@
+{% assign sort_rule = site.settings.sort_rule.value | default: site.settings.sort_rule | default: '-created_at' %}
+{% assign _pt_site = site.settings.partner_type.value | default: site.settings.partner_type | default: '' %}
+{% assign partner_type_menu = _pt_site | strip | newline_to_br | split: '<br />' %}
+{% assign _reg_site = site.settings.partner_region.value | default: site.settings.partner_region | default: '' %}
+{% assign partner_region_menu = _reg_site | strip | newline_to_br | split: '<br />' %}
+{% assign _tier_site = site.settings.partner_tier.value | default: site.settings.partner_tier | default: '' %}
+{% assign partner_tier_menu = _tier_site | strip | newline_to_br | split: '<br />' %}
+{% assign type_integration_key = partner_type_menu[0] | strip %}
+{% assign type_agency_key = partner_type_menu[1] | strip %}
+{% assign region_na_key = partner_region_menu[0] | strip %}
+{% assign region_nordic_key = partner_region_menu[1] | strip %}
+{% assign region_apac_key = partner_region_menu[2] | strip %}
+{% assign tier_gold_key = partner_tier_menu[0] | strip %}
+{% assign tier_silver_key = partner_tier_menu[1] | strip %}
+{% if type_integration_key == blank or type_agency_key == blank %}
+  {% assign partner_type_menu = 'partners.type_integration' | t | append: '<br />' | append: ('partners.type_agency' | t) | split: '<br />' %}
+  {% assign type_integration_key = partner_type_menu[0] | strip %}
+  {% assign type_agency_key = partner_type_menu[1] | strip %}
+{% endif %}
+{% if region_na_key == blank or region_apac_key == blank %}
+  {% assign partner_region_menu = 'partners.region_na' | t | append: '<br />' | append: ('partners.region_nordic' | t) | append: '<br />' | append: ('partners.region_apac' | t) | split: '<br />' %}
+  {% assign region_na_key = partner_region_menu[0] | strip %}
+  {% assign region_nordic_key = partner_region_menu[1] | strip %}
+  {% assign region_apac_key = partner_region_menu[2] | strip %}
+{% endif %}
+{% if tier_gold_key == blank or tier_silver_key == blank %}
+  {% assign partner_tier_menu = 'partners.tier_gold' | t | append: '<br />' | append: ('partners.tier_silver' | t) | split: '<br />' %}
+  {% assign tier_gold_key = partner_tier_menu[0] | strip %}
+  {% assign tier_silver_key = partner_tier_menu[1] | strip %}
+{% endif %}
+{% assign items = page.children_in_list | order_by: sort_rule %}
+{% capture _ch_title %}{{ page.link_text }}{% endcapture %}
+{% set_meta_title _ch_title | strip %}
+
+<div
+  class="relative z-10 mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 pb-16 pt-6 sm:px-6 lg:flex-row lg:items-start lg:gap-10 lg:px-8"
+  id="js--partner-hub"
+>
+  <aside class="w-full shrink-0 lg:sticky lg:top-24 lg:w-72">
+    <nav class="mb-3 flex flex-wrap gap-2 text-xs text-slate-500" aria-label="Breadcrumb">
+      <a href="{{ site.index_path }}" class="hover:text-primary" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ 'generic.back_to_home' | t }}</a>
+      <span aria-hidden="true">/</span>
+      <span class="text-slate-800">{{ page.link_text }}</span>
+    </nav>
+    <h1 class="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">{{ page.link_text }}</h1>
+    {% assign intro = page.settings.intro | strip %}
+    {% if intro != blank %}
+      <p class="mt-3 text-sm leading-relaxed text-slate-600">{{ intro }}</p>
+    {% endif %}
+
+    <div class="partners-glass-card mt-6 space-y-6 p-5 lg:mt-8">
+      <div>
+        <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">{{ 'partners.filter_type' | t }}</p>
+        <div class="flex flex-wrap gap-2">
+          <button type="button" class="btn btn-xs sm:btn-sm btn-primary" data-filter="type" data-value="all">{{ 'partners.filter_all' | t }}</button>
+          {% for opt in partner_type_menu %}
+            {% assign opt = opt | strip %}
+            {% if opt != blank %}
+              <button
+                type="button"
+                class="btn btn-xs sm:btn-sm btn-ghost border border-slate-200"
+                data-filter="type"
+                data-value="{{ opt | escape_once }}"
+              >
+                {{ opt | escape_once }}
+              </button>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      <div>
+        <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">{{ 'partners.filter_region' | t }}</p>
+        <div class="flex flex-wrap gap-2">
+          <button type="button" class="btn btn-xs sm:btn-sm btn-primary" data-filter="region" data-value="all">{{ 'partners.filter_all' | t }}</button>
+          {% for opt in partner_region_menu %}
+            {% assign opt = opt | strip %}
+            {% if opt != blank %}
+              <button
+                type="button"
+                class="btn btn-xs sm:btn-sm btn-ghost border border-slate-200"
+                data-filter="region"
+                data-value="{{ opt | escape_once }}"
+              >
+                {{ opt | escape_once }}
+              </button>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      <div>
+        <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">{{ 'partners.filter_tier' | t }}</p>
+        <div class="flex flex-wrap gap-2">
+          <button type="button" class="btn btn-xs sm:btn-sm btn-primary" data-filter="tier" data-value="all">{{ 'partners.filter_all' | t }}</button>
+          {% for opt in partner_tier_menu %}
+            {% assign opt = opt | strip %}
+            {% if opt != blank %}
+              <button
+                type="button"
+                class="btn btn-xs sm:btn-sm btn-ghost border border-slate-200"
+                data-filter="tier"
+                data-value="{{ opt | escape_once }}"
+              >
+                {{ opt | escape_once }}
+              </button>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="min-w-0 flex-1">
+    <div id="js--partner-grid" class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      {% for p in items %}
+        {% if p.template_name == 'page' %}
+          {% assign ptype_raw = p.settings.partner_type %}
+          {% assign ptype = ptype_raw.value | default: ptype_raw | default: '' %}
+          {% assign reg_raw = p.settings.region %}
+          {% assign reg = reg_raw.value | default: reg_raw | default: '' %}
+          {% assign tier_raw = p.settings.partner_tier %}
+          {% assign tier_v = tier_raw.value | default: tier_raw | default: '' %}
+          {% if type_integration_key != blank and ptype == 'integration' %}
+            {% assign ptype = type_integration_key %}
+          {% elsif type_agency_key != blank and ptype == 'agency' %}
+            {% assign ptype = type_agency_key %}
+          {% endif %}
+          {% if region_na_key != blank and reg == 'na' %}
+            {% assign reg = region_na_key %}
+          {% elsif region_nordic_key != blank and reg == 'nordic' %}
+            {% assign reg = region_nordic_key %}
+          {% elsif region_apac_key != blank and reg == 'apac' %}
+            {% assign reg = region_apac_key %}
+          {% endif %}
+          {% if tier_gold_key != blank and tier_v == 'gold' %}
+            {% assign tier_v = tier_gold_key %}
+          {% elsif tier_silver_key != blank and tier_v == 'silver' %}
+            {% assign tier_v = tier_silver_key %}
+          {% endif %}
+          <article
+            data-partner-card
+            data-partner-type="{{ ptype }}"
+            data-region="{{ reg }}"
+            data-tier="{{ tier_v }}"
+            class="partners-glass-card flex flex-col p-5 transition hover:border-primary/40"
+          >
+            <div class="flex items-start gap-3">
+              {% assign logo_u = p.settings.logo_image_url | presence %}
+              {% if logo_u %}
+                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-white p-1.5 ring-1 ring-slate-200">
+                  <img src="{{ logo_u }}" alt="" width="48" height="48" class="max-h-full max-w-full object-contain" loading="lazy" />
+                </div>
+              {% endif %}
+              <div class="min-w-0 flex-1">
+                <div class="flex flex-wrap gap-1.5">
+                  {% if ptype != blank %}
+                    <span class="rounded bg-primary/15 px-1.5 py-0.5 text-[10px] font-semibold text-primary">{{ ptype | escape_once }}</span>
+                  {% endif %}
+                  {% if tier_v != blank %}
+                    <span class="rounded bg-slate-200 px-1.5 py-0.5 text-[10px] font-semibold text-slate-700">{{ tier_v | escape_once }}</span>
+                  {% endif %}
+                </div>
+                <h2 class="mt-2 truncate text-base font-semibold text-slate-900">
+                  <a href="{{ p.path }}" class="hover:underline" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ p.settings.title | default: p.link_text }}</a>
+                </h2>
+                {% assign one = p.settings.tagline | strip %}
+                {% if one == blank %}
+                  {% assign one = p.settings.body | strip_html | strip | truncate: 120 %}
+                {% endif %}
+                <p class="mt-1 line-clamp-3 text-sm text-slate-600">{{ one }}</p>
+              </div>
+            </div>
+            <a href="{{ p.path }}" class="btn btn-ghost btn-sm mt-4 w-fit border border-slate-200 text-slate-800" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ 'partners.view_detail' | t }}</a>
+          </article>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <p id="js--no-match" class="mt-6 hidden text-center text-sm text-slate-500">{{ 'partners.no_match' | t }}</p>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var root = document.getElementById('js--partner-hub');
+    if (!root) return;
+    var grid = document.getElementById('js--partner-grid');
+    if (!grid) return;
+    var noMatch = document.getElementById('js--no-match');
+    var state = { type: 'all', region: 'all', tier: 'all' };
+
+    function setActive(filter, value) {
+      var btns = root.querySelectorAll('button[data-filter=\"' + filter + '\"]');
+      for (var i = 0; i < btns.length; i++) {
+        var b = btns[i];
+        var isOn = (b.getAttribute('data-value') || '') === value;
+        if (isOn) {
+          b.classList.add('btn-primary');
+          b.classList.remove('btn-ghost');
+          b.classList.remove('border');
+          b.classList.remove('border-slate-200');
+        } else {
+          b.classList.remove('btn-primary');
+          b.classList.add('btn-ghost');
+          b.classList.add('border');
+          b.classList.add('border-slate-200');
+        }
+      }
+    }
+
+    function render() {
+      var cards = grid.querySelectorAll('[data-partner-card]');
+      var any = false;
+      for (var i = 0; i < cards.length; i++) {
+        var el = cards[i];
+        var t = el.getAttribute('data-partner-type') || '';
+        var r = el.getAttribute('data-region') || '';
+        var v = el.getAttribute('data-tier') || '';
+        var ok =
+          (state.type === 'all' || t === state.type) &&
+          (state.region === 'all' || r === state.region) &&
+          (state.tier === 'all' || v === state.tier);
+        el.style.display = ok ? '' : 'none';
+        if (ok) any = true;
+      }
+      if (noMatch) noMatch.classList.toggle('hidden', any);
+    }
+
+    root.addEventListener('click', function (e) {
+      var target = e.target;
+      if (!target) return;
+      var btn = target.closest ? target.closest('button[data-filter][data-value]') : null;
+      if (!btn) return;
+      var filter = btn.getAttribute('data-filter');
+      var value = btn.getAttribute('data-value');
+      if (!filter || value == null) return;
+      if (filter === 'type') state.type = value;
+      if (filter === 'region') state.region = value;
+      if (filter === 'tier') state.tier = value;
+      setActive(filter, value);
+      render();
+    });
+
+    setActive('type', state.type);
+    setActive('region', state.region);
+    setActive('tier', state.tier);
+    render();
+  })();
+</script>
+
+{% schema %}
+  {
+    "name": "t:schema.templates.channel.name",
+    "description": "t:schema.templates.channel.description",
+    "thumb_url": "images/theme/index-list.png",
+    "sub_page_templates": ["page"],
+    "settings": [
+      {
+        "id": "intro",
+        "type": "textarea",
+        "label": "t:schema.templates.channel.settings.intro.label",
+        "info": "t:schema.templates.channel.settings.intro.info"
+      }
+    ]
+  }
+{% endschema %}
