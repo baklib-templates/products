@@ -1,189 +1,136 @@
 {
-  "theme_label": "partners",
-  "theme_description": "엔터프라이즈 생태계·연동 허브. 벤토 그리드와 글래스모피즘으로 통합·에이전시를 소개하고 리드 확보와 파트너 프로그램을 지원합니다.",
+  "theme_label": "product hub",
+  "theme_description": "B2B PIM 및 제품 디지털 자산 허브. 제품을 기준으로 사양·자료·문서·지식 베이스·고객 사례를 집약합니다.",
   "templates": {
     "index": {
-      "name": "생태계 홈",
-      "description": "추천 통합·솔루션 파트너 벤토, 파트너 CTA",
-      "settings": {
-        "description": {
-          "label": "홈 소개",
-          "info": "히어로 글래스 카드에 표시할 리치 텍스트"
-        }
-      }
+      "name": "Product Hub 홈",
+      "description": "채널 입구 + 추천 제품 캐러셀",
+      "settings": { "description": { "label": "홈 소개", "info": "히어로에 표시되는 리치 텍스트" } }
     },
+    "index_list": { "name": "홈(리스트)", "description": "지식 허브 스타일에 적합" },
     "channel": {
-      "name": "파트너 디렉터리",
-      "description": "유형·지역·등급으로 필터",
-      "settings": {
-        "intro": {
-          "label": "디렉터리 소개",
-          "info": "제목 아래 짧은 설명"
-        }
-      }
+      "name": "채널(폴백)",
+      "description": "스타일 미선택 시 사용",
+      "settings": { "intro": { "label": "채널 설명", "info": "타이틀 아래에 표시" } }
     },
+    "channel_products": { "name": "선정 센터", "description": "좌측 카테고리 트리 + 우측 고밀도 그리드" },
+    "channel_cases": { "name": "고객 사례", "description": "이미지 카드 메소너리" },
+    "channel_docs": { "name": "문서 허브", "description": "좌측 목차 + 최근 업데이트" },
+    "channel_downloads": { "name": "다운로드 허브", "description": "미니멀 리스트 + 즉시 검색" },
+    "channel_faqs": { "name": "지식 베이스", "description": "앵커 + 아코디언" },
     "page": {
-      "name": "파트너 / 연동 상세",
-      "description": "히어로, 2단 본문과 사이드바",
+      "name": "일반 페이지(폴백)",
+      "description": "스타일 미선택 시 사용",
       "settings": {
-        "title": {
-          "label": "파트너 / 앱 이름",
-          "info": "내비 제목과 별도 설정 가능"
-        },
-        "tagline": {
-          "label": "제휴 슬로건",
-          "info": "히어로 제목 아래 표시"
-        },
-        "logo_image_url": {
-          "label": "로고 이미지",
-          "info": "히어로·카드용. 투명 PNG/SVG 권장"
-        },
-        "body": {
-          "label": "본문",
-          "info": "메인 컬럼 리치 텍스트"
-        },
-        "partner_type": {
-          "label": "파트너 유형",
-          "info": "선택지는 「일반 설정」→「파트너 유형 옵션(전역)」에서 가져옵니다."
-        },
-        "region": {
-          "label": "지역",
-          "info": "선택지는 「일반 설정」→「파트너 지역 옵션(전역)」에서 가져옵니다."
-        },
-        "partner_tier": {
-          "label": "등급",
-          "info": "선택지는 「일반 설정」→「파트너 등급 옵션(전역)」에서 가져옵니다."
-        },
-        "website_url": {
-          "label": "웹사이트 URL"
-        },
-        "action_link": {
-          "label": "주요 CTA 링크",
-          "info": "앱 설치, 파트너 문의 등"
-        },
-        "action_label": {
-          "label": "주요 CTA 라벨",
-          "info": "비어 있으면 유형별 기본 문구"
-        },
-        "resource_links": {
-          "label": "리소스 링크",
-          "info": "한 줄에 하나: 제목|https://..."
-        },
-        "contact_email": {
-          "label": "연락 이메일"
-        },
-        "industries": {
-          "label": "커버 산업",
-          "info": "쉼표 또는 줄바꿈 구분"
-        }
+        "tagline": { "label": "부제" },
+        "body": { "label": "본문" },
+        "product_model": { "label": "제품 모델", "info": "제품 상세의 모델과 일치하면 FAQ 등에 표시됩니다" },
+        "related_models": { "label": "연관 모델(한 줄에 하나)", "info": "FAQ / 문서 / 다운로드와 제품을 연결합니다" },
+        "file_url": { "label": "파일 URL", "info": "다운로드 채널 목록에 사용" },
+        "file_type": { "label": "파일 유형", "info": "예: pdf, zip. 비우면 URL에서 추정" },
+        "file_size": { "label": "파일 크기", "info": "표시용 (예: 2.1 MB)" }
       }
     },
-    "static_become_a_partner": {
-      "name": "파트너 되기",
-      "description": "다단계 리드 폼"
+    "page_product": {
+      "name": "제품 상세",
+      "description": "Hero + 스티키 서브내비 + 5 섹션",
+      "settings": {
+        "product_model": { "label": "모델", "info": "채널 간 매칭 키 (예: X100-PRO)" },
+        "tagline": { "label": "한 줄 설명" },
+        "hero_images": { "label": "히어로 이미지 (여러 줄)", "info": "한 줄에 URL 하나, 캐러셀로 표시" },
+        "specifications": { "label": "사양 표", "info": "한 줄당 `이름|값|단위` (단위는 선택)" },
+        "highlights": { "label": "하이라이트", "info": "한 줄에 한 항목" },
+        "body": { "label": "개요 본문" },
+        "downloads": { "label": "자료", "info": "한 줄당 `이름|유형|URL|크기`" },
+        "related_models": { "label": "연관 모델", "info": "한 줄당 모델 하나 (선택)" },
+        "cta_quote_link": { "label": "견적 링크(다이얼로그 우선)" },
+        "cta_trial_link": { "label": "체험 링크" }
+      }
     },
-    "static_dashboard": {
-      "name": "파트너 포털(미리보기)",
-      "description": "로그인 후 샘플 홈: 히어로 이미지와 기능 카드"
+    "page_case": {
+      "name": "사례 상세",
+      "description": "과제 / 솔루션 / 성과 내러티브",
+      "settings": {
+        "tagline": { "label": "부제" },
+        "client_name": { "label": "고객" },
+        "client_caption": { "label": "고객 보조" },
+        "client_logo_url": { "label": "고객 로고" },
+        "cover_image_url": { "label": "커버 이미지" },
+        "industry": { "label": "산업" },
+        "region": { "label": "지역" },
+        "scale": { "label": "규모" },
+        "headline_metric": { "label": "주요 성과", "info": "예: 처리 효율 38% 향상" },
+        "pain_point": { "label": "고객 과제" },
+        "solution": { "label": "솔루션" },
+        "outcomes": { "label": "정량 성과", "info": "한 줄당 `값|단위|설명`" },
+        "body": { "label": "사례 본문" },
+        "related_models": { "label": "연관 제품 모델" }
+      }
+    },
+    "page_doc": {
+      "name": "문서 상세",
+      "description": "넓은 prose + 좌측 목차 + 우측 On this page",
+      "settings": {
+        "tagline": { "label": "부제" },
+        "version": { "label": "문서 버전" },
+        "body": { "label": "본문" },
+        "related_models": { "label": "연관 모델", "info": "한 줄당 하나" }
+      }
     }
   },
   "generic": {
     "name": "일반 설정",
     "settings": {
-      "slogan": {
-        "label": "슬로건",
-        "default": "파트너·연동 생태계 포털"
-      },
-      "company_name": {
-        "label": "회사명",
-        "default": "Baklib.cn",
-        "info": "푸터 섹션에 표시"
-      },
-      "copyright_info": {
-        "label": "저작권/ICP 정보",
-        "placeholder": "ICP No.15035023"
-      },
-      "partner_lead_email": {
-        "label": "파트너 리드 수신 이메일",
-        "info": "신청 폼의 mailto 수신 주소. 비어 있으면 복사용 요약만 표시"
-      },
-      "partner_type": {
-        "label": "파트너 유형 옵션(전역)",
-        "info": "한 줄에 하나의 값(표시·저장 동일). Liquid에서는 newline_to_br | split: '<br />'로 배열화. 홈 추천 연동은 첫 줄 유형, 솔루션 파트너는 둘째 줄 유형과 일치하는 페이지를 표시."
-      },
-      "partner_region": {
-        "label": "파트너 지역 옵션(전역)",
-        "info": "한 줄에 하나의 지역명. Liquid에서는 newline_to_br | split: '<br />'로 배열화. 상세 페이지·목록 필터에 사용."
-      },
-      "partner_tier": {
-        "label": "파트너 등급 옵션(전역)",
-        "info": "한 줄에 하나의 등급명. Liquid에서는 newline_to_br | split: '<br />'로 배열화. 상세 페이지·목록 필터에 사용."
-      },
-      "is_allow_feedback": {
-        "label": "사용자 피드백 표시"
-      },
-      "is_show_visit_count": {
-        "label": "방문 수 표시"
-      },
-      "is_allow_header": {
-        "label": "헤더 섹션 표시"
-      },
-      "is_allow_footer": {
-        "label": "푸터 섹션 표시"
-      },
+      "slogan": { "label": "슬로건", "default": "B2B 제품 정보 허브" },
+      "company_name": { "label": "회사명", "default": "Baklib.cn", "info": "푸터에 표시" },
+      "copyright_info": { "label": "저작권/등록 정보", "placeholder": "" },
+      "is_allow_feedback": { "label": "사용자 피드백 표시" },
+      "is_show_visit_count": { "label": "방문 수 표시" },
+      "is_allow_header": { "label": "헤더 표시" },
+      "is_allow_footer": { "label": "푸터 표시" },
       "sort_rule": {
-        "label": "목록 정렬",
+        "label": "리스트 정렬",
         "options": {
           "created_at_desc": "생성일 - 내림차순",
           "created_at_asc": "생성일 - 오름차순",
           "edited_at_desc": "수정일 - 내림차순",
           "edited_at_asc": "수정일 - 오름차순",
-          "visit_count_desc": "방문 수 (많은 순)",
-          "visit_count_asc": "방문 수 (적은 순)",
-          "manual": "수동 정렬"
+          "visit_count_desc": "방문 수 - 많은 순",
+          "visit_count_asc": "방문 수 - 적은 순",
+          "manual": "수동"
         }
       }
     }
   },
-  "custom_html": {
-    "name": "사용자 정의 HTML 코드",
+  "hub": {
+    "name": "Product Hub 채널",
     "settings": {
-      "head_html": {
-        "label": "<head></head> 태그 내 사용자 정의 HTML",
-        "info": "HTML 태그와 제한된 TailwindCSS 스타일 코드 지원",
-        "placeholder": "일반적으로 분석, 고객 서비스 봇 등을 삽입"
-      },
-      "header_menu_html": {
-        "label": "상단 네비게이션 영역에 HTML 삽입",
-        "info": "HTML 태그와 제한된 TailwindCSS 스타일 코드 지원",
-        "placeholder": "일반적으로 회사의 다른 웹사이트 네비게이션 링크를 삽입"
-      },
-      "footer_menu_html": {
-        "label": "푸터 영역에 HTML 삽입",
-        "info": "HTML 태그와 제한된 TailwindCSS 스타일 코드 지원",
-        "placeholder": "일반적으로 외부 네비게이션 링크, 친구 링크, SEO 최적화 링크 등을 삽입"
-      }
+      "products_root_path": { "label": "제품 루트 경로", "info": "예: /products" },
+      "cases_root_path": { "label": "사례 루트 경로", "info": "예: /cases" },
+      "docs_root_path": { "label": "문서 루트 경로", "info": "예: /docs" },
+      "downloads_root_path": { "label": "다운로드 루트 경로", "info": "예: /downloads" },
+      "faqs_root_path": { "label": "FAQ 루트 경로", "info": "예: /faqs" },
+      "cta_quote_label": { "label": "견적 CTA 문구", "default": "견적 요청" },
+      "cta_engineer_label": { "label": "엔지니어 CTA 문구", "default": "엔지니어와 상담" },
+      "cta_trial_label": { "label": "체험 CTA 문구", "default": "체험 신청" },
+      "lead_email": { "label": "리드 수신 이메일", "info": "사이트 피드백 미사용 시 메일 폴백" }
+    }
+  },
+  "custom_html": {
+    "name": "맞춤 HTML",
+    "settings": {
+      "head_html": { "label": "<head> 맞춤 HTML", "info": "HTML + 제한적 Tailwind", "placeholder": "" },
+      "header_menu_html": { "label": "헤더 맞춤 HTML", "info": "HTML + 제한적 Tailwind", "placeholder": "" },
+      "footer_menu_html": { "label": "푸터 맞춤 HTML", "info": "HTML + 제한적 Tailwind", "placeholder": "" }
     }
   },
   "settings": {
     "weixin_share": {
-      "title": "위챗 설정",
-      "weixin_app_id": {
-        "label": "개발자 ID(AppID)",
-        "info": "<a href='https://mp.weixin.qq.com/cgi-bin/frame'> 위챗 대중번호/설정 및 개발/개발 인터페이스 관리 </a> 에서 획득"
-      },
-      "weixin_app_secret": {
-        "label": "개발자 암호(AppSecret)",
-        "info": ""
-      },
-      "weixin_enabled": {
-        "label": "위챗 공유 사용 여부",
-        "info": "사이트 페이지 위챗 공유 능력 제공 </br>1. 위챗 대중번호에 ip 화이트리스트 (ip: ${service_ip}) 를 설정하십시오. 설정 후 일정 기간 효력이 지연됩니다.</br>2.위챗 공유 권한 설정 여부, 위챗 대중번호/설정 및 개발/개발 인터페이스 관리: <a href='https://mp.weixin.qq.com/cgi-bin/frame'> 웹 서비스 / 공유 인터페이스 </a>. </br>3. 공유 링크가 카드인지 여부: 카드 형식에서 공유 카드 형식으로, 링크 형식에서 공유 링크 형식으로,웹 페이지의 초기 링크 공유는 회사의 서비스 번호나 소장 후에 카드 공유를 진행할 수 있습니다 (이 규칙은 위챗 공유 제한입니다)."
-      },
-      "weixin_debug": {
-        "label": "debug 프롬프트 설정 여부",
-        "info": "구성 단계에서만 이 옵션을 켜십시오.오픈 후 프런트엔드 사이트에 액세스할 때 위챗 공유를 제대로 구성하지 않으면 오류 메시지가 자동으로 표시됩니다."
-      }
+      "title": "WeChat 설정",
+      "weixin_app_id": { "label": "AppID", "info": "" },
+      "weixin_app_secret": { "label": "AppSecret", "info": "" },
+      "weixin_enabled": { "label": "WeChat 공유 활성화", "info": "" },
+      "weixin_debug": { "label": "디버그 활성화", "info": "" }
     }
   }
 }

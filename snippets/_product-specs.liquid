@@ -1,0 +1,38 @@
+{%- comment -%}
+  技术规格表（#specs）：来自 page.settings.specifications，与 products-demo 详情规格区一致。
+{%- endcomment -%}
+{% assign spec_raw = page.settings.specifications | strip %}
+{% assign spec_lines = spec_raw | newline_to_br | split: '<br />' %}
+{% assign spec_size = 0 %}
+{% for line in spec_lines %}
+  {% assign line = line | strip %}
+  {% if line != blank %}{% assign spec_size = spec_size | plus: 1 %}{% endif %}
+{% endfor %}
+
+{% if spec_size > 0 %}
+  <div id="specs" class="scroll-mt-32 mb-12" data-product-section>
+    <h3 class="hub-section-title mb-6">{{ 'page.product.specs.title' | t }}</h3>
+    <div class="hub-liquid-card w-full">
+      <table class="w-full border-collapse text-[15px]">
+        <tbody>
+          {% for line in spec_lines %}
+            {% assign line = line | strip %}
+            {% if line != blank %}
+              {% assign parts = line | split: '|' %}
+              {% assign k = parts[0] | strip %}
+              {% assign v = parts[1] | strip %}
+              {% assign u = parts[2] | strip %}
+              <tr class="border-b border-base-200 transition-colors last:border-0 hover:bg-base-200">
+                <td class="w-[40%] px-8 py-4 text-base-content/60">{{ k }}</td>
+                <td class="px-8 py-4 font-medium text-base-content">
+                  <span class="font-mono">{{ v }}</span>
+                  {% if u != blank %}<span class="ml-1 text-xs text-base-content/50">{{ u }}</span>{% endif %}
+                </td>
+              </tr>
+            {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endif %}

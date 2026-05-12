@@ -1,69 +1,44 @@
-<!-- partners: list style — light shell -->
-{% assign pages = site.pages['/'].children_in_list | order_by: '-created_at' %}
-<div class="relative z-10 flex-1 bg-transparent text-slate-900">
-  <div class="mx-auto h-full w-full max-w-5xl overflow-visible p-2 sm:px-0">
-    <div class="partners-glass-card mb-6 p-4 sm:p-5">
-      {% form_tag 'search' %}
-        <label class="input flex w-full items-center space-x-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-slate-800 shadow-sm backdrop-blur-sm">
-          <svg class="h-[1em] shrink-0 opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <g
-              stroke-linejoin="round"
-              stroke-linecap="round"
-              stroke-width="2.5"
-              fill="none"
-              stroke="currentColor"
-            >
-              <circle cx="11" cy="11" r="8"></circle>
-              <path d="m21 21-4.3-4.3"></path>
-            </g>
-          </svg>
-          <input type="search" class="grow bg-transparent placeholder:text-slate-400" name="{{form.keywords_field_name}}" value="{{ search.keywords | escape }}" placeholder="{{ 'generic.placeholders.search' | t }}" />
-        </label>
-      {% endform_tag %}
-    </div>
+{%- comment -%}
+  首页变体：列表样式（适合知识中心型站点）。
+  按子页列表分页展示，每行卡片格式。
+{%- endcomment -%}
+{% assign sort_rule = site.settings.sort_rule.value | default: site.settings.sort_rule | default: '-created_at' %}
+{% assign pages = page.children_in_list | order_by: sort_rule %}
 
-    {% assign tags_size = site.tags | size %}
-    {% if tags_size > 0 %}
-      <div class="partners-glass-card mb-6 border-slate-200/80 p-4">
-        <ul class="my-2 flex flex-nowrap space-x-2 overflow-x-scroll text-base font-medium md:space-x-4 md:overflow-x-hidden">
-          <li>
-            <a class="whitespace-nowrap font-bold text-primary" href="/">{{ 'templates.index.list.all' | t }}</a>
-          </li>
-          {% for tag in site.tags %}
-            <li>
-              <a href="{{ tag.path }}" class="whitespace-nowrap text-slate-600 hover:text-primary">
-                {{ tag.name }}
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
+<div class="mx-auto w-full max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
+  <header class="mb-6 border-b border-base-300 pb-6">
+    <h1 class="text-3xl font-bold tracking-tight text-base-content sm:text-4xl">{{ page.link_text }}</h1>
+    {% if page.settings.description != blank %}
+      <div class="prose prose mt-3 max-w-3xl">{{ page.settings.description }}</div>
     {% endif %}
+  </header>
 
-    <div class="space-y-3">
-      {% paginate_tag pages, per: 9 %}
-        {% for page in pages %}
-          {% render 'list', page: page %}
-        {% else %}
-          <p class="rounded-xl border border-slate-200 bg-slate-50 px-4 py-8 text-center text-sm text-slate-500">{{ 'generic.empty' | t }}</p>
-        {% endfor %}
-
-        <div class="mt-6 flex justify-end">
-          {% render 'paginate', paginate: paginate %}
+  <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_260px]">
+    <section>
+      {% paginate_tag pages, per: 12 %}
+        <div class="space-y-3">
+          {% for page in pages %}
+            {% render 'card', page: page %}
+          {% else %}
+            {% render '@shared/empty', message: 'generic.empty' | t %}
+          {% endfor %}
+        </div>
+        <div class="mt-6">
+          {% render '@shared/paginate' %}
         </div>
       {% endpaginate_tag %}
-    </div>
+    </section>
+    <aside class="lg:sticky lg:top-24 lg:self-start">
+      {% render 'sidebar' %}
+    </aside>
   </div>
 </div>
 
 {% schema %}
   {
-    "name": "Index",
-    "description": "List Style (partners light shell)",
+    "name": "t:schema.templates.index_list.name",
+    "description": "t:schema.templates.index_list.description",
     "thumb_url": "images/theme/index-list.png",
-    "preview_image_urls": [
-      "images/theme/index-list.png"
-    ],
-    "sub_page_templates": ["page", "channel"]
+    "sub_page_templates": ["channel"]
   }
 {% endschema %}

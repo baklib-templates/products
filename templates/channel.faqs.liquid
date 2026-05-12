@@ -1,0 +1,86 @@
+{%- comment -%}
+  全局问答库：顶部锚点导航（按 page.children_in_list 分组），右侧手风琴折叠（Alpine + @alpinejs/collapse）。
+{%- endcomment -%}
+{% assign groups = page.children_in_list %}
+{% assign groups_count = groups | size %}
+{% capture _title %}{{ page.link_text }}{% endcapture %}
+{% set_meta_title _title | strip %}
+
+<div class="mx-auto w-full max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+  {% render '@shared/breadcrumb', breadcrumb: page.breadcrumb %}
+
+  <header class="mt-4 mb-6 flex flex-col gap-2 border-b border-base-300 pb-6">
+    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-primary">{{ 'channels.faqs.eyebrow' | t }}</p>
+    <h1 class="text-3xl font-bold tracking-tight text-base-content sm:text-4xl">{{ page.link_text }}</h1>
+    {% assign intro = page.settings.intro | strip %}
+    {% if intro != blank %}
+      <p class="max-w-3xl text-sm leading-relaxed text-base-content/70 sm:text-base">{{ intro }}</p>
+    {% endif %}
+  </header>
+
+  {% if groups_count > 0 %}
+    <nav aria-label="{{ 'channels.faqs.toc' | t }}" class="sticky top-16 z-20 mb-6 flex flex-wrap gap-2 rounded-lg border border-base-300 bg-base-100 p-2 text-xs shadow-sm">
+      {% for g in groups %}
+        {% assign g_id = g.slug | default: g.id %}
+        <a href="#faq-{{ g_id | escape_once }}" class="rounded-full bg-base-200 px-3 py-1 text-base-content/80 hover:bg-primary/10 hover:text-primary">{{ g.link_text }}</a>
+      {% endfor %}
+    </nav>
+  {% endif %}
+
+  {% if groups_count == 0 %}
+    {% render '@shared/empty', message: 'channels.faqs.empty' | t %}
+  {% else %}
+    <div class="space-y-10">
+      {% for g in groups %}
+        {% assign g_id = g.slug | default: g.id %}
+        {% assign items = g.children_in_list %}
+        {% assign items_count = items | size %}
+        <section id="faq-{{ g_id | escape_once }}" class="scroll-mt-28">
+          <header class="mb-4 flex items-baseline justify-between border-b border-base-300 pb-2">
+            <h2 class="text-xl font-semibold text-base-content">{{ g.link_text }}</h2>
+            <span class="text-xs text-base-content/60">{{ items_count }}</span>
+          </header>
+          {% if items_count == 0 %}
+            <p class="text-sm text-base-content/60">{{ 'generic.empty' | t }}</p>
+          {% else %}
+            <ul class="divide-y divide-base-300 overflow-hidden rounded-md border border-base-300 bg-base-100">
+              {% for q in items %}
+                <li x-data="{ open: false }">
+                  <button type="button" class="flex w-full items-start justify-between gap-3 px-5 py-4 text-left text-sm hover:bg-base-200" @click="open = !open">
+                    <span class="font-medium text-base-content">{{ q.link_text }}</span>
+                    <svg class="mt-0.5 h-4 w-4 text-base-content/50 transition" :class="open && 'rotate-180'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                  </button>
+                  <div x-show="open" x-collapse class="border-t border-base-300 bg-base-200">
+                    <div class="prose prose max-w-none px-5 py-4 text-sm">{{ q.settings.body | default: q.settings.answer }}</div>
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-t border-base-300 bg-base-100 px-5 py-2 text-[11px] text-base-content/60">
+                      {% assign related = q.settings.related_models | strip %}
+                      <span>{% if related != blank %}{{ 'channels.faqs.related_models' | t }}: <span class="font-mono text-base-content/80">{{ related | newline_to_br }}</span>{% endif %}</span>
+                      <a href="{{ q.path }}" class="text-primary hover:underline" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ 'channels.faqs.view_detail' | t }} →</a>
+                    </div>
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </section>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+  {
+    "name": "t:schema.templates.channel_faqs.name",
+    "description": "t:schema.templates.channel_faqs.description",
+    "thumb_url": "images/theme/index-list.png",
+    "sub_page_templates": ["page"],
+    "settings": [
+      {
+        "id": "intro",
+        "type": "textarea",
+        "label": "t:schema.templates.channel.settings.intro.label",
+        "info": "t:schema.templates.channel.settings.intro.info"
+      }
+    ]
+  }
+{% endschema %}

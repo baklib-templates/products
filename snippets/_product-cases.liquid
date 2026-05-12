@@ -1,0 +1,81 @@
+{%- comment -%}
+  Product Cases（松耦合）：从站点级 cases_root_path 子树查询并按型号匹配，渲染卡片列表。
+  每张卡片包含明确的 <a href="{{ c.path }}">，进入 page.case.liquid 详情。
+{%- endcomment -%}
+{% assign model = model | default: page.settings.product_model | strip %}
+{% assign cases_root_path = site.settings.cases_root_path | default: '/cases' %}
+{% assign cases_root = site.pages[cases_root_path] %}
+{% assign candidates = cases_root.pages_in_list | order_by: '-published_at' %}
+
+<header class="mb-6 flex items-baseline justify-between">
+  <div>
+    <p class="hub-mono-label mb-2 text-accent">{{ 'page.product.cases.eyebrow' | t }}</p>
+    <h2 class="hub-section-title m-0">{{ 'page.product.cases.title' | t }}</h2>
+  </div>
+  {% if cases_root %}
+    <a href="{{ cases_root_path }}" class="text-sm font-medium text-primary hover:underline" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ 'page.product.cases.view_all' | t }} →</a>
+  {% endif %}
+</header>
+
+{% if cases_root == nil %}
+  {% render '@shared/empty', message: 'page.product.cases.not_configured' | t %}
+{% else %}
+  {% assign matched_count = 0 %}
+  {% assign matched_limit = 6 %}
+  <div class="grid gap-6 sm:grid-cols-2">
+    {% for c in candidates %}
+      {% if matched_count < matched_limit %}
+        {% assign is_match = false %}
+        {% if model != blank %}
+          {% assign rel = c.settings.related_models | strip %}
+          {% if rel != blank %}
+            {% assign rel_lines = rel | newline_to_br | split: '<br />' %}
+            {% for rm in rel_lines %}
+              {% assign rm = rm | strip %}
+              {% if rm == model %}{% assign is_match = true %}{% endif %}
+            {% endfor %}
+          {% endif %}
+          {% unless is_match %}
+            {% for t in c.tags %}
+              {% if t.name == model %}{% assign is_match = true %}{% endif %}
+            {% endfor %}
+          {% endunless %}
+        {% endif %}
+        {% if is_match %}
+          {% assign matched_count = matched_count | plus: 1 %}
+          {% assign cover = c.settings.cover_image_url | default: c.settings.hero_image_url | default: c.settings.thumb_image_url | presence %}
+          {% assign client_logo = c.settings.client_logo_url | presence %}
+          <article class="group hub-liquid-card-interactive flex flex-col overflow-hidden">
+            {% if cover %}
+              <a href="{{ c.path }}" class="relative block h-[200px] overflow-hidden bg-base-200" data-turbo-frame="main-content-frame" data-turbo-action="advance">
+                <img src="{{ cover }}" alt="" loading="lazy" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div class="pointer-events-none absolute inset-0 bg-gradient-to-tr from-primary/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+              </a>
+            {% endif %}
+            <div class="flex flex-1 flex-col border-t border-base-200 bg-base-100 p-6">
+              <div class="mb-4 flex items-center gap-2 text-[11px] text-base-content/60">
+                {% if c.settings.industry != blank %}<span class="rounded-full border border-base-300 bg-base-200 px-3 py-1.5 font-mono text-[12px] font-semibold text-base-content shadow-sm">{{ c.settings.industry }}</span>{% endif %}
+                {% if client_logo %}<img src="{{ client_logo }}" alt="" class="ml-auto h-6 max-w-[90px] object-contain" loading="lazy" />{% endif %}
+              </div>
+              <h3 class="font-display line-clamp-2 flex-1 text-xl font-bold text-base-content">
+                <a href="{{ c.path }}" class="hover:text-primary" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ c.link_text }}</a>
+              </h3>
+              {% if c.settings.headline_metric != blank %}
+                <p class="mt-2 rounded-lg bg-primary/10 px-2 py-1 text-xs font-medium text-primary">{{ c.settings.headline_metric }}</p>
+              {% elsif c.settings.pain_point != blank %}
+                <p class="mt-2 line-clamp-2 text-sm text-base-content/70">{{ c.settings.pain_point | strip_html | strip | truncate: 120 }}</p>
+              {% endif %}
+              <a href="{{ c.path }}" class="mt-6 flex items-center justify-between border-t border-base-200 pt-4 text-[15px] font-medium text-primary group/link" data-turbo-frame="main-content-frame" data-turbo-action="advance">
+                {{ 'page.product.cases.view_detail' | t }}
+                <svg class="h-5 w-5 transition-transform group-hover/link:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </a>
+            </div>
+          </article>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </div>
+  {% if matched_count == 0 %}
+    {% render '@shared/empty', message: 'page.product.cases.empty' | t %}
+  {% endif %}
+{% endif %}

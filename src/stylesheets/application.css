@@ -31,11 +31,11 @@
   }
 }
 
-
-@import "tailwindcss";
-
 @theme {
-  /* 主色 */
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* 语义色由站点在 layout/theme.liquid 注入 --theme-color-*；此处不定义固定品牌 Hex */
   --color-primary-50: hsl(
     var(--theme-color-primary-hsl-h) var(--theme-color-primary-hsl-s) 97%
   );
@@ -263,11 +263,86 @@
   .header-nav-icon-button {
     @apply inline-flex size-10 p-1 cursor-pointer items-center justify-center rounded-full hover:bg-base-200;
   }
+
+  /* 实色卡片（非玻璃）：外层大圆角与 DESIGN 24px/22px 档一致 */
+  .hub-liquid-card {
+    @apply overflow-hidden rounded-3xl border border-base-300/90 bg-base-100 shadow-sm;
+  }
+
+  .hub-liquid-card-interactive {
+    @apply overflow-hidden rounded-2xl border border-base-300/90 bg-base-100 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/20 hover:shadow-md;
+  }
+
+  /* Liquid Glass（节制）：顶栏 — 见 layout/theme.liquid 无障碍回退 */
+  .product-hub-glass {
+    background-color: color-mix(in oklab, var(--color-base-100) 72%, transparent);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(180%);
+    box-shadow:
+      inset 0 1px 0 color-mix(in oklab, var(--color-base-content) 8%, transparent),
+      0 8px 32px color-mix(in oklab, var(--color-base-content) 6%, transparent);
+  }
+
+  .product-hub-glass-fab {
+    background-color: color-mix(in oklab, var(--color-base-100) 78%, transparent);
+    -webkit-backdrop-filter: blur(18px) saturate(170%);
+    backdrop-filter: blur(18px) saturate(170%);
+    box-shadow:
+      inset 0 1px 0 color-mix(in oklab, var(--color-base-content) 10%, transparent),
+      0 8px 24px color-mix(in oklab, var(--color-base-content) 8%, transparent);
+  }
+
+  .product-hub-glass-strip {
+    background-color: color-mix(in oklab, var(--color-base-100) 70%, transparent);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    backdrop-filter: blur(16px) saturate(160%);
+    box-shadow: inset 0 1px 0 color-mix(in oklab, var(--color-base-content) 8%, transparent);
+  }
+
+  .hub-pill-primary {
+    @apply inline-flex cursor-pointer items-center justify-center rounded-full border border-transparent bg-neutral px-6 py-3 text-[14px] font-medium text-neutral-content shadow-md transition-all duration-300 hover:bg-neutral/90 hover:shadow-lg;
+  }
+
+  .hub-pill-primary-sm {
+    @apply inline-flex cursor-pointer items-center justify-center rounded-full border border-transparent bg-neutral px-5 py-2 text-[13px] font-medium text-neutral-content shadow-md transition-all duration-300 hover:bg-neutral/90 hover:shadow-lg;
+  }
+
+  .hub-pill-secondary {
+    @apply inline-flex cursor-pointer items-center justify-center rounded-full border border-base-300 bg-base-100 px-6 py-3 text-[14px] font-medium text-base-content transition-all duration-300 hover:border-primary/35 hover:bg-primary/10;
+  }
+
+  .hub-pill-outline {
+    @apply inline-flex cursor-pointer items-center justify-center rounded-full border border-base-content px-6 py-3 text-[14px] font-medium text-base-content transition-all duration-300 hover:bg-neutral hover:text-neutral-content;
+  }
+
+  .hub-search-input {
+    @apply w-full rounded-full border border-base-300 bg-base-100 py-3 pl-12 pr-4 text-[14px] text-base-content shadow-sm transition-all placeholder:text-base-content/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 md:w-72;
+  }
+
+  .hub-section-title {
+    @apply font-display text-2xl font-medium text-base-content;
+  }
+
+  .hub-mono-label {
+    @apply text-[12px] font-mono font-medium uppercase text-accent;
+  }
+
+  .hub-toc-link {
+    @apply text-[14px] font-semibold text-base-content/60 transition-colors hover:text-primary;
+  }
+
+  .hub-toc-link-active {
+    @apply text-primary;
+  }
 }
 
 @layer utilities {
   .flex-col-container {
     @apply flex h-full flex-col;
+  }
+
+  .hub-selection {
+    @apply selection:bg-primary/15 selection:text-primary;
   }
 }
 
@@ -298,23 +373,100 @@
   @apply max-w-full overflow-x-auto;
 }
 
-/* Partners: glass cards + ambient mesh (uses theme CSS variables) */
-.partners-glass-card {
-  @apply rounded-2xl border border-slate-200/90 bg-white/95 shadow-[0_4px_24px_rgb(15,23,42,0.06)] backdrop-blur-sm;
+/* Product Hub: 极简工业风格的 prose / 表格 / 代码块样式 */
+.prose,
+.products-theme #page-content {
+  @apply max-w-none text-[0.95rem] leading-relaxed text-base-content;
+}
+.prose :where(h1, h2, h3, h4),
+.products-theme #page-content :where(h1, h2, h3, h4) {
+  @apply font-semibold tracking-tight text-base-content;
+}
+.prose :where(h1),
+.products-theme #page-content :where(h1) {
+  @apply mt-0 mb-4 text-3xl;
+}
+.prose :where(h2),
+.products-theme #page-content :where(h2) {
+  @apply mt-8 mb-3 border-b border-base-300 pb-2 text-2xl;
+}
+.prose :where(h3),
+.products-theme #page-content :where(h3) {
+  @apply mt-6 mb-2 text-xl;
+}
+.prose :where(h4),
+.products-theme #page-content :where(h4) {
+  @apply mt-4 mb-2 text-base;
+}
+.prose :where(p),
+.products-theme #page-content :where(p) {
+  @apply my-3;
+}
+.prose :where(a),
+.products-theme #page-content :where(a) {
+  @apply text-primary underline decoration-primary/30 underline-offset-2 hover:decoration-primary;
+  word-break: break-word;
+}
+.prose :where(ul, ol),
+.products-theme #page-content :where(ul, ol) {
+  @apply my-3 list-disc space-y-1.5 pl-6;
+}
+.prose :where(ol),
+.products-theme #page-content :where(ol) {
+  @apply list-decimal;
+}
+.prose :where(blockquote),
+.products-theme #page-content :where(blockquote) {
+  @apply my-4 border-l-4 border-primary/40 bg-base-200 px-4 py-2 text-base-content/70;
+}
+.prose :where(code:not(pre code)),
+.products-theme #page-content :where(code:not(pre code)) {
+  @apply rounded bg-base-200 px-1.5 py-0.5 font-mono text-[0.85em] text-base-content;
+}
+.prose :where(pre),
+.products-theme #page-content :where(pre) {
+  @apply my-4 overflow-x-auto rounded-md border border-base-300 bg-neutral p-4 text-sm leading-relaxed text-neutral-content;
+}
+.prose :where(pre code),
+.products-theme #page-content :where(pre code) {
+  @apply bg-transparent p-0 text-inherit;
+}
+.prose :where(table),
+.products-theme #page-content :where(table) {
+  @apply my-5 w-full border-collapse text-sm;
+}
+.prose :where(th, td),
+.products-theme #page-content :where(th, td) {
+  @apply border border-base-300 px-3 py-2 text-left align-top;
+}
+.prose :where(thead th),
+.products-theme #page-content :where(thead th) {
+  @apply bg-base-200 font-semibold text-base-content;
+}
+.prose :where(tbody tr:nth-child(odd)),
+.products-theme #page-content :where(tbody tr:nth-child(odd)) {
+  @apply bg-base-100;
+}
+.prose :where(tbody tr:nth-child(even)),
+.products-theme #page-content :where(tbody tr:nth-child(even)) {
+  @apply bg-base-200/60;
+}
+.prose :where(img),
+.products-theme #page-content :where(img) {
+  @apply my-4 rounded-md border border-base-300;
+}
+.prose :where(hr),
+.products-theme #page-content :where(hr) {
+  @apply my-6 border-base-300;
 }
 
-.partners-theme .partners-prose {
-  @apply max-w-none text-slate-800;
-}
-.partners-theme .partners-prose :where(h1, h2, h3, h4) {
-  @apply text-slate-900;
-}
-.partners-theme .partners-prose a {
-  @apply text-primary underline-offset-2 hover:underline;
+.products-theme #page-content.ProseMirror .table-container {
+  @apply max-w-full overflow-x-auto;
 }
 
-#page-content.ProseMirror code {
-  @apply text-sm;
+.products-theme #page-content.ProseMirror a {
+  word-break: break-word;
+  @apply text-primary;
 }
 
 

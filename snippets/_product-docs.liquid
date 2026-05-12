@@ -1,0 +1,74 @@
+{%- comment -%}
+  Product Docs（松耦合）：从站点级 docs_root_path 子树查询，按当前型号 / 关联型号 / 标签筛选。
+  匹配规则（OR）：
+    - 文档的 settings.product_model == 当前 model
+    - 文档的 settings.related_models 包含当前 model（行级 contains）
+    - 文档的 page.tags 中存在与 model 同名的标签
+  数据无 site.channels；统一从 site.pages[docs_root_path].pages_in_list 筛选。
+{%- endcomment -%}
+{% assign model = model | default: page.settings.product_model | strip %}
+{% assign docs_root_path = site.settings.docs_root_path | default: '/docs' %}
+{% assign docs_root = site.pages[docs_root_path] %}
+{% assign candidates = docs_root.pages_in_list | order_by: '-edited_at' %}
+
+<header class="mb-6 flex items-baseline justify-between">
+  <div>
+    <p class="hub-mono-label mb-2 text-accent">{{ 'page.product.docs.eyebrow' | t }}</p>
+    <h2 class="hub-section-title m-0">{{ 'page.product.docs.title' | t }}</h2>
+  </div>
+  {% if docs_root %}
+    <a href="{{ docs_root_path }}" class="text-sm font-medium text-primary hover:underline" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ 'page.product.docs.view_all' | t }} →</a>
+  {% endif %}
+</header>
+
+{% if docs_root == nil %}
+  {% render '@shared/empty', message: 'page.product.docs.not_configured' | t %}
+{% else %}
+  {% assign matched_count = 0 %}
+  {% assign matched_limit = 8 %}
+  <ul class="grid gap-4 sm:grid-cols-2">
+    {% for d in candidates %}
+      {% if matched_count < matched_limit %}
+        {% assign is_match = false %}
+        {% if model != blank %}
+          {% if d.settings.product_model == model %}{% assign is_match = true %}{% endif %}
+          {% unless is_match %}
+            {% assign rel = d.settings.related_models | strip %}
+            {% if rel != blank %}
+              {% assign rel_lines = rel | newline_to_br | split: '<br />' %}
+              {% for rm in rel_lines %}
+                {% assign rm = rm | strip %}
+                {% if rm == model %}{% assign is_match = true %}{% endif %}
+              {% endfor %}
+            {% endif %}
+          {% endunless %}
+          {% unless is_match %}
+            {% for t in d.tags %}
+              {% if t.name == model %}{% assign is_match = true %}{% endif %}
+            {% endfor %}
+          {% endunless %}
+        {% endif %}
+        {% if is_match %}
+          {% assign matched_count = matched_count | plus: 1 %}
+          <li class="hub-liquid-card p-5 transition-colors hover:bg-base-200">
+            <div class="flex items-center gap-2 text-[11px] text-base-content/60">
+              <svg class="h-3.5 w-3.5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <span>{{ d.parent.link_text | default: 'page.product.docs.doc' | t }}</span>
+              {% if d.settings.version != blank %}<span class="font-mono">v{{ d.settings.version }}</span>{% endif %}
+              <span class="ml-auto">{{ d.edited_at | default: d.published_at | date: '%Y-%m-%d' }}</span>
+            </div>
+            <h3 class="mt-2 line-clamp-2 text-sm font-semibold text-base-content">
+              <a href="{{ d.path }}" class="hover:text-primary hover:underline" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ d.link_text }}</a>
+            </h3>
+            {% if d.settings.tagline != blank %}
+              <p class="mt-1 line-clamp-2 text-xs text-base-content/70">{{ d.settings.tagline }}</p>
+            {% endif %}
+          </li>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </ul>
+  {% if matched_count == 0 %}
+    {% render '@shared/empty', message: 'page.product.docs.empty' | t %}
+  {% endif %}
+{% endif %}

@@ -1,0 +1,100 @@
+{%- comment -%}
+  Product Hero（products-demo 概览卡）：左侧媒体 / 右侧标题、型号、要点与 CTA。规格表见 product-specs。
+{%- endcomment -%}
+{% assign model = model | default: page.settings.product_model | strip %}
+{% assign hero_raw = page.settings.hero_images | strip %}
+{% assign hero_lines = hero_raw | newline_to_br | split: '<br />' %}
+{% assign hero_count = 0 %}
+{% for u in hero_lines %}
+  {% assign u = u | strip %}
+  {% if u != blank %}{% assign hero_count = hero_count | plus: 1 %}{% endif %}
+{% endfor %}
+
+{% assign hl_raw = page.settings.highlights | strip %}
+{% assign hl_lines = hl_raw | newline_to_br | split: '<br />' %}
+
+{% assign quote_label = site.settings.cta_quote_label | default: 'hub.cta.quote' | t %}
+{% assign trial_label = site.settings.cta_trial_label | default: 'hub.cta.trial' | t %}
+
+<section class="hub-liquid-card mb-8 p-8 md:p-12">
+  <div class="flex flex-col gap-12 lg:flex-row">
+    <div class="relative flex aspect-square w-full items-center justify-center rounded-3xl border border-base-200 bg-base-200 shadow-inner lg:w-1/3">
+      {% if hero_count > 0 %}
+        <div x-data="{ active: 0, count: {{ hero_count }} }" class="absolute inset-0 flex flex-col p-4">
+          <div class="relative flex flex-1 items-center justify-center overflow-hidden rounded-2xl border border-base-200 bg-base-100">
+            {% assign _idx = -1 %}
+            {% for img in hero_lines %}
+              {% assign img = img | strip %}
+              {% if img != blank %}
+                {% assign _idx = _idx | plus: 1 %}
+                <img src="{{ img }}" alt="{{ page.link_text }}" loading="lazy" x-show="active === {{ _idx }}" class="max-h-full max-w-full object-contain" />
+              {% endif %}
+            {% endfor %}
+          </div>
+          {% if hero_count > 1 %}
+            <div class="product-hub-glass-strip mt-3 rounded-2xl p-2">
+            <div class="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:thin]">
+              {% assign _idx = -1 %}
+              {% for img in hero_lines %}
+                {% assign img = img | strip %}
+                {% if img != blank %}
+                  {% assign _idx = _idx | plus: 1 %}
+                  <button type="button" @click="active = {{ _idx }}" class="h-14 w-14 shrink-0 overflow-hidden rounded-xl ring-1 transition" :class="active === {{ _idx }} ? 'ring-primary' : 'ring-base-300 hover:ring-primary/50'">
+                    <img src="{{ img }}" alt="" loading="lazy" class="h-full w-full object-cover" />
+                  </button>
+                {% endif %}
+              {% endfor %}
+            </div>
+            </div>
+          {% endif %}
+        </div>
+      {% else %}
+        <svg class="h-24 w-24 text-base-content/40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+        </svg>
+      {% endif %}
+    </div>
+
+    <div class="min-w-0 flex-1">
+      <h1 class="font-display text-4xl font-bold leading-tight tracking-tight text-base-content md:text-5xl">
+        {{ page.settings.title | default: page.link_text }}
+      </h1>
+      {% if model != blank %}
+        <div class="mt-2 font-mono text-[14px] text-base-content/60">{{ model }}</div>
+      {% endif %}
+      {% if page.settings.tagline != blank %}
+        <p class="mt-6 text-[18px] leading-relaxed text-base-content">{{ page.settings.tagline }}</p>
+      {% endif %}
+
+      {% assign hl_size = hl_lines | size %}
+      {% if hl_size > 0 %}
+        <ul class="mt-6 space-y-2">
+          {% for line in hl_lines %}
+            {% assign line = line | strip %}
+            {% if line != blank %}
+              <li class="flex items-start gap-2 text-[15px] text-base-content/70">
+                <svg class="mt-0.5 h-4 w-4 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                <span>{{ line }}</span>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      <div class="mt-8 flex flex-wrap gap-4">
+        {% assign quote_link = page.settings.cta_quote_link | strip %}
+        {% if quote_link != blank %}
+          <a href="{{ quote_link }}" class="hub-pill-primary no-underline" {% if quote_link contains '://' %}target="_blank" rel="noopener noreferrer"{% endif %}>{{ quote_label }}</a>
+        {% else %}
+          <button type="button" class="hub-pill-primary border-0" data-lead-trigger data-lead-intent="quote" data-lead-label="{{ quote_label | escape_once }} · {{ page.link_text | escape_once }}">{{ quote_label }}</button>
+        {% endif %}
+        {% assign trial_link = page.settings.cta_trial_link | strip %}
+        {% if trial_link != blank %}
+          <a href="{{ trial_link }}" class="hub-pill-secondary no-underline" {% if trial_link contains '://' %}target="_blank" rel="noopener noreferrer"{% endif %}>{{ trial_label }}</a>
+        {% else %}
+          <a href="#docs" class="hub-pill-secondary no-underline" data-turbo-frame="main-content-frame">{{ 'page.product.hero.documentation' | t }}</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>

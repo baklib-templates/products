@@ -1,92 +1,359 @@
 pages:
-  name: "生态门户"
+  name: "Product Hub"
   slug: "index"
   template_name: "index"
   settings:
-    description: "<p>连接<strong>技术集成</strong>与<strong>渠道服务商</strong>，统一展示、筛选与线索分发。</p>"
+    description: "<p>以「<strong>Baklib X1 智能知识中心</strong>」为锚点，统一呈现<strong>规格、物料、技术文档、常见问题与客户案例</strong>，适合企业产品门户开箱演示。</p>"
 
   children:
-    - name: "伙伴目录"
-      slug: "partner-hub"
+    - name: "产品中心"
+      slug: "products"
       template_name: "channel"
+      template_style: "products"
       settings:
-        intro: "按类型、区域与等级筛选合作伙伴；卡片进入详情页获取集成说明或联系渠道。"
+        intro: "按型号浏览企业版与团队版；左侧为系列入口，右侧为高密度产品卡片。以下为演示数据，可在后台替换为真实 SKU。"
       children:
-        - name: "NorthBridge Analytics"
-          slug: "northbridge-analytics"
+        - name: "Baklib X1 企业版"
+          slug: "baklib-x1-enterprise"
           template_name: "page"
+          template_style: "product"
           settings:
-            title: "NorthBridge Analytics"
-            tagline: "将站点行为数据实时同步至您的数据栈。"
-            logo_image_url: "images/theme/page.png"
-            partner_type: "技术&集成"
-            region: "北美"
-            partner_tier: "金牌"
-            website_url: "https://example.com"
-            action_link: "https://example.com/install"
-            action_label: "Install App"
+            product_model: "X1-ENT"
+            tagline: "面向多业务单元的一体化知识治理与交付，支持私有化与混合云。"
+            thumb_image_url: "images/theme/thumb.png"
+            hero_images: |
+              https://picsum.photos/seed/baklibx1hero-a/960/640
+              https://picsum.photos/seed/baklibx1hero-b/960/640
+            specifications: |
+              部署形态|私有化 / SaaS / 混合云|可选
+              单集群推荐规模|≤ 200 万篇条目|文档对象
+              全文检索延迟|P95 ≤ 280|ms
+              权限模型|RBAC + 资源级 ACL|细粒度
+              审计与留痕|操作 / 导出 / 登录|合规增强
+              开放接口|REST + Webhook|可选模块
+            highlights: |
+              统一目录、模板与发布流程，降低多站点维护成本
+              与工单、CRM 通过 Webhook 联动，缩短销售到交付链路
+              多语言与多区域发布，一套内容多出口
+              内置审批与草稿隔离，适合受控行业场景
             body: |
-              <h2>集成概述</h2>
-              <p>通过 OAuth 与 Webhook，将 Baklib 站点事件推送到 NorthBridge 管道。</p>
-              <ul><li>实时同步</li><li>字段映射</li><li>沙箱环境</li></ul>
-            resource_links: |
-              技术文档|https://example.com/docs
-              状态页|https://example.com/status
-            contact_email: "integration@example.com"
-            industries: "SaaS, 企业软件, 开发者工具"
+              <h2 id="overview">产品概述</h2>
+              <p>Baklib X1 企业版将产品资料、帮助中心与客户成功知识沉淀在同一平台，支持按团队、区域与渠道拆分视图，并保持品牌与口径一致。</p>
+              <h3>典型使用场景</h3>
+              <ul>
+                <li>面向销售与渠道伙伴的「可对外」产品手册与报价说明</li>
+                <li>面向交付与二开的「对内」集成说明与版本变更</li>
+                <li>面向客户成功的上线 checklist 与最佳实践</li>
+              </ul>
+            downloads: |
+              Baklib X1 企业版规格说明.pdf|pdf|https://example.com/downloads/baklib-x1-enterprise-spec.pdf|1.8 MB
+              X1 部署检查清单.xlsx|xlsx|https://example.com/downloads/baklib-x1-deployment-checklist.xlsx|420 KB
+              X1 品牌组件包.zip|zip|https://example.com/downloads/baklib-x1-brand-kit.zip|12 MB
+              X1 集成示例 Postman 集合.json|json|https://example.com/downloads/baklib-x1-postman.json|96 KB
+            related_models: |
+              X1-TEAM
+            cta_trial_link: "https://example.com/trial"
+            cta_quote_link: "https://example.com/contact"
 
-        - name: "Aurora Channel Partners"
-          slug: "aurora-channel-partners"
+        - name: "Baklib X1 团队版"
+          slug: "baklib-x1-team"
           template_name: "page"
+          template_style: "product"
           settings:
-            title: "Aurora Channel Partners"
-            tagline: "北欧区企业级实施与客户成功。"
-            logo_image_url: "images/theme/index-list.png"
-            partner_type: "渠道&服务商"
-            region: "北欧"
-            partner_tier: "金牌"
-            website_url: "https://example.com"
-            action_link: "mailto:sales@example.com"
-            action_label: ""
+            product_model: "X1-TEAM"
+            tagline: "为 50～500 人团队提供轻量知识库与产品说明站，分钟级上线。"
+            thumb_image_url: "images/theme/thumb.png"
+            hero_images: |
+              https://picsum.photos/seed/baklibx1team-a/960/640
+            specifications: |
+              成员规模|≤ 500 人|推荐上限
+              空间策略|按站点配额|可扩展
+              模板数量|≤ 120 套|单站点
+              集成|Webhook + Zapier 类连接器|可选
+              审计|基础操作日志|90 天滚动
+            highlights: |
+              开箱主题与导航结构，适合市场与产品团队自建站点
+              与 Slack / 飞书 机器人同步关键更新（示意能力）
+              一键导出静态镜像，便于归档与灾备
             body: |
-              <h2>服务能力</h2>
-              <p>覆盖实施、培训、定制开发与上线护航。</p>
-            resource_links: |
-              案例集|https://example.com/cases
-            contact_email: "hello@example.com"
-            industries: "制造, 医疗, 公共部门"
+              <h2 id="overview">产品概述</h2>
+              <p>Baklib X1 团队版聚焦「快上线、易协作」，用受控模板与预设信息架构，帮助团队在不影响品牌一致性的前提下快速发布内容。</p>
+            downloads: |
+              Baklib X1 团队版功能对照.pdf|pdf|https://example.com/downloads/baklib-x1-team-matrix.pdf|860 KB
+              X1 团队版快速配置指南.md|md|https://example.com/downloads/baklib-x1-team-quickstart.md|24 KB
+            related_models: |
+              X1-ENT
+            cta_trial_link: "https://example.com/trial"
 
-        - name: "Pacific API Hub"
-          slug: "pacific-api-hub"
+    - name: "客户案例"
+      slug: "cases"
+      template_name: "channel"
+      template_style: "cases"
+      settings:
+        intro: "以下为虚构客户与量化指标，仅用于展示版式与跨栏目关联；上线后请替换为真实客户授权内容。"
+      children:
+        - name: "制造企业：用 X1 企业版统一产品资料与客户交付包"
+          slug: "case-manufacturing-x1"
           template_name: "page"
+          template_style: "case"
           settings:
-            title: "Pacific API Hub"
-            tagline: "亚太区 API 聚合与低代码连接。"
-            logo_image_url: "images/theme/index-card.png"
-            partner_type: "技术&集成"
-            region: "亚太"
-            partner_tier: "银牌"
-            website_url: "https://example.com"
-            action_link: "https://example.com/app"
-            body: |
-              <p>以连接器方式对接常见 CRM 与工单系统。</p>
-            resource_links: ""
-            contact_email: "support@example.com"
-            industries: "金融科技, 电商"
+            tagline: "将分散在网盘与邮件中的产品说明，收敛为可检索的单一事实源。"
+            client_name: "某高端装备制造企业"
+            client_caption: "国内细分赛道前三，海外渠道占比约四成"
+            industry: "先进制造"
+            region: "华东"
+            scale: "8 条产品线 · 全球 40+ 经销商"
+            headline_metric: "销售资料准备周期缩短 35%，渠道投诉下降 22%"
+            pain_point: "同一 SKU 存在多份互相矛盾的 PDF；海外版本滞后；无法追踪渠道下载。"
+            solution: |
+              <p>部署 Baklib X1 企业版作为「对外产品资料」主站，按区域与渠道拆分视图，并与 CRM 中的商机阶段联动展示推荐物料。</p>
+              <ul><li>版本与生效日期可视化</li><li>渠道下载留痕</li><li>关键页面只读镜像导出</li></ul>
+            outcomes: |
+              35|%|销售资料准备周期缩短
+              22|%|渠道资料相关投诉下降
+              18|天|新 SKU 上线平均周期（从 22 天缩短）
+            body: "<p>本案例正文为演示占位，可替换为访谈纪要、架构图与客户引言。</p>"
+            related_models: |
+              X1-ENT
+            cover_image_url: "https://picsum.photos/seed/baklibcase-mfg/960/520"
 
-        - name: "Silverline Consulting"
-          slug: "silverline-consulting"
+        - name: "软件企业：X1 团队版支撑产品市场与售前的「单一手册」"
+          slug: "case-software-x1-team"
+          template_name: "page"
+          template_style: "case"
+          settings:
+            tagline: "市场、售前与客户成功共用一套页面，减少重复撰写与分叉版本。"
+            client_name: "某 B2B SaaS 企业"
+            client_caption: "ARR 增长期，产品线快速扩张"
+            industry: "软件与信息服务"
+            region: "华北"
+            scale: "200+ 研发与市场人员"
+            headline_metric: "对外文档更新频次提升 2.4 倍，重复问询下降 31%"
+            pain_point: "功能发布节奏快，帮助中心更新跟不上；销售自建 Deck 与官方口径不一致。"
+            solution: |
+              <p>以 X1-TEAM 建立「对外手册 + 对内说明」双出口，发布走模板审批，关键变更自动同步到 CRM 侧栏链接。</p>
+            outcomes: |
+              2.4|倍|对外文档更新频次
+              31|%|重复售前问询下降
+              5|分钟|新功能要点页面上线中位时间
+            body: "<p>演示正文：可嵌入路线图、对比表与短视频嵌入位。</p>"
+            related_models: |
+              X1-TEAM
+            cover_image_url: "https://picsum.photos/seed/baklibcase-saas/960/520"
+
+        - name: "服务企业：以 X1 企业版交付「可审计」的客户项目知识库"
+          slug: "case-services-x1"
+          template_name: "page"
+          template_style: "case"
+          settings:
+            tagline: "项目交付物、培训材料与运维手册统一归档，满足审计抽检。"
+            client_name: "某全国性专业服务集团"
+            client_caption: "多事业部、多法人主体"
+            industry: "专业服务"
+            region: "全国"
+            scale: "300+ 并行项目 / 年"
+            headline_metric: "项目复盘材料检索时间从平均 25 分钟降至约 4 分钟"
+            pain_point: "交付物分散在网盘、邮件与本地盘；审计抽取样本成本高。"
+            solution: "<p>以 X1-ENT 作为项目空间模板，按客户与合同维度归档，导出包一键生成。</p>"
+            outcomes: |
+              25|min|检索耗时（优化前平均）
+              4|min|检索耗时（优化后平均）
+              99.2|%|抽检样本可定位率
+            body: "<p>演示占位正文。</p>"
+            related_models: |
+              X1-ENT
+            cover_image_url: "https://picsum.photos/seed/baklibcase-svc/960/520"
+
+        - name: "教育集团：X1 团队版支撑多校区产品资料与招生物料"
+          slug: "case-education-x1-team"
+          template_name: "page"
+          template_style: "case"
+          settings:
+            tagline: "多校区统一模板，区域招生物料差异受控发布。"
+            client_name: "某职业教育集团"
+            client_caption: "线下校区与线上交付并行"
+            industry: "教育"
+            region: "华南"
+            scale: "40+ 校区"
+            headline_metric: "招生物料差错导致的客诉下降 40%"
+            pain_point: "各校区自行改稿，品牌与价格口径不一致；总部难以及时回收旧版。"
+            solution: "<p>使用 X1-TEAM 建立总部模板与区域变量，关键字段锁定，变更一键下发。</p>"
+            outcomes: |
+              40|%|招生物料相关客诉下降
+              12|小时|总部政策触达全校区中位时间
+            body: "<p>演示占位正文。</p>"
+            related_models: |
+              X1-TEAM
+            cover_image_url: "https://picsum.photos/seed/baklibcase-edu/960/520"
+
+    - name: "技术文档"
+      slug: "docs"
+      template_name: "channel"
+      template_style: "docs"
+      settings:
+        intro: "以下为与 X1 型号关联的演示文档；正文含标题层级，便于文档页右侧「On this page」示例。"
+      children:
+        - name: "Baklib X1 快速上手"
+          slug: "doc-x1-quickstart"
+          template_name: "page"
+          template_style: "doc"
+          settings:
+            tagline: "从开通租户到发布首个站点的主线步骤（演示）。"
+            version: "2026.1"
+            related_models: |
+              X1-ENT
+              X1-TEAM
+            body: |
+              <h2 id="sec-prereq">前置条件</h2>
+              <p>准备管理员账号、品牌素材与域名策略（演示文案）。</p>
+              <h2 id="sec-steps">推荐步骤</h2>
+              <ol>
+                <li>创建站点并选择本主题</li>
+                <li>导入种子数据或按信息架构新建频道</li>
+                <li>配置站点级 Hub 路径与 CTA 文案</li>
+              </ol>
+              <h3 id="sec-verify">验收建议</h3>
+              <p>检查首页统计、单品五段与频道搜索是否可完整走通。</p>
+
+        - name: "X1 部署与权限模型"
+          slug: "doc-x1-deployment"
+          template_name: "page"
+          template_style: "doc"
+          settings:
+            tagline: "网络、身份与审计字段的参考说明（演示）。"
+            version: "2026.1"
+            related_models: |
+              X1-ENT
+            body: |
+              <h2 id="sec-topology">部署拓扑</h2>
+              <p>支持单集群与双活示意；生产环境请遵循贵司安全基线。</p>
+              <h2 id="sec-iam">权限与审计</h2>
+              <p>RBAC 角色与资源级 ACL 的组合方式，以及导出审计样例字段说明。</p>
+
+        - name: "X1 API 与 Webhook 集成"
+          slug: "doc-x1-api"
+          template_name: "page"
+          template_style: "doc"
+          settings:
+            tagline: "与内部系统同步发布事件的常见模式（演示）。"
+            version: "2026.1"
+            related_models: |
+              X1-ENT
+            body: |
+              <h2 id="sec-auth">认证</h2>
+              <p>使用服务账号与最小权限原则；定期轮换密钥。</p>
+              <h2 id="sec-webhook">Webhook</h2>
+              <p>订阅页面发布、回滚与下载事件，在下游系统落库或触发流水线。</p>
+
+    - name: "资料下载"
+      slug: "downloads"
+      template_name: "channel"
+      template_style: "downloads"
+      settings:
+        intro: "频道内每条为独立资源页，支持外链下载；以下为演示文件元数据。"
+      children:
+        - name: "Baklib X1 企业版规格说明（PDF）"
+          slug: "dl-x1-enterprise-spec"
           template_name: "page"
           settings:
-            title: "Silverline Consulting"
-            tagline: "北美银牌咨询伙伴，专注内容运营与迁移。"
-            logo_image_url: "images/theme/release-guide.png"
-            partner_type: "渠道&服务商"
-            region: "北美"
-            partner_tier: "银牌"
-            website_url: "https://example.com"
-            action_link: "https://example.com/contact"
-            body: |
-              <p>提供工作坊、内容审计与迁移项目管理。</p>
-            contact_email: "contact@example.com"
-            industries: "咨询, 教育"
+            tagline: "面向采购与安全的概要规格（演示链接）。"
+            product_model: "X1-ENT"
+            file_type: "pdf"
+            file_size: "1.8 MB"
+            file_url: "https://example.com/downloads/baklib-x1-enterprise-spec.pdf"
+            body: "<p>请在后台替换为实际上传文件或 DAM 资源。</p>"
+        - name: "X1 部署检查清单（表格）"
+          slug: "dl-x1-deployment-checklist"
+          template_name: "page"
+          settings:
+            tagline: "上线前自检项示例。"
+            related_models: |
+              X1-ENT
+            file_type: "xlsx"
+            file_size: "420 KB"
+            file_url: "https://example.com/downloads/baklib-x1-deployment-checklist.xlsx"
+            body: "<p>含网络、备份与账号策略等检查项（演示）。</p>"
+        - name: "X1 品牌组件包"
+          slug: "dl-x1-brand-kit"
+          template_name: "page"
+          settings:
+            tagline: "Logo、版式与文案口径示例包。"
+            related_models: |
+              X1-ENT
+              X1-TEAM
+            file_type: "zip"
+            file_size: "12 MB"
+            file_url: "https://example.com/downloads/baklib-x1-brand-kit.zip"
+            body: "<p>演示占位：可放矢量源文件与字体授权说明。</p>"
+        - name: "X1 团队版功能对照（PDF）"
+          slug: "dl-x1-team-matrix"
+          template_name: "page"
+          settings:
+            tagline: "团队版与企业版能力对照（演示）。"
+            product_model: "X1-TEAM"
+            file_type: "pdf"
+            file_size: "860 KB"
+            file_url: "https://example.com/downloads/baklib-x1-team-matrix.pdf"
+            body: "<p>用于内部选型会议分发（演示）。</p>"
+
+    - name: "常见问题"
+      slug: "faqs"
+      template_name: "channel"
+      template_style: "faqs"
+      settings:
+        intro: "按场景分组展示；单品页会从整棵 FAQ 子树中按型号匹配相关问答。"
+      children:
+        - name: "选型与部署"
+          slug: "faq-group-selection"
+          template_name: "page"
+          settings:
+            tagline: "购买前与上线阶段常见问答（演示）。"
+            body: "<p>以下为该分组下的条目列表；点击条目标题进入详情页。</p>"
+          children:
+            - name: "X1 企业版与团队版应如何选择？"
+              slug: "faq-x1-edition-compare"
+              template_name: "page"
+              settings:
+                related_models: |
+                  X1-ENT
+                  X1-TEAM
+                body: "<p>企业版适合多业务单元、强合规与复杂集成；团队版适合单一组织快速上线与轻量协作（演示说明）。</p>"
+            - name: "私有化部署需要准备哪些网络与安全基线？"
+              slug: "faq-x1-private-network"
+              template_name: "page"
+              settings:
+                product_model: "X1-ENT"
+                body: "<p>建议准备 TLS 证书、出站白名单、集中日志与备份策略；具体以贵司安全基线为准（演示）。</p>"
+            - name: "团队版是否支持多站点？"
+              slug: "faq-x1-team-multi-site"
+              template_name: "page"
+              settings:
+                product_model: "X1-TEAM"
+                body: "<p>支持多站点配额与模板隔离；大规模多品牌场景更推荐企业版（演示）。</p>"
+        - name: "安全与合规"
+          slug: "faq-group-security"
+          template_name: "page"
+          settings:
+            tagline: "审计、导出与访问控制相关问答（演示）。"
+            body: "<p>以下为安全向条目示例。</p>"
+          children:
+            - name: "是否支持细粒度到页面与附件的权限？"
+              slug: "faq-x1-acl"
+              template_name: "page"
+              settings:
+                product_model: "X1-ENT"
+                body: "<p>企业版提供资源级 ACL 与空间级策略组合；团队版以角色与站点级策略为主（演示）。</p>"
+            - name: "导出的静态镜像是否包含访问控制？"
+              slug: "faq-x1-static-export"
+              template_name: "page"
+              settings:
+                related_models: |
+                  X1-ENT
+                  X1-TEAM
+                body: "<p>静态镜像为公开内容快照；敏感材料请保留在受控空间或走单独鉴权分发（演示）。</p>"
+            - name: "审计日志默认保留多久？"
+              slug: "faq-x1-audit-retention"
+              template_name: "page"
+              settings:
+                product_model: "X1-ENT"
+                body: "<p>演示数据：基础日志滚动 90 天；企业版可对接外部 SIEM（示意）。</p>"

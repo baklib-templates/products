@@ -1,32 +1,30 @@
-{% comment %} Card 图文列表展示效果 {% endcomment %}
-<div class="card card-sm bg-white">
-  <div class='card-body'>
-    <div class="flex items-center space-x-2 text-xs font-light">
-      {%- if page.published_at -%}
-        <div class="flex items-center space-x-1 text-gray-400">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-4 h-4" fill="currentColor"><path d="M7 3V1H9V3H15V1H17V3H21C21.5523 3 22 3.44772 22 4V9H20V5H17V7H15V5H9V7H7V5H4V19H10V21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H7ZM17 12C14.7909 12 13 13.7909 13 16C13 18.2091 14.7909 20 17 20C19.2091 20 21 18.2091 21 16C21 13.7909 19.2091 12 17 12ZM11 16C11 12.6863 13.6863 10 17 10C20.3137 10 23 12.6863 23 16C23 19.3137 20.3137 22 17 22C13.6863 22 11 19.3137 11 16ZM16 13V16.4142L18.2929 18.7071L19.7071 17.2929L18 15.5858V13H16Z"></path></svg>
-          <span class="flex items-center justify-center text-xs font-mono">{{ page.published_at | date: "%Y-%m-%d" }}</span>
-        </div>
-      {%- endif -%}
-
-      {% for tag in page.settings.tags %}
-        {% render 'tag', tag: tag %}
-      {% endfor %}
-    </div>
-    <a class='text-md font-bold md:text-2xl text-slate-800 hover:underline' href="{{ page.path }}">{{ page.link_text }}</a>
-
-    {% assign thumb_image_url = page.settings.thumb_image_url | presence %}
-    {%- if thumb_image_url -%}
-      <div class="overflow-hidden rounded-lg bg-primary/10">
-        <a href="{{ page.path }}" class="block">
-          <img class="w-full transition-all duration-500 ease-in-out scale-100 hover:scale-110" src="{{ thumb_image_url }}" />
-        </a>
+{%- comment -%}
+  通用内容卡片：用于搜索结果与标签页等列表场景。
+{%- endcomment -%}
+<article class="rounded-md border border-base-300 bg-base-100 p-5 transition hover:border-primary/50 hover:shadow-sm">
+  <div class="flex items-start gap-4">
+    {% assign thumb = page.settings.thumb_image_url | default: page.settings.logo_image_url | presence %}
+    {% if thumb %}
+      <div class="hidden h-16 w-24 shrink-0 overflow-hidden rounded ring-1 ring-base-300 sm:block">
+        <img src="{{ thumb }}" alt="" class="h-full w-full object-cover" loading="lazy" />
       </div>
-    {%- endif  -%}
-
-    <p class="leading-normal text-slate-600">{{ page.settings.description }}</p>
-
-    {% comment %} {%- render "feedback_form", page: page -%} {% endcomment %}
-    {%- render "sub_page_list", page: page, per: 5 -%}
+    {% endif %}
+    <div class="min-w-0 flex-1">
+      <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-base-content/60">
+        {% if page.published_at %}
+          <span class="font-mono">{{ page.published_at | date: '%Y-%m-%d' }}</span>
+        {% endif %}
+        {% for tag in page.tags %}
+          <a href="{{ tag.path }}" class="rounded-full bg-base-200 px-2 py-0.5 text-[11px] text-base-content/70 hover:bg-primary/10 hover:text-primary">{{ tag.name }}</a>
+        {% endfor %}
+      </div>
+      <h3 class="mt-2 text-base font-semibold text-base-content sm:text-lg">
+        <a href="{{ page.path }}" class="hover:text-primary hover:underline">{{ page.link_text }}</a>
+      </h3>
+      {% assign desc = page.settings.description | default: page.settings.tagline %}
+      {% if desc != blank %}
+        <p class="mt-1 line-clamp-2 text-sm text-base-content/70">{{ desc | strip_html | strip }}</p>
+      {% endif %}
+    </div>
   </div>
-</div>
+</article>

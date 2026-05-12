@@ -1,0 +1,176 @@
+{%- comment -%}
+  单品页（products-demo）：左侧 On this page + 右侧 Hero / 正文 / 规格 / 下载 / 文档 / FAQ / 案例。
+{%- endcomment -%}
+{% capture _title %}{{ page.settings.title | default: page.link_text }}{% endcapture %}
+{% set_meta_title _title | strip %}
+{% if page.settings.tagline != blank %}
+  {% set_meta_description page.settings.tagline %}
+{% endif %}
+
+{% assign model = page.settings.product_model | strip %}
+{% assign products_root_path = site.settings.products_root_path | default: '/products' %}
+
+{% assign spec_raw = page.settings.specifications | strip %}
+{% assign spec_lines = spec_raw | newline_to_br | split: '<br />' %}
+{% assign has_specs = false %}
+{% for line in spec_lines %}
+  {% assign line = line | strip %}
+  {% if line != blank %}
+    {% assign has_specs = true %}
+  {% endif %}
+{% endfor %}
+
+<article class="pb-16" x-data="productHub()" x-init="init()">
+  <div class="mx-auto w-full max-w-[1280px] px-6 pb-6 pt-8">
+    {% render '@shared/breadcrumb', breadcrumb: page.breadcrumb %}
+  </div>
+
+  <div class="mx-auto flex w-full max-w-[1280px] flex-col gap-8 px-6 lg:flex-row lg:gap-16">
+    <aside class="order-2 w-full shrink-0 lg:order-1 lg:w-[240px]">
+      <div class="lg:sticky lg:top-32">
+        <a href="{{ products_root_path }}" class="mb-10 inline-flex items-center gap-2 border-0 bg-transparent text-[14px] font-medium text-primary transition-colors hover:text-base-content" data-turbo-frame="main-content-frame" data-turbo-action="advance">
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+          {{ 'page.product.toc.back_catalog' | t }}
+        </a>
+        <h2 class="hub-mono-label mb-6 text-accent">{{ 'page.product.toc.title' | t }}</h2>
+        <nav class="flex flex-col gap-4" aria-label="{{ 'page.product.nav.aria' | t }}">
+          <a href="#overview" @click.prevent="goTo('overview')" class="hub-toc-link" :class="active === 'overview' ? 'hub-toc-link-active' : ''">{{ 'page.product.nav.overview' | t }}</a>
+          {% if has_specs %}
+            <a href="#specs" @click.prevent="goTo('specs')" class="hub-toc-link" :class="active === 'specs' ? 'hub-toc-link-active' : ''">{{ 'page.product.nav.specs' | t }}</a>
+          {% endif %}
+          <a href="#downloads" @click.prevent="goTo('downloads')" class="hub-toc-link" :class="active === 'downloads' ? 'hub-toc-link-active' : ''">{{ 'page.product.nav.downloads' | t }}</a>
+          <a href="#docs" @click.prevent="goTo('docs')" class="hub-toc-link" :class="active === 'docs' ? 'hub-toc-link-active' : ''">{{ 'page.product.nav.docs' | t }}</a>
+          <a href="#faqs" @click.prevent="goTo('faqs')" class="hub-toc-link" :class="active === 'faqs' ? 'hub-toc-link-active' : ''">{{ 'page.product.nav.faqs' | t }}</a>
+          <a href="#cases" @click.prevent="goTo('cases')" class="hub-toc-link" :class="active === 'cases' ? 'hub-toc-link-active' : ''">{{ 'page.product.nav.cases' | t }}</a>
+        </nav>
+        <button type="button" class="hub-pill-primary mt-10 hidden w-full border-0 lg:inline-flex" data-lead-trigger data-lead-intent="quote" data-lead-label="{{ site.settings.cta_quote_label | default: 'hub.cta.quote' | t | escape_once }} · {{ page.link_text | escape_once }}">
+          {{ site.settings.cta_quote_label | default: 'hub.cta.quote' | t }}
+        </button>
+      </div>
+    </aside>
+
+    <div class="order-1 min-w-0 flex-1 lg:order-2">
+      <section id="overview" class="scroll-mt-32" data-product-section>
+        {% render 'product-hero', page: page, model: model %}
+        <div id="page-content" class="prose prose mt-8 max-w-none rounded-2xl border border-base-300 bg-base-100 p-6 shadow-sm sm:p-10">
+          {{ page.settings.body }}
+        </div>
+      </section>
+
+      <div class="mt-12 space-y-12">
+        {% if has_specs %}
+          {% render 'product-specs', page: page %}
+        {% endif %}
+
+        <section id="downloads" class="scroll-mt-32" data-product-section>
+          {% render 'product-downloads', page: page %}
+        </section>
+
+        <section id="docs" class="scroll-mt-32" data-product-section>
+          {% render 'product-docs', page: page, model: model %}
+        </section>
+
+        <section id="faqs" class="scroll-mt-32" data-product-section>
+          {% render 'product-faqs', page: page, model: model %}
+        </section>
+
+        <section id="cases" class="scroll-mt-32" data-product-section>
+          {% render 'product-cases', page: page, model: model %}
+        </section>
+      </div>
+
+      {% if site.settings.is_allow_feedback %}
+        <div class="mt-12 border-t border-base-300 pt-8">
+          {% render 'feedback_button', page: page %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</article>
+
+{% schema %}
+  {
+    "name": "t:schema.templates.page_product.name",
+    "description": "t:schema.templates.page_product.description",
+    "thumb_url": "images/theme/page.png",
+    "sub_page_templates": ["page"],
+    "settings": [
+      {
+        "id": "product_model",
+        "type": "text",
+        "label": "t:schema.templates.page_product.settings.product_model.label",
+        "info": "t:schema.templates.page_product.settings.product_model.info"
+      },
+      {
+        "id": "tagline",
+        "type": "text",
+        "label": "t:schema.templates.page_product.settings.tagline.label"
+      },
+      {
+        "id": "tags",
+        "type": "tag_picker",
+        "multiple": true,
+        "label": "t:schema.templates.page.settings.tags.label"
+      },
+      {
+        "id": "thumb_image_url",
+        "type": "image_picker",
+        "ratio": "4:1",
+        "width": 640,
+        "label": "t:schema.templates.page.settings.thumb_image_url.label"
+      },
+      {
+        "id": "hero_images",
+        "type": "textarea",
+        "label": "t:schema.templates.page_product.settings.hero_images.label",
+        "info": "t:schema.templates.page_product.settings.hero_images.info",
+        "rows": 4
+      },
+      {
+        "id": "specifications",
+        "type": "textarea",
+        "label": "t:schema.templates.page_product.settings.specifications.label",
+        "info": "t:schema.templates.page_product.settings.specifications.info",
+        "rows": 8
+      },
+      {
+        "id": "highlights",
+        "type": "textarea",
+        "label": "t:schema.templates.page_product.settings.highlights.label",
+        "info": "t:schema.templates.page_product.settings.highlights.info",
+        "rows": 4
+      },
+      {
+        "id": "body",
+        "type": "richtext",
+        "to_markdown": true,
+        "label": "t:schema.templates.page_product.settings.body.label"
+      },
+      {
+        "id": "downloads",
+        "type": "textarea", 
+        "label": "t:schema.templates.page_product.settings.downloads.label",
+        "info": "t:schema.templates.page_product.settings.downloads.info",
+        "rows": 8
+      },
+      {
+        "id": "related_models",
+        "type": "textarea",
+        "label": "t:schema.templates.page_product.settings.related_models.label",
+        "info": "t:schema.templates.page_product.settings.related_models.info",
+        "rows": 3
+      },
+      {
+        "id": "cta_quote_link",
+        "type": "text",
+        "label": "t:schema.templates.page_product.settings.cta_quote_link.label",
+        "info": "t:schema.templates.page_product.settings.cta_quote_link.info"
+      },
+      {
+        "id": "cta_trial_link",
+        "type": "text",
+        "label": "t:schema.templates.page_product.settings.cta_trial_link.label"
+      }
+    ]
+  }
+{% endschema %}

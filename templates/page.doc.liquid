@@ -1,0 +1,134 @@
+{%- comment -%}
+  技术文档详情页：宽内容 prose、左侧目录树、右侧 On this page TOC（Alpine 客户端基于 h2/h3 生成）。
+{%- endcomment -%}
+{% capture _title %}{{ page.link_text }}{% endcapture %}
+{% set_meta_title _title | strip %}
+{% if page.settings.tagline != blank %}
+  {% set_meta_description page.settings.tagline %}
+{% endif %}
+
+{% assign docs_root_path = site.settings.docs_root_path | default: '/docs' %}
+{% assign docs_root = site.pages[docs_root_path] %}
+
+<article class="bg-base-200">
+  <div class="mx-auto w-full max-w-7xl px-4 pb-4 pt-6 sm:px-6 lg:px-8">
+    {% render '@shared/breadcrumb', breadcrumb: page.breadcrumb %}
+  </div>
+
+  <div class="mx-auto grid w-full max-w-7xl gap-8 px-4 pb-12 sm:px-6 lg:grid-cols-[260px_minmax(0,1fr)_220px] lg:px-8">
+    {% comment %} 左：目录树 {% endcomment %}
+    <aside class="hidden lg:block lg:sticky lg:top-24 lg:self-start">
+      <div class="rounded-md border border-base-300 bg-base-100 p-2">
+        <p class="px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-base-content/60">{{ 'page.doc.toc' | t }}</p>
+        {% if docs_root %}
+          {% assign tree = docs_root | nav_tree: 3 %}
+          {% render 'nav_tree', nav_tree: tree, current_path: page.path %}
+        {% endif %}
+      </div>
+    </aside>
+
+    {% comment %} 中：正文 {% endcomment %}
+    <main class="min-w-0" x-data="docToc()" x-init="$nextTick(() => collect())">
+      <header class="mb-6 border-b border-base-300 pb-4">
+        <p class="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">{{ 'page.doc.eyebrow' | t }}</p>
+        <h1 class="mt-2 text-3xl font-bold tracking-tight text-base-content sm:text-4xl">{{ page.link_text }}</h1>
+        {% if page.settings.tagline != blank %}
+          <p class="mt-2 max-w-3xl text-base text-base-content/70">{{ page.settings.tagline }}</p>
+        {% endif %}
+        <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-base-content/60">
+          {% if page.settings.version != blank %}<span class="font-mono">v{{ page.settings.version }}</span>{% endif %}
+          <span>{{ 'page.doc.updated_at' | t }} {{ page.edited_at | default: page.published_at | date: '%Y-%m-%d' }}</span>
+        </div>
+      </header>
+
+      <div id="page-content" x-ref="content" class="prose prose max-w-none">
+        {{ page.settings.body }}
+      </div>
+
+      {% comment %} 上一页 / 下一页 {% endcomment %}
+      <nav class="mt-10 flex flex-col justify-between gap-3 border-t border-base-300 pt-6 text-sm sm:flex-row">
+        {% if page.prev_page %}
+          <a href="{{ page.prev_page.path }}" class="group flex-1 rounded-md border border-base-300 bg-base-100 p-4 hover:border-primary/50" data-turbo-frame="main-content-frame" data-turbo-action="advance">
+            <p class="text-[11px] uppercase tracking-[0.18em] text-base-content/60">{{ 'page.doc.prev' | t }}</p>
+            <p class="mt-1 font-medium text-base-content group-hover:text-primary">{{ page.prev_page.link_text }}</p>
+          </a>
+        {% endif %}
+        {% if page.next_page %}
+          <a href="{{ page.next_page.path }}" class="group flex-1 rounded-md border border-base-300 bg-base-100 p-4 text-right hover:border-primary/50" data-turbo-frame="main-content-frame" data-turbo-action="advance">
+            <p class="text-[11px] uppercase tracking-[0.18em] text-base-content/60">{{ 'page.doc.next' | t }}</p>
+            <p class="mt-1 font-medium text-base-content group-hover:text-primary">{{ page.next_page.link_text }}</p>
+          </a>
+        {% endif %}
+      </nav>
+
+      {% if site.settings.is_allow_feedback %}
+        <div class="mt-10 border-t border-base-300 pt-8">
+          {% render 'feedback_button', page: page %}
+        </div>
+      {% endif %}
+    </main>
+
+    {% comment %} 右：On this page {% endcomment %}
+    <aside class="hidden xl:block xl:sticky xl:top-24 xl:self-start">
+      <div class="rounded-md border border-base-300 bg-base-100 p-4 text-sm">
+        <p class="mb-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-base-content/60">{{ 'page.doc.on_this_page' | t }}</p>
+        <ul class="space-y-1" x-html="tocHtml"></ul>
+      </div>
+    </aside>
+  </div>
+</article>
+
+<script>
+  function docToc() {
+    return {
+      tocHtml: '',
+      collect() {
+        var root = this.$refs.content;
+        if (!root) return;
+        var headings = root.querySelectorAll('h2, h3');
+        if (!headings.length) { this.tocHtml = '<li class="text-xs text-base-content/50">{{ "page.doc.no_toc" | t | escape_once }}</li>'; return; }
+        var html = '';
+        headings.forEach((h, i) => {
+          if (!h.id) h.id = 'sec-' + i;
+          var level = h.tagName === 'H2' ? '' : ' pl-3 text-base-content/60';
+          html += '<li class="' + level + '"><a href="#' + h.id + '" class="line-clamp-1 hover:text-primary">' + h.textContent + '</a></li>';
+        });
+        this.tocHtml = html;
+      }
+    };
+  }
+</script>
+
+{% schema %}
+  {
+    "name": "t:schema.templates.page_doc.name",
+    "description": "t:schema.templates.page_doc.description",
+    "thumb_url": "images/theme/page.png",
+    "sub_page_templates": ["page"],
+    "settings": [
+      {
+        "id": "tagline",
+        "type": "text",
+        "label": "t:schema.templates.page_doc.settings.tagline.label"
+      },
+      {
+        "id": "version",
+        "type": "text",
+        "label": "t:schema.templates.page_doc.settings.version.label"
+      },
+      {
+        "id": "body",
+        "type": "richtext",
+        "to_markdown": true,
+        "label": "t:schema.templates.page_doc.settings.body.label"
+      },
+      {
+        "id": "related_models",
+        "type": "textarea",
+        "label": "t:schema.templates.page_doc.settings.related_models.label",
+        "info": "t:schema.templates.page_doc.settings.related_models.info",
+        "rows": 3
+      }
+    ]
+  }
+{% endschema %}

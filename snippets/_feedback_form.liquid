@@ -34,7 +34,7 @@
         {% endfor %}
       {% else %}
         {% for useful_type in useful_types %}
-          <button class="inline-flex py-4 badge badge-soft" name="{{ form.feedback_emoji_field_name }}" value="{{ useful_type.emoji |  escape_once }}" :class="{ 'bg-gray-200': selected === '{{ useful_type.emoji | escape_once }}' }">
+          <button class="inline-flex py-4 badge badge-soft" name="{{ form.feedback_emoji_field_name }}" value="{{ useful_type.emoji |  escape_once }}" :class="{ 'bg-base-300': selected === '{{ useful_type.emoji | escape_once }}' }">
             <span class="text-2xl">{{ useful_type.emoji }}</span>
             <span>{{ useful_type.label }}</span>
           </button>

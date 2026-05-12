@@ -1,0 +1,188 @@
+{%- comment -%}
+  选型中心（products-demo Catalog）：左侧 Directory + Filters，右侧标题、搜索、产品玻璃卡片网格。
+{%- endcomment -%}
+{% assign sort_rule = site.settings.sort_rule.value | default: site.settings.sort_rule | default: '-created_at' %}
+{% assign categories = page.children_in_list %}
+{% assign categories_count = categories | size %}
+{% capture _title %}{{ page.link_text }}{% endcapture %}
+{% set_meta_title _title | strip %}
+
+{% assign all_products = page.pages_in_list | order_by: sort_rule %}
+
+<div class="mx-auto w-full max-w-[1440px] px-6 pb-16 pt-8">
+  {% render '@shared/breadcrumb', breadcrumb: page.breadcrumb %}
+
+  <div class="mt-6 grid grid-cols-12 gap-8 lg:gap-12" x-data="{ category: 'all' }">
+    <div class="col-span-12 lg:col-span-3">
+      <div class="lg:sticky lg:top-32">
+        <h2 class="hub-mono-label mb-6 text-accent">{{ 'channels.products.directory' | t }}</h2>
+        <div class="space-y-4">
+          {% if categories_count > 0 %}
+            {% for cat in categories %}
+              {% assign cat_slug = cat.slug | default: cat.id %}
+              {% assign cat_children = cat.children_in_list %}
+              {% assign cat_children_count = cat_children | size %}
+              <div x-data="{ open: {% if forloop.first %}true{% else %}false{% endif %} }">
+                <button
+                  type="button"
+                  class="w-full cursor-pointer text-left text-[15px] font-semibold transition-colors"
+                  :class="open ? 'text-base-content' : 'text-base-content/60 hover:text-primary'"
+                  @click="open = !open"
+                >
+                  {{ cat.link_text }}
+                </button>
+                <div x-show="open" x-collapse class="mt-3 space-y-2 border-l border-base-300 py-1 pl-4">
+                  {% if cat_children_count > 0 %}
+                    {% for product in cat_children %}
+                      <a
+                        href="{{ product.path }}"
+                        class="block w-full text-left text-[14px] text-base-content/60 transition-colors hover:text-primary"
+                        data-turbo-frame="main-content-frame"
+                        data-turbo-action="advance"
+                      >
+                        {{ product.link_text }}
+                      </a>
+                    {% endfor %}
+                  {% else %}
+                    <button
+                      type="button"
+                      class="block w-full cursor-pointer text-left text-[14px] text-base-content/60 transition-colors hover:text-primary"
+                      @click="category = '{{ cat_slug | escape_once }}'"
+                    >
+                      {{ 'channels.products.browse_category' | t }}
+                    </button>
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <p class="text-sm text-base-content/60">{{ 'channels.products.no_categories' | t }}</p>
+          {% endif %}
+        </div>
+
+        <div class="mt-10 border-t border-base-300 pt-8">
+          <h2 class="mb-6 flex items-center gap-2 font-mono text-[12px] font-medium uppercase text-base-content/50">
+            <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg>
+            {{ 'channels.products.filters' | t }}
+          </h2>
+          <div class="space-y-8">
+            <div>
+              <h3 class="mb-4 text-[14px] font-semibold text-base-content">{{ 'channels.products.filter_payload' | t }}</h3>
+              <div class="space-y-3">
+                {% for f in '< 5 kg,5 - 10 kg,10 - 50 kg,> 50 kg' | split: ',' %}
+                  <label class="group flex cursor-pointer items-center gap-3">
+                    <div class="flex h-4 w-4 items-center justify-center rounded border border-base-300 bg-base-200 transition-colors group-hover:border-base-content"></div>
+                    <span class="text-[14px] text-base-content/70 transition-colors group-hover:text-base-content">{{ f }}</span>
+                  </label>
+                {% endfor %}
+              </div>
+            </div>
+            <div>
+              <h3 class="mb-4 text-[14px] font-semibold text-base-content">{{ 'channels.products.filter_ip' | t }}</h3>
+              <div class="space-y-3">
+                {% for f in 'IP54,IP65,IP67' | split: ',' %}
+                  <label class="group flex cursor-pointer items-center gap-3">
+                    <div class="flex h-4 w-4 items-center justify-center rounded border border-base-300 bg-base-200 transition-colors group-hover:border-base-content"></div>
+                    <span class="text-[14px] text-base-content/70 transition-colors group-hover:text-base-content">{{ f }}</span>
+                  </label>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-span-12 lg:col-span-9">
+      <div class="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-center">
+        <h1 class="m-0 font-display text-4xl font-bold leading-none tracking-tight text-base-content">{{ page.link_text }}</h1>
+        <form action="{{ site.search_path }}" method="get" class="relative w-full md:w-auto" data-turbo-frame="main-content-frame">
+          <svg class="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-base-content/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="search" name="q" class="hub-search-input" placeholder="{{ 'channels.products.search_placeholder' | t }}" />
+        </form>
+      </div>
+      {% assign intro = page.settings.intro | strip %}
+      {% if intro != blank %}
+        <p class="mb-8 max-w-3xl text-sm leading-relaxed text-base-content/70 sm:text-base">{{ intro }}</p>
+      {% endif %}
+
+      {% assign products_count = all_products | size %}
+      {% if products_count == 0 %}
+        {% render '@shared/empty', message: 'channels.products.empty' | t %}
+      {% else %}
+        <div class="mb-4 text-sm text-base-content/70">
+          <span x-text="category === 'all' ? '{{ "channels.products.showing_all" | t | escape_once }}' : '{{ "channels.products.showing_filter" | t | escape_once }}'"></span>
+        </div>
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+          {% paginate_tag all_products, per: 24 %}
+            {% for product in all_products %}
+              {% assign parent_slug = product.parent.slug | default: product.parent.id | default: '' %}
+              <article
+                data-product-card
+                data-category="{{ parent_slug | escape_once }}"
+                x-show="category === 'all' || category === '{{ parent_slug | escape_once }}'"
+                class="hub-liquid-card-interactive group flex h-full cursor-pointer flex-col"
+              >
+                <div class="flex flex-1 flex-col p-8">
+                  <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl border border-base-200 bg-base-200 shadow-sm transition-transform group-hover:scale-105">
+                    {% assign cover = product.settings.thumb_image_url | default: product.settings.hero_image_url | default: product.settings.logo_image_url | presence %}
+                    {% if cover %}
+                      <img src="{{ cover }}" alt="" class="h-6 w-6 rounded-lg object-cover" loading="lazy" />
+                    {% else %}
+                      <svg class="h-6 w-6 text-base-content" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                    {% endif %}
+                  </div>
+                  <h3 class="font-display text-2xl font-bold text-base-content">{{ product.link_text }}</h3>
+                  {% if product.settings.product_model != blank %}
+                    <p class="mb-6 font-mono text-[13px] text-base-content/60">{{ product.settings.product_model }}</p>
+                  {% endif %}
+                  {% assign spec_raw = product.settings.specifications | strip %}
+                  {% assign spec_preview = spec_raw | newline_to_br | split: '<br />' %}
+                  <div class="mb-8 flex-1 space-y-3">
+                    {% assign shown = 0 %}
+                    {% for line in spec_preview %}
+                      {% if shown < 4 %}
+                        {% assign line = line | strip %}
+                        {% if line != blank %}
+                          {% assign parts = line | split: '|' %}
+                          {% assign sk = parts[0] | strip %}
+                          {% assign sv = parts[1] | strip %}
+                          <div class="flex items-center justify-between border-b border-base-200 pb-3 text-[14px]">
+                            <span class="text-base-content/60">{{ sk }}</span>
+                            <span class="font-medium text-base-content">{{ sv }}</span>
+                          </div>
+                          {% assign shown = shown | plus: 1 %}
+                        {% endif %}
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                  <a href="{{ product.path }}" class="hub-pill-outline mt-6 w-full justify-center text-center no-underline" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ 'channels.products.view_detail' | t }}</a>
+                </div>
+              </article>
+            {% endfor %}
+            <div class="col-span-full mt-4">
+              {% render '@shared/paginate' %}
+            </div>
+          {% endpaginate_tag %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "t:schema.templates.channel_products.name",
+    "description": "t:schema.templates.channel_products.description",
+    "thumb_url": "images/theme/index-card.png",
+    "sub_page_templates": ["page"],
+    "settings": [
+      {
+        "id": "intro",
+        "type": "textarea",
+        "label": "t:schema.templates.channel.settings.intro.label",
+        "info": "t:schema.templates.channel.settings.intro.info"
+      }
+    ]
+  }
+{% endschema %}

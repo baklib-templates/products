@@ -1,0 +1,118 @@
+{%- comment -%}
+  转化对话框：获取方案 / 联系工程师 / 申请试用 三选一入口。
+  - 优先使用站点反馈表单（form_tag 'feedback'）提交一条 message，便于在 CMS 中跟进；
+  - 当站点未启用反馈或缺少 message 字段时，自动降级为 mailto:lead_email 摘要。
+{%- endcomment -%}
+{% assign quote_label = site.settings.cta_quote_label | default: 'hub.cta.quote' | t %}
+{% assign engineer_label = site.settings.cta_engineer_label | default: 'hub.cta.engineer' | t %}
+{% assign trial_label = site.settings.cta_trial_label | default: 'hub.cta.trial' | t %}
+{% assign lead_email = site.settings.lead_email | strip %}
+
+{% assign feedback_message_enabled = false %}
+{% if site.settings.is_allow_feedback and site.plugins.feedback.message_enabled %}
+  {% assign feedback_message_enabled = true %}
+{% endif %}
+
+<dialog id="lead-dialog" class="modal" x-data="leadDialog()" x-init="$watch('open', v => $el.toggleAttribute('open', v))">
+  <div class="modal-box max-w-xl rounded-2xl border border-base-300 bg-base-100 p-0 text-base-content shadow-xl">
+    <div class="flex items-start justify-between border-b border-base-300 px-6 py-4">
+      <div>
+        <h2 class="text-lg font-semibold tracking-tight" x-text="title">{{ quote_label }}</h2>
+        <p class="mt-1 text-xs text-base-content/60">{{ 'hub.lead.subtitle' | t }}</p>
+      </div>
+      <form method="dialog">
+        <button class="text-base-content/50 hover:text-base-content/80" aria-label="{{ 'generic.buttons.close' | t }}">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </form>
+    </div>
+
+    <div class="flex gap-2 border-b border-base-300 px-6 py-3 text-xs">
+      <button type="button" class="rounded-full px-3 py-1.5 transition" :class="intent === 'quote' ? 'bg-primary text-primary-content shadow-sm' : 'bg-base-200 text-base-content/70 hover:bg-base-300'" @click="setIntent('quote', '{{ quote_label | escape_once }}')">{{ quote_label }}</button>
+      <button type="button" class="rounded-full px-3 py-1.5 transition" :class="intent === 'engineer' ? 'bg-primary text-primary-content shadow-sm' : 'bg-base-200 text-base-content/70 hover:bg-base-300'" @click="setIntent('engineer', '{{ engineer_label | escape_once }}')">{{ engineer_label }}</button>
+      <button type="button" class="rounded-full px-3 py-1.5 transition" :class="intent === 'trial' ? 'bg-primary text-primary-content shadow-sm' : 'bg-base-200 text-base-content/70 hover:bg-base-300'" @click="setIntent('trial', '{{ trial_label | escape_once }}')">{{ trial_label }}</button>
+    </div>
+
+    {% if feedback_message_enabled %}
+      {% form_tag 'feedback', page: page %}
+        <div class="space-y-4 px-6 py-5">
+          <label class="block text-sm">
+            <span class="font-medium text-base-content/80">{{ 'hub.lead.fields.message' | t }}</span>
+            <textarea
+              name="{{ form.feedback_message_field_name }}"
+              x-ref="message"
+              required
+              rows="6"
+              class="mt-1 w-full rounded-md border border-base-300 bg-base-100 p-3 text-sm shadow-inner focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+              :placeholder="placeholder"
+            ></textarea>
+          </label>
+          <p class="text-[11px] text-base-content/60">{{ 'hub.lead.feedback_hint' | t }}</p>
+          <div class="flex items-center justify-end gap-2">
+            <button type="button" class="btn btn-sm border-base-300 bg-base-100 text-base-content/80" onclick="this.closest('dialog').close()">{{ 'generic.buttons.close' | t }}</button>
+            <button type="submit" class="btn btn-sm bg-primary text-primary-content shadow-sm hover:bg-primary/90">{{ 'hub.lead.submit' | t }}</button>
+          </div>
+        </div>
+      {% endform_tag %}
+    {% else %}
+      <div class="space-y-4 px-6 py-5 text-sm">
+        <label class="block">
+          <span class="font-medium text-base-content/80">{{ 'hub.lead.fields.message' | t }}</span>
+          <textarea x-ref="message" rows="6" class="mt-1 w-full rounded-md border border-base-300 bg-base-100 p-3 shadow-inner focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20" :placeholder="placeholder"></textarea>
+        </label>
+        {% if lead_email != blank %}
+          <p class="text-[11px] text-base-content/60">{{ 'hub.lead.mailto_hint' | t }}: <a class="text-primary hover:underline" href="mailto:{{ lead_email }}">{{ lead_email }}</a></p>
+        {% else %}
+          <p class="text-[11px] text-base-content/60">{{ 'hub.lead.unavailable' | t }}</p>
+        {% endif %}
+        <div class="flex items-center justify-end gap-2">
+          <button type="button" class="btn btn-sm border-base-300 bg-base-100 text-base-content/80" onclick="this.closest('dialog').close()">{{ 'generic.buttons.close' | t }}</button>
+          {% if lead_email != blank %}
+            <button type="button" class="btn btn-sm bg-primary text-primary-content shadow-sm hover:bg-primary/90" @click="sendMail('{{ lead_email | escape_once }}')">{{ 'hub.lead.send_mail' | t }}</button>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button>{{ 'generic.buttons.close' | t }}</button>
+  </form>
+</dialog>
+
+<script>
+  function leadDialog() {
+    return {
+      open: false,
+      intent: 'quote',
+      title: '{{ quote_label | escape_once }}',
+      placeholder: '{{ "hub.lead.fields.message_placeholder" | t | escape_once }}',
+      init() {
+        document.addEventListener('click', (e) => {
+          var trigger = e.target.closest && e.target.closest('[data-lead-trigger]');
+          if (!trigger) return;
+          e.preventDefault();
+          var t = trigger.getAttribute('data-lead-intent') || 'quote';
+          var label = trigger.getAttribute('data-lead-label');
+          if (label) this.setIntent(t, label); else this.setIntent(t);
+          var dlg = document.getElementById('lead-dialog');
+          if (dlg && typeof dlg.showModal === 'function') dlg.showModal();
+        });
+      },
+      setIntent(t, label) {
+        this.intent = t;
+        if (label) this.title = label;
+        else if (t === 'engineer') this.title = '{{ engineer_label | escape_once }}';
+        else if (t === 'trial') this.title = '{{ trial_label | escape_once }}';
+        else this.title = '{{ quote_label | escape_once }}';
+        var ctx = (typeof page !== 'undefined' && page.link_text) ? page.link_text : '';
+        this.placeholder = (this.title + (ctx ? ' · ' + ctx : '') + '\n\n— ' + '{{ "hub.lead.fields.message_placeholder" | t | escape_once }}');
+      },
+      sendMail(addr) {
+        var body = (this.$refs.message ? this.$refs.message.value : '') || this.placeholder;
+        var subject = encodeURIComponent('[' + this.title + '] ' + (document.title || ''));
+        var b = encodeURIComponent(body);
+        window.location.href = 'mailto:' + addr + '?subject=' + subject + '&body=' + b;
+      }
+    };
+  }
+</script>

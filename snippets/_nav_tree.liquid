@@ -1,25 +1,39 @@
-{%# locals:(nav_tree:, depth: 0) %}
+{%# locals:(nav_tree:, depth: 0, current_path: nil) %}
 {% unless depth %}
   {% assign depth = 0 %}
 {% endunless %}
 {% if depth == 0 %}
-    <ul class="menu w-full" id="nav-tree" data-turbo-permanent data-turbo-frame="frame--page-detail" data-controller="nav-tree" data-nav-tree-active-class="menu-active">
+  <ul class="menu menu-sm w-full text-base-content/80" data-controller="nav-tree" data-nav-tree-active-class="text-primary">
 {% else %}
-  <ul>
+  <ul class="ml-2 border-l border-base-300 pl-3">
 {% endif %}
 
-  {% for tree in nav_tree %}
-    {% if tree.children %}
-      <li>
-        <details>
-          <summary data-nav-tree-target="item"><a href="{{ tree.path }}">{{ tree.link_text }}</a></summary>
-          {% assign newDepth = depth | plus: 1 %}
-          {% render 'nav_tree', nav_tree: tree.children, depth: newDepth %}
-        </details>
-      </li>
-    {% else %}
-      <li><a data-nav-tree-target="item" href="{{ tree.path }}">{{ tree.link_text }}</a></li>
-    {% endif %}
-  {% endfor %}
-
+{% for tree in nav_tree %}
+  {% assign is_active = false %}
+  {% if current_path != nil and tree.path == current_path %}
+    {% assign is_active = true %}
+  {% endif %}
+  {% assign _children_count = tree.children | size %}
+  {% if tree.children and _children_count > 0 %}
+    <li>
+      <details {% if is_active %}open{% endif %}>
+        <summary data-nav-tree-target="item" class="font-medium {% if is_active %}text-primary{% endif %}">
+          <a href="{{ tree.path }}" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ tree.link_text }}</a>
+        </summary>
+        {% assign newDepth = depth | plus: 1 %}
+        {% render 'nav_tree', nav_tree: tree.children, depth: newDepth, current_path: current_path %}
+      </details>
+    </li>
+  {% else %}
+    <li>
+      <a
+        data-nav-tree-target="item"
+        href="{{ tree.path }}"
+        class="{% if is_active %}text-primary font-medium{% endif %}"
+        data-turbo-frame="main-content-frame"
+        data-turbo-action="advance"
+      >{{ tree.link_text }}</a>
+    </li>
+  {% endif %}
+{% endfor %}
 </ul>

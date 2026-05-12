@@ -1,0 +1,70 @@
+{%- comment -%}
+  Product FAQs：hub 玻璃卡片 + Alpine 手风琴。
+{%- endcomment -%}
+{% assign model = model | default: page.settings.product_model | strip %}
+{% assign faqs_root_path = site.settings.faqs_root_path | default: '/faqs' %}
+{% assign faqs_root = site.pages[faqs_root_path] %}
+{% assign candidates = faqs_root.pages_in_list | order_by: '-edited_at' %}
+
+<header class="mb-6 flex items-baseline justify-between">
+  <div>
+    <p class="hub-mono-label mb-2 text-accent">{{ 'page.product.faqs.eyebrow' | t }}</p>
+    <h2 class="hub-section-title m-0">{{ 'page.product.faqs.title' | t }}</h2>
+  </div>
+  {% if faqs_root %}
+    <a href="{{ faqs_root_path }}" class="text-sm font-medium text-primary hover:underline" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ 'page.product.faqs.view_all' | t }} →</a>
+  {% endif %}
+</header>
+
+{% if faqs_root == nil %}
+  {% render '@shared/empty', message: 'page.product.faqs.not_configured' | t %}
+{% else %}
+  {% assign matched_count = 0 %}
+  {% assign matched_limit = 8 %}
+  <div class="space-y-4">
+    {% for q in candidates %}
+      {% if matched_count < matched_limit %}
+        {% assign is_match = false %}
+        {% if model != blank %}
+          {% if q.settings.product_model == model %}{% assign is_match = true %}{% endif %}
+          {% unless is_match %}
+            {% assign rel = q.settings.related_models | strip %}
+            {% if rel != blank %}
+              {% assign rel_lines = rel | newline_to_br | split: '<br />' %}
+              {% for rm in rel_lines %}
+                {% assign rm = rm | strip %}
+                {% if rm == model %}{% assign is_match = true %}{% endif %}
+              {% endfor %}
+            {% endif %}
+          {% endunless %}
+          {% unless is_match %}
+            {% for t in q.tags %}
+              {% if t.name == model %}{% assign is_match = true %}{% endif %}
+            {% endfor %}
+          {% endunless %}
+        {% endif %}
+        {% if is_match %}
+          {% assign matched_count = matched_count | plus: 1 %}
+          <div class="hub-liquid-card w-full transition-all duration-300" x-data="{ open: false }">
+            <button type="button" class="flex w-full items-center justify-between border-0 bg-transparent px-8 py-6 text-left focus:outline-none" @click="open = !open">
+              <span class="text-[16px] font-medium text-base-content">{{ q.link_text }}</span>
+              <svg class="h-5 w-5 shrink-0 text-base-content/50 transition-transform duration-300" :class="open ? 'rotate-180' : ''" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div x-show="open" x-collapse class="border-t border-base-200 px-8 pb-6 pt-4">
+              <div class="prose prose prose-sm max-w-none text-[15px] leading-relaxed text-base-content/70">
+                {{ q.settings.body | default: q.settings.answer }}
+              </div>
+              <div class="mt-4 flex items-center justify-between text-[11px] text-base-content/60">
+                <span>{{ q.edited_at | default: q.published_at | date: '%Y-%m-%d' }}</span>
+                <a href="{{ q.path }}" class="font-medium text-primary hover:underline" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ 'page.product.faqs.view_detail' | t }} →</a>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </div>
+  {% if matched_count == 0 %}
+    {% render '@shared/empty', message: 'page.product.faqs.empty' | t %}
+  {% endif %}
+{% endif %}

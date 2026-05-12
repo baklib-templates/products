@@ -1,9 +1,9 @@
 [
   {
     "name": "theme_info",
-    "theme_name": "partners",
-    "theme_label": "partners",
-    "theme_description": "企业级生态系统与集成枢纽。采用前沿的 Bento Grid 与玻璃拟物风格，完美承载技术集成（Integrations）与渠道代理商（Agencies）的展示与线索分发，助力企业构建坚实的商业生态护城河。",
+    "theme_name": "products",
+    "theme_label": "product hub",
+    "theme_description": "B2B 企业 PIM 与产品数字资产枢纽。以「单品」为锚点，通过中心辐射结构聚合参数、物料、文档、知识库与客户案例；理性工业风格、Teal 主色，去电商化。",
     "theme_version": "1.0.0",
     "theme_syntax_version": "v2",
     "theme_scope": "cms",
@@ -25,37 +25,37 @@
     ],
     "recommendations": {
       "color_schemas": {
-        "ecosystem": {
-          "name": "生态深空",
+        "industrial_teal": {
+          "name": "工业 Teal",
           "colors": {
-            "--theme-color-primary": "#0f172a",
-            "--theme-color-secondary": "#1d4ed8",
+            "--theme-color-primary": "#0d9488",
+            "--theme-color-secondary": "#0f172a",
+            "--theme-color-accent": "#64748b",
+            "--theme-color-info": "#0284c7",
+            "--theme-color-success": "#16a34a",
+            "--theme-color-warning": "#d97706"
+          }
+        },
+        "graphite": {
+          "name": "石墨灰",
+          "colors": {
+            "--theme-color-primary": "#1e293b",
+            "--theme-color-secondary": "#0d9488",
             "--theme-color-accent": "#94a3b8",
-            "--theme-color-info": "#38bdf8",
+            "--theme-color-info": "#0ea5e9",
             "--theme-color-success": "#22c55e",
             "--theme-color-warning": "#f59e0b"
           }
         },
-        "fashion": {
-          "name": "时尚",
+        "deep_ocean": {
+          "name": "深海蓝",
           "colors": {
-            "--theme-color-primary": "#3D50E0",
-            "--theme-color-secondary": "#E91E63",
-            "--theme-color-accent": "#AAAAAA",
-            "--theme-color-info": "#2196F3",
-            "--theme-color-success": "#4CAF50",
-            "--theme-color-warning": "#FFC107"
-          }
-        },
-        "old_school": {
-          "name": "复古",
-          "colors": {
-            "--theme-color-primary": "#9C27B0",
-            "--theme-color-secondary": "#673AB7",
-            "--theme-color-accent": "#AAAAAA",
-            "--theme-color-info": "#418CC8",
-            "--theme-color-success": "#29B52F",
-            "--theme-color-warning": "#FFC107"
+            "--theme-color-primary": "#0369a1",
+            "--theme-color-secondary": "#0f172a",
+            "--theme-color-accent": "#64748b",
+            "--theme-color-info": "#06b6d4",
+            "--theme-color-success": "#16a34a",
+            "--theme-color-warning": "#ea580c"
           }
         }
       }
@@ -84,37 +84,6 @@
         "placeholder": "t:schema.generic.settings.copyright_info.placeholder"
       },
       {
-        "id": "partner_lead_email",
-        "type": "text",
-        "label": "t:schema.generic.settings.partner_lead_email.label",
-        "info": "t:schema.generic.settings.partner_lead_email.info",
-        "placeholder": "partners@example.com"
-      },
-      {
-        "id": "partner_type",
-        "type": "textarea",
-        "label": "t:schema.generic.settings.partner_type.label",
-        "info": "t:schema.generic.settings.partner_type.info",
-        "rows": 6,
-        "default": "技术&集成\n渠道&服务商"
-      },
-      {
-        "id": "partner_region",
-        "type": "textarea",
-        "label": "t:schema.generic.settings.partner_region.label",
-        "info": "t:schema.generic.settings.partner_region.info",
-        "rows": 6,
-        "default": "北美\n北欧\n亚太"
-      },
-      {
-        "id": "partner_tier",
-        "type": "textarea",
-        "label": "t:schema.generic.settings.partner_tier.label",
-        "info": "t:schema.generic.settings.partner_tier.info",
-        "rows": 6,
-        "default": "金牌\n银牌"
-      },
-      {
         "id": "sort_rule",
         "type": "select",
         "label": "t:schema.generic.settings.sort_rule.label",
@@ -139,7 +108,7 @@
         "id": "is_show_visit_count",
         "type": "checkbox",
         "label": "t:schema.generic.settings.is_show_visit_count.label",
-        "default": true
+        "default": false
       },
       {
         "id": "is_allow_header",
@@ -152,6 +121,79 @@
         "type": "checkbox",
         "label": "t:schema.generic.settings.is_allow_footer.label",
         "default": true
+      }
+    ]
+  },
+  {
+    "name": "t:schema.hub.name",
+    "settings": [
+      {
+        "id": "products_root_path",
+        "type": "text",
+        "label": "t:schema.hub.settings.products_root_path.label",
+        "info": "t:schema.hub.settings.products_root_path.info",
+        "default": "/products",
+        "placeholder": "/products"
+      },
+      {
+        "id": "cases_root_path",
+        "type": "text",
+        "label": "t:schema.hub.settings.cases_root_path.label",
+        "info": "t:schema.hub.settings.cases_root_path.info",
+        "default": "/cases",
+        "placeholder": "/cases"
+      },
+      {
+        "id": "docs_root_path",
+        "type": "text",
+        "label": "t:schema.hub.settings.docs_root_path.label",
+        "info": "t:schema.hub.settings.docs_root_path.info",
+        "default": "/docs",
+        "placeholder": "/docs"
+      },
+      {
+        "id": "downloads_root_path",
+        "type": "text",
+        "label": "t:schema.hub.settings.downloads_root_path.label",
+        "info": "t:schema.hub.settings.downloads_root_path.info",
+        "default": "/downloads",
+        "placeholder": "/downloads"
+      },
+      {
+        "id": "faqs_root_path",
+        "type": "text",
+        "label": "t:schema.hub.settings.faqs_root_path.label",
+        "info": "t:schema.hub.settings.faqs_root_path.info",
+        "default": "/faqs",
+        "placeholder": "/faqs"
+      },
+      {
+        "id": "cta_quote_label",
+        "type": "text",
+        "label": "t:schema.hub.settings.cta_quote_label.label",
+        "info": "t:schema.hub.settings.cta_quote_label.info",
+        "default": "t:schema.hub.settings.cta_quote_label.default"
+      },
+      {
+        "id": "cta_engineer_label",
+        "type": "text",
+        "label": "t:schema.hub.settings.cta_engineer_label.label",
+        "info": "t:schema.hub.settings.cta_engineer_label.info",
+        "default": "t:schema.hub.settings.cta_engineer_label.default"
+      },
+      {
+        "id": "cta_trial_label",
+        "type": "text",
+        "label": "t:schema.hub.settings.cta_trial_label.label",
+        "info": "t:schema.hub.settings.cta_trial_label.info",
+        "default": "t:schema.hub.settings.cta_trial_label.default"
+      },
+      {
+        "id": "lead_email",
+        "type": "text",
+        "label": "t:schema.hub.settings.lead_email.label",
+        "info": "t:schema.hub.settings.lead_email.info",
+        "placeholder": "sales@example.com"
       }
     ]
   },

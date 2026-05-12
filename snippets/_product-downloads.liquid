@@ -1,0 +1,62 @@
+{%- comment -%}
+  Product Downloads（紧耦合）：products-demo 风格网格卡片。
+{%- endcomment -%}
+{% assign raw = page.settings.downloads | strip %}
+{% assign lines = raw | newline_to_br | split: '<br />' %}
+{% assign rows_count = 0 %}
+{% for line in lines %}
+  {% assign line = line | strip %}
+  {% if line != blank %}{% assign rows_count = rows_count | plus: 1 %}{% endif %}
+{% endfor %}
+
+<header class="mb-6 flex items-baseline justify-between">
+  <div>
+    <p class="hub-mono-label mb-2 text-accent">{{ 'page.product.downloads.eyebrow' | t }}</p>
+    <h2 class="hub-section-title m-0">{{ 'page.product.downloads.title' | t }}</h2>
+  </div>
+  <span class="font-mono text-xs text-base-content/50">{{ rows_count }}</span>
+</header>
+
+{% if rows_count == 0 %}
+  {% render '@shared/empty', message: 'page.product.downloads.empty' | t %}
+{% else %}
+  <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+    {% for line in lines %}
+      {% assign line = line | strip %}
+      {% if line != blank %}
+        {% assign parts = line | split: '|' %}
+        {% assign name = parts[0] | strip %}
+        {% assign ftype = parts[1] | strip | downcase %}
+        {% assign url = parts[2] | strip %}
+        {% assign size = parts[3] | strip %}
+        {% if ftype == blank and url != blank %}
+          {% assign _seg = url | split: '?' | first %}
+          {% assign _ext_parts = _seg | split: '.' %}
+          {% assign ftype = _ext_parts.last | downcase %}
+        {% endif %}
+        <div class="hub-liquid-card group cursor-pointer p-6 transition-colors hover:bg-base-200">
+          <div class="flex flex-col gap-4">
+            <div class="flex h-12 w-12 items-center justify-center rounded-xl border border-base-200 bg-base-100 font-mono text-[12px] text-accent shadow-sm transition-transform group-hover:scale-105">
+              {% if ftype != blank %}{{ ftype | upcase | truncate: 4, '' }}{% else %}FILE{% endif %}
+            </div>
+            <div>
+              <h4 class="mb-1 text-[15px] font-medium text-base-content">{{ name | default: url }}</h4>
+              {% if size != blank %}<span class="font-mono text-[12px] text-base-content/50">{{ size }}</span>{% endif %}
+            </div>
+          </div>
+          <div class="mt-4">
+            {% if url != blank %}
+              <a href="{{ url }}" {% if url contains '://' %}target="_blank" rel="noopener noreferrer"{% endif %} class="inline-flex text-sm font-medium text-primary hover:text-base-content">
+                {{ 'channels.downloads.download' | t }} →
+              </a>
+            {% else %}
+              <button type="button" class="text-sm font-medium text-primary hover:text-base-content" data-lead-trigger data-lead-intent="quote" data-lead-label="{{ "page.product.downloads.request_access" | t | escape_once }} · {{ name | escape_once }}">
+                {{ 'page.product.downloads.request_access' | t }}
+              </button>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endif %}
