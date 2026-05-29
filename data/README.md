@@ -220,3 +220,191 @@ ABB Library 值得借鉴的设计点：
 - [ ] 在 `screenshots/` 下补齐统一命名对照截图（`brand-page-date.png`，多断点加 `-desktop/-mobile`）
 - [ ] 如需沉淀页面原始结构，新增子目录并记录采集方式与时间戳（避免过期 DOM 误导）
 - [ ] 调研「**对比页（compare）**」「**报价单（quote sheet）**」「**型号配置器（configurator）**」等扩展模板，评估是否纳入下一个迭代
+
+---
+
+## 六、落地设计建议（模板嵌套层 + Schema 信息架构）
+
+围绕「**别再用 PDF / 网盘把产品资料拼成找不到的散件**」这个核心诉求，建议把本模板定义为：**企业对外可检索、可关联、可持续运营的在线产品目录库**。  
+设计目标不是把所有资料“堆上网”，而是把资料变成“**按产品锚点可回收、按场景可复用、按角色可直达**”的结构化资产。
+
+### 1) 模板嵌套层（推荐 4 层）
+
+建议使用「**布局层 → 频道层 → 实体层 → 片段层**」的分层嵌套，避免每个页面重复造轮子。
+
+1. **布局层（Layout Layer）**  
+   负责全局框架：头部导航、侧栏规则、面包屑、SEO 元信息、页脚与全局 CTA（联系工程师 / 获取方案）。
+
+2. **频道层（Channel Layer）**  
+   对应产品中心、资料下载、案例、文档、FAQ 等频道首页；统一处理筛选器、排序、分页、空状态与频道说明。
+
+3. **实体层（Entity Layer）**  
+   对应具体详情页：产品详情、案例详情、文档详情；以“中心辐射”组织内容区块（概述、参数、下载、相关案例、相关 FAQ）。
+
+4. **片段层（Snippet Layer）**  
+   可复用组件：参数表、文件列表、标签组、关联内容卡片、Sticky 子导航、反馈表单。  
+   原则：**展示逻辑在片段层，数据语义在 schema 层**，避免把业务规则写死在模板 HTML。
+
+### 2) Schema 信息架构（推荐实体模型）
+
+建议至少拆成 6 类核心实体，并用 `model_code` / `slug` / `tags` 建立可追踪关联。
+
+1. **Product（产品）**：目录库主锚点  
+   - 标识字段：`product_id`、`model_code`、`slug`、`status`（active/eol）  
+   - 展示字段：`name`、`series`、`summary`、`highlights[]`、`hero_media`  
+   - 结构字段：`spec_groups[]`（参数分组）、`industries[]`、`scenarios[]`  
+   - 关联字段：`downloads[]`、`doc_refs[]`、`faq_refs[]`、`case_refs[]`、`related_products[]`
+
+2. **DownloadAsset（下载资料）**：文件资产对象化  
+   - 基础字段：`asset_id`、`title`、`file_url`、`file_type`、`file_size`  
+   - 业务字段：`doc_kind`（datasheet/cad/manual/firmware）、`version`、`language`、`release_date`  
+   - 权限字段：`access_level`（public/form-gated/internal）  
+   - 关联字段：`applicable_models[]`、`product_ids[]`
+
+3. **DocArticle（技术文档）**：工程内容沉淀  
+   - 结构字段：`doc_id`、`title`、`toc`、`content`、`version`、`updated_at`  
+   - 分类字段：`doc_type`（guide/api/troubleshooting/release-note）  
+   - 关联字段：`product_ids[]`、`scenario_tags[]`
+
+4. **CaseStudy（客户案例）**：价值证明对象  
+   - 基础字段：`case_id`、`title`、`industry`、`region`  
+   - 叙事字段：`pain_points`、`solution`、`outcomes[]`（量化指标）  
+   - 关联字段：`product_ids[]`、`download_refs[]`
+
+5. **FaqItem（常见问题）**：售前售后知识闭环  
+   - 基础字段：`faq_id`、`question`、`answer`、`group`、`priority`  
+   - 关联字段：`product_ids[]`、`doc_refs[]`、`keywords[]`
+
+6. **Taxonomy（分类与标签）**：跨频道统一语义  
+   - `industries`（行业）、`scenarios`（场景）、`series`（系列）、`doc_kind`（文档类型）、`language`、`compliance_tags`  
+   - 用于所有频道的过滤器统一映射，保证“同一个词，同一个筛选结果”。
+
+### 3) 关键关系设计（避免“找不到”）
+
+- **一切资料都必须可追溯到产品锚点**：文件、FAQ、案例、文档都可反向命中 `product_id/model_code`。  
+- **同一资料允许多产品复用**：通过 `applicable_models[]` 避免重复上传和版本漂移。  
+- **频道检索统一走 Taxonomy**：产品页、下载页、案例页使用同一套行业/场景/系列词表。  
+- **文件必须带最小可读元数据**：类型、大小、版本、语言、更新时间，减少“点开才发现不对”。  
+- **状态字段前置**：EOL 产品、过期资料、草稿文档都要可过滤，防止旧资料混入生产检索。
+
+### 4) 实施顺序（最小可用版本）
+
+1. 先建 `Product + DownloadAsset + Taxonomy` 三类 schema，打通“产品页 ↔ 下载页”。
+2. 再接入 `FaqItem + DocArticle`，形成“查型号 → 查资料 → 查问题”的闭环。
+3. 最后补 `CaseStudy` 与跨频道推荐，完成“选型 + 证明 + 转化”的完整叙事。
+
+按这个分层和架构推进，`products` 模板可以从“页面展示”升级为企业的**在线产品目录底座**：  
+资料不再散落在 PDF 和网盘里，而是围绕产品主键形成可检索、可关联、可运营的长期数字资产。
+
+---
+
+## 七、V1 开发计划（产品目录库 / 只关心产品本身）
+
+为降低首版落地风险，把开发拆成两个阶段：
+
+- **V1（本计划）——产品目录库**：只做「产品本身」的录入、分类与检索；**不**实现 `DownloadAsset`、`DocArticle`、`CaseStudy`、`FaqItem` 这些关联实体的来源与渲染。
+- **V2（后续）——关联内容**：再补「资料 / 文档 / 案例 / FAQ」的数据来源（站内栏目、外部站点或 API）与界面。
+
+> V1 中，产品详情的关联字段（`downloads[]`、`doc_refs[]` 等）**只声明、不消费**：先把字段位留出来，数据来源与展示放到 V2，避免后续改 schema 造成数据迁移。
+
+### 1) 模板结构（index → channel → page）
+
+复用本主题已存在的模板文件，三层各司其职：
+
+| 层级 | 角色 | 对应模板文件 | 职责（V1） |
+|---|---|---|---|
+| `index` | 产品目录库总览（dictionary） | [`templates/index.liquid`](../templates/index.liquid) | 全量产品入口；按 `series` / `industries` / `scenarios` 提供分面导航，列出栏目与精选产品。 |
+| `channel` | 基于栏目分类的产品列表 | [`templates/channel.products.liquid`](../templates/channel.products.liquid) | 单个栏目下的产品 dictionary；栏目头图 + 描述 + 产品卡片网格 + 分页。 |
+| `page` | 产品详情页 | [`templates/page.product.liquid`](../templates/page.product.liquid) | 单品详情：标题、型号、标签分类、参数分组、主图、富文本正文。 |
+
+> V1 暂不启用 `channel.downloads / channel.docs / channel.cases / channel.faqs` 与对应 `page.*`，保留文件但不进入导航主线。
+
+### 2) Schema 设计
+
+> 说明：下方 JSON 为**信息架构示意**，便于评审字段与 type；落地到 `{% schema %}` / `config/settings_schema.json` 时，面向用户的 `label` / `info` 须改为 `t:schema.*` 国际化键（参见主题开发规范），此处用中文仅为可读。
+
+#### 2.1 全局（`config/settings_schema.json`）
+
+新增一个「分类词表」分组，三个 `textarea`，**每行一个**，作为站点级受控词表，供产品页的分类字段引用：
+
+```json
+{
+  "name": "t:schema.taxonomy.name",
+  "settings": [
+    { "id": "industries", "type": "textarea", "label": "行业分类（每行一个）" },
+    { "id": "scenarios",  "type": "textarea", "label": "场景分类（每行一个）" },
+    { "id": "series",     "type": "textarea", "label": "系列分类（每行一个）" }
+  ]
+}
+```
+
+读取：`{{ site.settings.industries }}`；在模板里 `split: "\n"` 后用于渲染与筛选。
+
+#### 2.2 栏目（channel schema）
+
+栏目层只需「头图 + 描述」用于列表页头部：
+
+```json
+{
+  "settings": [
+    { "id": "thumb_image_url", "type": "image_picker", "label": "栏目缩略图" },
+    { "id": "description",     "type": "textarea",     "label": "栏目描述" }
+  ]
+}
+```
+
+读取：`{{ page.settings.thumb_image_url }}` / `{{ page.settings.description }}`（`image_picker` 返回图片地址字符串）。
+
+#### 2.3 产品详情（page schema，模板 `page.product`）
+
+| 分组 | 字段 id | type | 说明 |
+|---|---|---|---|
+| 基础 | `title` | （页面自带标题） | 产品展示名称，用页面原生 `title`，无需重复声明 |
+| 基础 | `model_code` | `text` | 产品唯一标识 / 型号，用于检索与（V2）关联匹配 |
+| 标签分类 | `tags` | `tag_picker`（`multiple`） | 通用标签，读 `page.settings.tags` |
+| 标签分类 | `industries` | `select`（`multiple`，`choices_from: "$site.industries"`） | 行业分类，候选来自全局 `industries` |
+| 标签分类 | `scenarios` | `select`（`multiple`，`choices_from: "$site.scenarios"`） | 场景分类，候选来自全局 `scenarios` |
+| 标签分类 | `series` | `select`（`choices_from: "$site.series"`） | 系列分类，候选来自全局 `series` |
+| 结构 | `spec_groups` | `textarea`（约定式） | 参数分组（见下方说明，V1 用约定文本，V2 视需要升级） |
+| 产品信息 | `thumb_image_url` | `image_picker` | 主图 / 缩略图 |
+| 产品信息 | `description` | `textarea` | 一句话摘要，用于卡片与 SEO |
+| 产品信息 | `content` | `richtext`（`to_markdown: true`） | 正文富文本，支持导出 `.md` |
+| 关联（V1 仅声明） | `downloads` / `doc_refs` / `faq_refs` / `case_refs` / `related_products` | `textarea`（占位） | V1 不消费；V2 再定来源（站内 / 外部 / API）与渲染 |
+
+分类字段示意：
+
+```json
+{
+  "id": "industries",
+  "type": "select",
+  "multiple": true,
+  "choices_from": "$site.industries",
+  "label": "行业分类"
+}
+```
+
+#### 2.4 关于 `spec_groups[]`（重要取舍）
+
+Baklib 动态表单的 `settings` **没有原生「可重复块 / 数组」type**，无法用单个字段直接表达「分组 → 多条参数」的嵌套结构。V1 建议二选一：
+
+- **方案 A（推荐，最快落地）**：`spec_groups` 用一个 `textarea`，按约定解析，例如每行 `分组::参数名::参数值`：
+
+```text
+基本参数::额定电压::24V
+基本参数::防护等级::IP67
+通信::协议::EtherCAT
+```
+
+  模板侧 `split: "\n"` → 再 `split: "::"`，按第一段聚合为分组表格。优点：零平台依赖、可批量录入；缺点：录入需遵守约定。
+
+- **方案 B（结构更规范）**：等评估后引入「区块/重复组」能力（若平台版本支持）或拆成固定数量的分组字段；改造成本更高，排到 V2。
+
+> V1 采用方案 A，确保「参数分组」能立即上线并参与详情页渲染；后续如需强结构化再迁移。
+
+### 3) V1 验收清单
+
+- [ ] 全局 `industries / scenarios / series` 三个 `textarea` 生效，能被产品页 `choices_from: "$site.*"` 读到
+- [ ] `index` 总览页可按系列 / 行业 / 场景分面进入
+- [ ] `channel.products` 列表页展示栏目头图 + 描述 + 产品卡片 + 分页
+- [ ] `page.product` 详情页渲染：型号、标签分类、`spec_groups` 参数表、主图、富文本正文
+- [ ] 关联字段仅占位、不渲染，且 schema 结构与 V2 兼容（无需破坏性迁移）

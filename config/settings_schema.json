@@ -3,7 +3,7 @@
     "name": "theme_info",
     "theme_name": "products",
     "theme_label": "product hub",
-    "theme_description": "B2B 企业 PIM 与产品数字资产枢纽。以「单品」为锚点，通过中心辐射结构聚合参数、物料、文档、知识库与客户案例；理性工业风格、Teal 主色，去电商化。",
+    "theme_description": "B2B product catalog hub. An online, searchable product dictionary anchored on each product: model code, taxonomy (series / industries / scenarios), spec groups, hero image and rich content. Rational industrial style, teal brand, no e-commerce.",
     "theme_version": "1.0.0",
     "theme_syntax_version": "v2",
     "theme_scope": "cms",
@@ -25,8 +25,19 @@
     ],
     "recommendations": {
       "color_schemas": {
+        "baklib": {
+          "name": "Baklib",
+          "colors": {
+            "--theme-color-primary": "#0f766e",
+            "--theme-color-secondary": "#c2410c",
+            "--theme-color-accent": "#0f172a",
+            "--theme-color-info": "#38bdf8",
+            "--theme-color-success": "#14b8a6",
+            "--theme-color-warning": "#fb923c"
+          }
+        },
         "industrial_teal": {
-          "name": "工业 Teal",
+          "name": "Industrial Teal",
           "colors": {
             "--theme-color-primary": "#0d9488",
             "--theme-color-secondary": "#0f172a",
@@ -37,7 +48,7 @@
           }
         },
         "graphite": {
-          "name": "石墨灰",
+          "name": "Graphite",
           "colors": {
             "--theme-color-primary": "#1e293b",
             "--theme-color-secondary": "#0d9488",
@@ -48,7 +59,7 @@
           }
         },
         "deep_ocean": {
-          "name": "深海蓝",
+          "name": "Deep Ocean",
           "colors": {
             "--theme-color-primary": "#0369a1",
             "--theme-color-secondary": "#0f172a",
@@ -71,6 +82,12 @@
         "default": "t:schema.generic.settings.slogan.default"
       },
       {
+        "id": "logo_url",
+        "type": "image_picker",
+        "label": "t:schema.generic.settings.logo_url.label",
+        "info": "t:schema.generic.settings.logo_url.info"
+      },
+      {
         "id": "company_name",
         "label": "t:schema.generic.settings.company_name.label",
         "type": "text",
@@ -78,37 +95,10 @@
         "info": "t:schema.generic.settings.company_name.info"
       },
       {
-        "id": "copyright_info",
-        "type": "text",
-        "label": "t:schema.generic.settings.copyright_info.label",
-        "placeholder": "t:schema.generic.settings.copyright_info.placeholder"
-      },
-      {
-        "id": "sort_rule",
-        "type": "select",
-        "label": "t:schema.generic.settings.sort_rule.label",
-        "choices": [
-          {"label": "t:schema.generic.settings.sort_rule.options.created_at_desc", "value": "-created_at"},
-          {"label": "t:schema.generic.settings.sort_rule.options.created_at_asc", "value": "created_at"},
-          {"label": "t:schema.generic.settings.sort_rule.options.edited_at_desc", "value": "-edited_at"},
-          {"label": "t:schema.generic.settings.sort_rule.options.edited_at_asc", "value": "edited_at"},
-          {"label": "t:schema.generic.settings.sort_rule.options.visit_count_desc", "value": "-visit_count"},
-          {"label": "t:schema.generic.settings.sort_rule.options.visit_count_asc", "value": "visit_count"},
-          {"label": "t:schema.generic.settings.sort_rule.options.manual", "value": ""}
-        ],
-        "default": "-created_at"
-      },
-      {
         "id": "is_allow_feedback",
         "type": "checkbox",
         "label": "t:schema.generic.settings.is_allow_feedback.label",
         "default": true
-      },
-      {
-        "id": "is_show_visit_count",
-        "type": "checkbox",
-        "label": "t:schema.generic.settings.is_show_visit_count.label",
-        "default": false
       },
       {
         "id": "is_allow_header",
@@ -125,48 +115,37 @@
     ]
   },
   {
-    "name": "t:schema.hub.name",
+    "name": "t:schema.taxonomy.name",
     "settings": [
       {
-        "id": "products_root_path",
-        "type": "text",
-        "label": "t:schema.hub.settings.products_root_path.label",
-        "info": "t:schema.hub.settings.products_root_path.info",
-        "default": "/products",
-        "placeholder": "/products"
+        "id": "industries",
+        "type": "textarea",
+        "label": "t:schema.taxonomy.settings.industries.label",
+        "info": "t:schema.taxonomy.settings.industries.info",
+        "rows": 6,
+        "default": "Industrial Automation\nMedical Devices\nEnergy & Power\nRobotics\nElectronics Manufacturing\nLogistics & Warehousing"
       },
       {
-        "id": "cases_root_path",
-        "type": "text",
-        "label": "t:schema.hub.settings.cases_root_path.label",
-        "info": "t:schema.hub.settings.cases_root_path.info",
-        "default": "/cases",
-        "placeholder": "/cases"
+        "id": "scenarios",
+        "type": "textarea",
+        "label": "t:schema.taxonomy.settings.scenarios.label",
+        "info": "t:schema.taxonomy.settings.scenarios.info",
+        "rows": 6,
+        "default": "Production Line Integration\nQuality Inspection\nOutdoor Deployment\nCleanroom Operation\nHazardous Environment\nRemote Monitoring"
       },
       {
-        "id": "docs_root_path",
-        "type": "text",
-        "label": "t:schema.hub.settings.docs_root_path.label",
-        "info": "t:schema.hub.settings.docs_root_path.info",
-        "default": "/docs",
-        "placeholder": "/docs"
-      },
-      {
-        "id": "downloads_root_path",
-        "type": "text",
-        "label": "t:schema.hub.settings.downloads_root_path.label",
-        "info": "t:schema.hub.settings.downloads_root_path.info",
-        "default": "/downloads",
-        "placeholder": "/downloads"
-      },
-      {
-        "id": "faqs_root_path",
-        "type": "text",
-        "label": "t:schema.hub.settings.faqs_root_path.label",
-        "info": "t:schema.hub.settings.faqs_root_path.info",
-        "default": "/faqs",
-        "placeholder": "/faqs"
-      },
+        "id": "series",
+        "type": "textarea",
+        "label": "t:schema.taxonomy.settings.series.label",
+        "info": "t:schema.taxonomy.settings.series.info",
+        "rows": 5,
+        "default": "X Series\nS Series\nPro Series\nCompact Series"
+      }
+    ]
+  },
+  {
+    "name": "t:schema.hub.name",
+    "settings": [
       {
         "id": "cta_quote_label",
         "type": "text",
@@ -175,25 +154,12 @@
         "default": "t:schema.hub.settings.cta_quote_label.default"
       },
       {
-        "id": "cta_engineer_label",
+        "id": "cta_quote_url",
         "type": "text",
-        "label": "t:schema.hub.settings.cta_engineer_label.label",
-        "info": "t:schema.hub.settings.cta_engineer_label.info",
-        "default": "t:schema.hub.settings.cta_engineer_label.default"
-      },
-      {
-        "id": "cta_trial_label",
-        "type": "text",
-        "label": "t:schema.hub.settings.cta_trial_label.label",
-        "info": "t:schema.hub.settings.cta_trial_label.info",
-        "default": "t:schema.hub.settings.cta_trial_label.default"
-      },
-      {
-        "id": "lead_email",
-        "type": "text",
-        "label": "t:schema.hub.settings.lead_email.label",
-        "info": "t:schema.hub.settings.lead_email.info",
-        "placeholder": "sales@example.com"
+        "label": "t:schema.hub.settings.cta_quote_url.label",
+        "info": "t:schema.hub.settings.cta_quote_url.info",
+        "default": "/s/quote",
+        "placeholder": "/s/quote"
       }
     ]
   },

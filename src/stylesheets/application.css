@@ -1,10 +1,35 @@
 @import "tailwindcss";
-@tailwind base;
-@tailwind components;
 
-@tailwind utilities;
+/* daisyUI is the core CSS library for this theme.
+ * Strategy: `themes: false` — daisyUI does NOT generate any color theme.
+ * All semantic `--color-*` variables are injected at runtime in
+ * <head> via `snippets/_theme_runtime_colors.liquid`, mapping the
+ * platform-provided `--theme-color-*` (HSL triplets) configured in the
+ * site backend. This file only keeps non-color static tokens, the
+ * runtime-derived Tailwind color scales (@theme), and component layers.
+ */
 @plugin "daisyui" {
+  themes: false;
   exclude: scrollbar, rootcolor;
+  logs: false;
+}
+
+/* L2 static design tokens (no colors here). Aligned with the `baklib` brand
+ * palette in statics/brand.liquid: box 1rem / field 0.5rem / border 2px. */
+:root {
+  --radius-selector: 2rem;
+  --radius-field: 0.5rem;
+  --radius-box: 1rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 2px;
+  --depth: 1;
+  --noise: 0;
+}
+
+/* Alpine.js: hide [x-cloak] elements until Alpine initializes. */
+[x-cloak] {
+  display: none !important;
 }
 
 /* daisyui */
@@ -228,29 +253,6 @@
   );
 }
 
-@plugin "daisyui";
-
-@plugin "daisyui/theme" {
-  name: "light";
-  default: true;
-  --color-primary: hsl(var(--theme-color-primary));
-  --color-secondary: hsl(var(--theme-color-secondary));
-  --color-accent: hsl(var(--theme-color-accent));
-  --color-info: hsl(var(--theme-color-info));
-  --color-success: hsl(var(--theme-color-success));
-  --color-warning: hsl(var(--theme-color-warning));
-}
-
-@plugin "daisyui/theme" {
-  name: "dark";
-  --color-primary: hsl(var(--theme-color-primary));
-  --color-secondary: hsl(var(--theme-color-secondary));
-  --color-accent: hsl(var(--theme-color-accent));
-  --color-info: hsl(var(--theme-color-info));
-  --color-success: hsl(var(--theme-color-success));
-  --color-warning: hsl(var(--theme-color-warning));
-}
-
 @source "../../layout/*.liquid";
 @source "../../snippets/*.liquid";
 @source "../../statics/*.liquid";
@@ -260,20 +262,8 @@
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 @layer components {
-  .header-nav-icon-button {
-    @apply inline-flex size-10 p-1 cursor-pointer items-center justify-center rounded-full hover:bg-base-200;
-  }
-
-  /* 实色卡片（非玻璃）：外层大圆角与 DESIGN 24px/22px 档一致 */
-  .hub-liquid-card {
-    @apply overflow-hidden rounded-3xl border border-base-300/90 bg-base-100 shadow-sm;
-  }
-
-  .hub-liquid-card-interactive {
-    @apply overflow-hidden rounded-2xl border border-base-300/90 bg-base-100 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/20 hover:shadow-md;
-  }
-
-  /* Liquid Glass（节制）：顶栏 — 见 layout/theme.liquid 无障碍回退 */
+  /* Liquid Glass (restrained): top bar + feedback FAB.
+   * See layout/theme.liquid for the prefers-reduced-transparency fallback. */
   .product-hub-glass {
     background-color: color-mix(in oklab, var(--color-base-100) 72%, transparent);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
@@ -290,49 +280,6 @@
     box-shadow:
       inset 0 1px 0 color-mix(in oklab, var(--color-base-content) 10%, transparent),
       0 8px 24px color-mix(in oklab, var(--color-base-content) 8%, transparent);
-  }
-
-  .product-hub-glass-strip {
-    background-color: color-mix(in oklab, var(--color-base-100) 70%, transparent);
-    -webkit-backdrop-filter: blur(16px) saturate(160%);
-    backdrop-filter: blur(16px) saturate(160%);
-    box-shadow: inset 0 1px 0 color-mix(in oklab, var(--color-base-content) 8%, transparent);
-  }
-
-  .hub-pill-primary {
-    @apply inline-flex cursor-pointer items-center justify-center rounded-full border border-transparent bg-neutral px-6 py-3 text-[14px] font-medium text-neutral-content shadow-md transition-all duration-300 hover:bg-neutral/90 hover:shadow-lg;
-  }
-
-  .hub-pill-primary-sm {
-    @apply inline-flex cursor-pointer items-center justify-center rounded-full border border-transparent bg-neutral px-5 py-2 text-[13px] font-medium text-neutral-content shadow-md transition-all duration-300 hover:bg-neutral/90 hover:shadow-lg;
-  }
-
-  .hub-pill-secondary {
-    @apply inline-flex cursor-pointer items-center justify-center rounded-full border border-base-300 bg-base-100 px-6 py-3 text-[14px] font-medium text-base-content transition-all duration-300 hover:border-primary/35 hover:bg-primary/10;
-  }
-
-  .hub-pill-outline {
-    @apply inline-flex cursor-pointer items-center justify-center rounded-full border border-base-content px-6 py-3 text-[14px] font-medium text-base-content transition-all duration-300 hover:bg-neutral hover:text-neutral-content;
-  }
-
-  .hub-search-input {
-    @apply w-full rounded-full border border-base-300 bg-base-100 py-3 pl-12 pr-4 text-[14px] text-base-content shadow-sm transition-all placeholder:text-base-content/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 md:w-72;
-  }
-
-  .hub-section-title {
-    @apply font-display text-2xl font-medium text-base-content;
-  }
-
-  .hub-mono-label {
-    @apply text-[12px] font-mono font-medium uppercase text-accent;
-  }
-
-  .hub-toc-link {
-    @apply text-[14px] font-semibold text-base-content/60 transition-colors hover:text-primary;
-  }
-
-  .hub-toc-link-active {
-    @apply text-primary;
   }
 }
 
@@ -359,10 +306,6 @@
   }
 }
 
-
-[data-controller="nav-tree"] summary.menu-active {
-  @apply text-neutral-content bg-neutral
-}
 
 #page-content.ProseMirror a {
   word-break: break-all;

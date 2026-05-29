@@ -1,136 +1,187 @@
 {
   "theme_label": "product hub",
-  "theme_description": "B2B 向け PIM・製品デジタル資産ハブ。製品を起点に仕様、資料、ドキュメント、ナレッジベース、事例を集約します。",
+  "theme_description": "B2B 製品カタログハブ。製品を起点とする検索可能なオンライン製品ディクショナリ：型番、タクソノミー、スペックグループ、メイン画像、リッチ本文。",
   "templates": {
     "index": {
       "name": "Product Hub ホーム",
-      "description": "チャネル導線 + 注目製品カルーセル",
-      "settings": { "description": { "label": "ホーム説明", "info": "ヒーローに表示するリッチテキスト" } }
+      "description": "カタログ概要：タクソノミーファセット + チャネル導線 + 注目製品",
+      "settings": {
+        "description": {
+          "label": "ホーム説明",
+          "info": "ヒーローに表示するリッチテキスト"
+        }
+      }
     },
-    "index_list": { "name": "ホーム（リスト）", "description": "ナレッジ系サイト向け" },
     "channel": {
-      "name": "チャネル（フォールバック）",
-      "description": "スタイル未指定時に使用",
-      "settings": { "intro": { "label": "チャネル説明", "info": "タイトル直下に表示" } }
+      "name": "製品チャネル",
+      "description": "1 つのチャネルの製品ディクショナリ：バナー + 説明 + 製品グリッド",
+      "settings": {
+        "thumb_image_url": {
+          "label": "チャネルバナー画像"
+        },
+        "description": {
+          "label": "チャネル説明",
+          "info": "タイトル直下に表示"
+        }
+      }
     },
-    "channel_products": { "name": "型番選定センター", "description": "左カテゴリツリー + 右高密度グリッド" },
-    "channel_cases": { "name": "導入事例", "description": "画像カードのマソンリー" },
-    "channel_docs": { "name": "ドキュメントハブ", "description": "左目次 + 最近の更新" },
-    "channel_downloads": { "name": "ダウンロードハブ", "description": "ミニマルなリスト + 即時検索" },
-    "channel_faqs": { "name": "ナレッジベース", "description": "アンカー + アコーディオン" },
     "page": {
-      "name": "汎用ページ（フォールバック）",
-      "description": "スタイル未指定時に使用",
-      "settings": {
-        "tagline": { "label": "サブタイトル" },
-        "body": { "label": "本文" },
-        "product_model": { "label": "製品型番", "info": "製品詳細ページの型番と一致すると FAQ 等に表示されます" },
-        "related_models": { "label": "関連型番（1 行 1 つ）", "info": "FAQ / ドキュメント / ダウンロードと製品を関連付けます" },
-        "file_url": { "label": "ファイル URL", "info": "ダウンロードチャンネル一覧で使用" },
-        "file_type": { "label": "ファイル種別", "info": "例: pdf、zip。空なら URL から推定" },
-        "file_size": { "label": "ファイルサイズ", "info": "表示用（例: 2.1 MB）" }
-      }
-    },
-    "page_product": {
       "name": "製品詳細",
-      "description": "Hero + スティッキーサブナビ + 5 セクション",
+      "description": "タイトル + 型番 + タクソノミー + スペック表 + メイン画像 + リッチ本文",
       "settings": {
-        "product_model": { "label": "型番", "info": "他チャネルと関連付ける主キー（例：X100-PRO）" },
-        "tagline": { "label": "ひと言" },
-        "hero_images": { "label": "ヒーロー画像（複数行）", "info": "1 行 1 URL、カルーセル表示" },
-        "specifications": { "label": "スペック表", "info": "1 行ごとに `名称|値|単位`（パイプ区切り、単位は任意）" },
-        "highlights": { "label": "ハイライト", "info": "1 行 1 項目" },
-        "body": { "label": "概要本文" },
-        "downloads": { "label": "資料", "info": "1 行ごとに `名前|種別|URL|サイズ`" },
-        "related_models": { "label": "関連型番", "info": "1 行 1 型番（任意）" },
-        "cta_quote_link": { "label": "見積もりリンク（ダイアログを上書き）" },
-        "cta_trial_link": { "label": "トライアルリンク" }
-      }
-    },
-    "page_case": {
-      "name": "事例詳細",
-      "description": "課題 / 解決策 / 成果の物語型",
-      "settings": {
-        "tagline": { "label": "サブタイトル" },
-        "client_name": { "label": "顧客名" },
-        "client_caption": { "label": "顧客補足" },
-        "client_logo_url": { "label": "顧客ロゴ" },
-        "cover_image_url": { "label": "カバー画像" },
-        "industry": { "label": "業界" },
-        "region": { "label": "地域" },
-        "scale": { "label": "規模" },
-        "headline_metric": { "label": "主な成果", "info": "例：処理効率 38% 向上" },
-        "pain_point": { "label": "課題" },
-        "solution": { "label": "解決策" },
-        "outcomes": { "label": "定量成果", "info": "1 行ごとに `値|単位|説明`" },
-        "body": { "label": "事例本文" },
-        "related_models": { "label": "関連製品型番" }
-      }
-    },
-    "page_doc": {
-      "name": "ドキュメント詳細",
-      "description": "ワイド prose + 左目次 + 右 On this page",
-      "settings": {
-        "tagline": { "label": "サブタイトル" },
-        "version": { "label": "バージョン" },
-        "body": { "label": "本文" },
-        "related_models": { "label": "関連型番", "info": "1 行 1 型番" }
+        "model_code": {
+          "label": "型番",
+          "info": "製品の一意な識別子（例：X100-PRO）"
+        },
+        "tags": {
+          "label": "タグ"
+        },
+        "industries": {
+          "label": "業界",
+          "info": "選択肢はグローバルなタクソノミーから取得"
+        },
+        "scenarios": {
+          "label": "用途",
+          "info": "選択肢はグローバルなタクソノミーから取得"
+        },
+        "series": {
+          "label": "シリーズ",
+          "info": "選択肢はグローバルなタクソノミーから取得"
+        },
+        "spec_groups": {
+          "label": "スペックグループ",
+          "info": "1 行ごとに `グループ::名称::値`。先頭セグメントでグループ化して表示します。"
+        },
+        "thumb_image_url": {
+          "label": "メイン画像"
+        },
+        "description": {
+          "label": "概要",
+          "info": "カードと SEO 用のひと言説明"
+        },
+        "content": {
+          "label": "本文"
+        },
+        "downloads": {
+          "label": "ダウンロード（宣言のみ）",
+          "info": "V1 では非表示、V2 用に予約"
+        },
+        "doc_refs": {
+          "label": "ドキュメント参照（宣言のみ）",
+          "info": "V1 では非表示、V2 用に予約"
+        },
+        "faq_refs": {
+          "label": "FAQ 参照（宣言のみ）",
+          "info": "V1 では非表示、V2 用に予約"
+        },
+        "case_refs": {
+          "label": "事例参照（宣言のみ）",
+          "info": "V1 では非表示、V2 用に予約"
+        },
+        "related_products": {
+          "label": "関連製品（宣言のみ）",
+          "info": "V1 では非表示、V2 用に予約"
+        }
       }
     }
   },
   "generic": {
     "name": "一般設定",
     "settings": {
-      "slogan": { "label": "スローガン", "default": "B2B 製品情報ハブ" },
-      "company_name": { "label": "会社名", "default": "Baklib.cn", "info": "フッターに表示" },
-      "copyright_info": { "label": "コピーライト情報", "placeholder": "" },
-      "is_allow_feedback": { "label": "フィードバックを表示" },
-      "is_show_visit_count": { "label": "閲覧数を表示" },
-      "is_allow_header": { "label": "ヘッダーを表示" },
-      "is_allow_footer": { "label": "フッターを表示" },
-      "sort_rule": {
-        "label": "リストの並び順",
-        "options": {
-          "created_at_desc": "作成日（新しい順）",
-          "created_at_asc": "作成日（古い順）",
-          "edited_at_desc": "更新日（新しい順）",
-          "edited_at_asc": "更新日（古い順）",
-          "visit_count_desc": "閲覧数（多い順）",
-          "visit_count_asc": "閲覧数（少ない順）",
-          "manual": "手動"
-        }
+      "slogan": {
+        "label": "スローガン",
+        "default": "B2B 製品カタログハブ"
+      },
+      "logo_url": {
+        "label": "ロゴ画像",
+        "info": "ヘッダーに表示。未設定時はファビコン + サイト名にフォールバックします"
+      },
+      "company_name": {
+        "label": "会社名",
+        "default": "Baklib.cn",
+        "info": "フッターに表示"
+      },
+      "is_allow_feedback": {
+        "label": "フィードバックを表示"
+      },
+      "is_allow_header": {
+        "label": "ヘッダーを表示"
+      },
+      "is_allow_footer": {
+        "label": "フッターを表示"
+      }
+    }
+  },
+  "taxonomy": {
+    "name": "タクソノミー",
+    "settings": {
+      "industries": {
+        "label": "業界（1 行 1 つ）",
+        "info": "製品ページが choices_from: $site.industries で参照する管理語彙"
+      },
+      "scenarios": {
+        "label": "用途（1 行 1 つ）",
+        "info": "製品ページが choices_from: $site.scenarios で参照する管理語彙"
+      },
+      "series": {
+        "label": "シリーズ（1 行 1 つ）",
+        "info": "製品ページが choices_from: $site.series で参照する管理語彙"
       }
     }
   },
   "hub": {
-    "name": "Product Hub チャネル",
+    "name": "Product Hub",
     "settings": {
-      "products_root_path": { "label": "製品ルートパス", "info": "例：/products" },
-      "cases_root_path": { "label": "事例ルートパス", "info": "例：/cases" },
-      "docs_root_path": { "label": "ドキュメントルートパス", "info": "例：/docs" },
-      "downloads_root_path": { "label": "ダウンロードルートパス", "info": "例：/downloads" },
-      "faqs_root_path": { "label": "FAQ ルートパス", "info": "例：/faqs" },
-      "cta_quote_label": { "label": "見積もり CTA 文言", "default": "見積もりを依頼" },
-      "cta_engineer_label": { "label": "エンジニア CTA 文言", "default": "エンジニアに相談" },
-      "cta_trial_label": { "label": "トライアル CTA 文言", "default": "トライアルを申し込む" },
-      "lead_email": { "label": "リード受信メール", "info": "サイトフィードバック未使用時のメールフォールバック" }
+      "cta_quote_label": {
+        "label": "見積もり CTA 文言",
+        "info": "グローバル上書き",
+        "default": "ソリューションを依頼"
+      },
+      "cta_quote_url": {
+        "label": "見積もり CTA リンク",
+        "info": "メイン CTA の遷移先。例：/s/quote"
+      }
     }
   },
   "custom_html": {
     "name": "カスタム HTML",
     "settings": {
-      "head_html": { "label": "<head> カスタム HTML", "info": "HTML + 限定的な Tailwind", "placeholder": "" },
-      "header_menu_html": { "label": "ヘッダーカスタム HTML", "info": "HTML + 限定的な Tailwind", "placeholder": "" },
-      "footer_menu_html": { "label": "フッターカスタム HTML", "info": "HTML + 限定的な Tailwind", "placeholder": "" }
+      "head_html": {
+        "label": "<head> カスタム HTML",
+        "info": "HTML + 限定的な Tailwind",
+        "placeholder": ""
+      },
+      "header_menu_html": {
+        "label": "ヘッダーカスタム HTML",
+        "info": "HTML + 限定的な Tailwind",
+        "placeholder": ""
+      },
+      "footer_menu_html": {
+        "label": "フッターカスタム HTML",
+        "info": "HTML + 限定的な Tailwind",
+        "placeholder": ""
+      }
     }
   },
   "settings": {
     "weixin_share": {
       "title": "WeChat 設定",
-      "weixin_app_id": { "label": "AppID", "info": "" },
-      "weixin_app_secret": { "label": "AppSecret", "info": "" },
-      "weixin_enabled": { "label": "WeChat 共有を有効化", "info": "" },
-      "weixin_debug": { "label": "デバッグを有効化", "info": "" }
+      "weixin_app_id": {
+        "label": "AppID",
+        "info": ""
+      },
+      "weixin_app_secret": {
+        "label": "AppSecret",
+        "info": ""
+      },
+      "weixin_enabled": {
+        "label": "WeChat 共有を有効化",
+        "info": ""
+      },
+      "weixin_debug": {
+        "label": "デバッグを有効化",
+        "info": ""
+      }
     }
   }
 }

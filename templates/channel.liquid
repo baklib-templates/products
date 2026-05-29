@@ -1,42 +1,67 @@
 {%- comment -%}
-  Channel 兜底模板：未选择具体样式时按通用列表渲染。
-  推荐为不同业务频道选择 channel.products / channel.cases / channel.docs / channel.downloads / channel.faqs 样式。
+  Product channel = product dictionary for one channel. Renders a banner +
+  description header, then a paginated product card grid. This generic channel
+  template is the only channel style in V1 (every channel lists products).
 {%- endcomment -%}
 {% capture _title %}{{ page.link_text }}{% endcapture %}
 {% set_meta_title _title | strip %}
+{% if page.settings.description != blank %}
+  {% set_meta_description page.settings.description | strip_html | strip %}
+{% endif %}
 
-<div class="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
+{% assign products = page.pages_in_list | where: 'template_name', 'page' | order_by: '-created_at' %}
+{% assign products_count = products | size %}
+{% assign banner = page.settings.thumb_image_url | presence %}
+{% assign description = page.settings.description | strip %}
+
+<div class="mx-auto w-full max-w-[1280px] px-6 pb-16 pt-8">
   {% render '@shared/breadcrumb', breadcrumb: page.breadcrumb %}
 
-  <header class="mt-4">
-    <h1 class="text-2xl font-bold tracking-tight text-base-content sm:text-3xl">{{ page.link_text }}</h1>
-    {% assign intro = page.settings.intro | strip %}
-    {% if intro != blank %}
-      <p class="mt-2 max-w-3xl text-sm leading-relaxed text-base-content/70">{{ intro }}</p>
+  <header class="relative mt-6 overflow-hidden rounded-2xl border border-base-300 bg-base-100">
+    {% if banner %}
+      <div class="absolute inset-0">
+        <img src="{{ banner }}" alt="" class="h-full w-full object-cover" loading="lazy" />
+        <div class="absolute inset-0 bg-gradient-to-r from-accent/85 to-accent/40"></div>
+      </div>
     {% endif %}
+    <div class="relative flex flex-col gap-4 p-8 md:flex-row md:items-end md:justify-between md:p-10 {% if banner %}text-accent-content{% endif %}">
+      <div class="min-w-0">
+        <p class="mb-2 inline-flex items-center gap-1.5 font-mono text-xs font-medium uppercase tracking-wide {% if banner %}text-accent-content/80{% else %}text-accent{% endif %}">
+          {% render 'icon', name: 'boxes', class: 'w-4 h-4' %}{{ 'nav.catalog' | t }}
+        </p>
+        <h1 class="font-display text-3xl font-bold leading-tight tracking-tight md:text-4xl {% if banner %}text-accent-content{% else %}text-base-content{% endif %}">{{ page.link_text }}</h1>
+        {% if description != blank %}
+          <p class="mt-3 max-w-2xl text-sm leading-relaxed {% if banner %}text-accent-content/85{% else %}text-base-content/70{% endif %}">{{ description }}</p>
+        {% endif %}
+      </div>
+      <div class="shrink-0 {% if banner %}text-accent-content{% else %}text-base-content{% endif %}">
+        <span class="font-display text-3xl font-bold">{{ products_count }}</span>
+        <span class="ml-1 text-sm {% if banner %}text-accent-content/80{% else %}text-base-content/60{% endif %}">{{ 'channels.products.count' | t }}</span>
+      </div>
+    </div>
   </header>
 
-  <div class="mt-8 grid gap-6 lg:grid-cols-[260px_minmax(0,1fr)]">
-    <aside class="lg:sticky lg:top-24">
-      {% render 'sidebar' %}
-    </aside>
-    <section>
-      {% assign items = page.children_in_list %}
-      {% assign items_count = items | size %}
-      {% if items_count == 0 %}
-        {% render '@shared/empty', message: 'generic.empty' | t %}
-      {% else %}
-        <ul class="divide-y divide-base-300 rounded-md border border-base-300 bg-base-100">
-          {% paginate_tag items, per: 20 %}
-            {% for page in items %}
-              <li class="px-4 sm:px-5">{% render 'list', page: page %}</li>
-            {% endfor %}
-            <li class="px-4 py-4 sm:px-5">{% render '@shared/paginate' %}</li>
-          {% endpaginate_tag %}
-        </ul>
-      {% endif %}
-    </section>
+  <div class="mt-6 flex justify-end">
+    {% form_tag 'search' %}
+      <label class="flex w-full items-center gap-2 rounded-lg border border-base-300 bg-base-100 px-3 py-2 text-sm shadow-sm transition-colors focus-within:border-primary md:w-80">
+        <span class="text-base-content/50">{% render 'icon', name: 'search', class: 'w-4 h-4' %}</span>
+        <input type="search" name="{{ form.keywords_field_name }}" class="w-full bg-transparent text-base-content outline-none placeholder:text-base-content/50" placeholder="{{ 'channels.products.search_placeholder' | t }}" />
+      </label>
+    {% endform_tag %}
   </div>
+
+  {% if products_count == 0 %}
+    <div class="mt-12">{% render '@shared/empty', message: 'channels.products.empty' | t %}</div>
+  {% else %}
+    <div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {% paginate_tag products, per: 24 %}
+        {% for product in products %}
+          {% render 'product_card', page: product %}
+        {% endfor %}
+        <div class="col-span-full mt-4">{% render '@shared/paginate' %}</div>
+      {% endpaginate_tag %}
+    </div>
+  {% endif %}
 </div>
 
 {% schema %}
@@ -44,13 +69,21 @@
     "name": "t:schema.templates.channel.name",
     "description": "t:schema.templates.channel.description",
     "thumb_url": "images/theme/index-list.png",
-    "sub_page_templates": ["page","channel"],
+    "sub_page_templates": ["page"],
     "settings": [
       {
-        "id": "intro",
+        "id": "thumb_image_url",
+        "type": "image_picker",
+        "ratio": "16:5",
+        "width": 1280,
+        "label": "t:schema.templates.channel.settings.thumb_image_url.label"
+      },
+      {
+        "id": "description",
         "type": "textarea",
-        "label": "t:schema.templates.channel.settings.intro.label",
-        "info": "t:schema.templates.channel.settings.intro.info"
+        "label": "t:schema.templates.channel.settings.description.label",
+        "info": "t:schema.templates.channel.settings.description.info",
+        "rows": 3
       }
     ]
   }

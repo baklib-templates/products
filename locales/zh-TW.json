@@ -17,125 +17,70 @@
     "hub": "Product Hub",
     "dashboard": "控制台",
     "catalog": "產品目錄",
-    "sign_in": "登入 / 留資",
-    "products": "產品中心",
-    "cases": "客戶案例",
-    "docs": "技術文件",
-    "downloads": "資料下載",
-    "faqs": "常見問題"
+    "menu": "選單"
   },
   "footer": {
-    "tagline": "企業級機器人與數位資產指揮中心。",
+    "tagline": "產品目錄、技術規格與解決方案，集中於一處。",
     "platform": "平台",
-    "cta_eyebrow": "工程迭代很快",
-    "cta_title": "訂閱以取得最新工程更新。",
-    "email_placeholder": "電子郵件"
+    "cta_eyebrow": "聯絡我們",
+    "cta_title": "告訴我們你的需求，我們的團隊會協助你找到合適的方案。"
   },
   "hub": {
     "cta": {
-      "quote": "獲取方案",
-      "engineer": "聯絡工程師",
-      "trial": "申請試用"
-    },
-    "lead": {
-      "subtitle": "工程師將於 1 個工作日內與您聯絡。",
-      "submit": "提交申請",
-      "send_mail": "透過郵件發送",
-      "feedback_hint": "透過站點回饋系統提交，便於在 CMS 中統一檢視與跟進。",
-      "mailto_hint": "提交後將開啟郵件用戶端發送至",
-      "unavailable": "線上提交需開啟站點回饋並啟用留言欄位。",
-      "fields": {
-        "message": "需求描述",
-        "message_placeholder": "請簡要描述您的應用情境、關鍵參數與時程"
-      }
+      "quote": "獲取方案"
     }
+  },
+  "quote": {
+    "eyebrow": "獲取方案",
+    "title": "獲取方案",
+    "subtitle": "告訴我們您的專案需求，工程師將於 1 個工作日內與您聯絡。",
+    "form_title": "提交您的需求",
+    "fields": {
+      "name": "您的稱呼",
+      "name_placeholder": "張三",
+      "company": "公司名稱",
+      "company_placeholder": "範例科技有限公司",
+      "contact": "信箱或電話",
+      "contact_placeholder": "you@example.com / +886 900 000 000",
+      "message": "您的需求",
+      "message_placeholder": "請簡要描述您的應用情境、關鍵參數與時程"
+    },
+    "required": "此欄位為必填。",
+    "error": "提交失敗，請稍後重試。",
+    "submit": "提交需求",
+    "submitting": "提交中…",
+    "success_hint": "透過站點回饋系統提交，便於在 CMS 中統一檢視與跟進。",
+    "unavailable": "線上提交需開啟站點回饋並啟用留言欄位。"
   },
   "channels": {
     "products": {
-      "eyebrow": "選型中心",
-      "categories": "分類",
-      "directory": "目錄",
-      "filters": "篩選",
-      "filter_payload": "負載區間",
-      "filter_ip": "防護等級",
       "search_placeholder": "搜尋規格參數…",
-      "browse_category": "檢視此分類下產品",
-      "no_categories": "尚無分類 — 請在產品頻道下新增子頁面作為分類。",
-      "all": "全部產品",
-      "showing_all": "正在瀏覽全部產品",
-      "showing_filter": "已依分類篩選",
       "view_detail": "查看詳情",
+      "count": "件產品",
       "empty": "暫無產品"
-    },
-    "cases": {
-      "eyebrow": "客戶案例",
-      "filters": "篩選",
-      "filter_industry": "產業",
-      "filter_application": "應用情境",
-      "search_placeholder": "搜尋案例…",
-      "read_full": "閱讀全文",
-      "empty": "尚未發布客戶案例"
-    },
-    "docs": {
-      "eyebrow": "技術支援",
-      "toc": "目錄",
-      "recent": "近期更新"
-    },
-    "downloads": {
-      "eyebrow": "資料中心",
-      "filters": "篩選",
-      "filter_format": "格式",
-      "filter_category": "產品分類",
-      "search_placeholder": "搜尋資料名稱、型號或類型",
-      "download": "下載",
-      "view_detail": "查看詳情",
-      "empty": "暫無可下載資料"
-    },
-    "faqs": {
-      "eyebrow": "知識庫",
-      "toc": "分類導覽",
-      "related_models": "適用型號",
-      "view_detail": "查看詳情",
-      "empty": "暫無問答"
     }
   },
   "index": {
     "eyebrow": "Product Hub",
     "cta_browse": "進入選型中心",
+    "intro": "依系列、產業與情境瀏覽完整產品目錄。",
+    "browse_title": "依維度瀏覽",
+    "channels_title": "產品頻道",
+    "empty_channels": "暫無產品頻道，請在首頁下新增子頁面。",
+    "facet": {
+      "series": "系列",
+      "industries": "產業",
+      "scenarios": "情境"
+    },
     "view_all": "查看全部",
-    "view_detail": "查看詳情",
-    "featured_products": "精選產品",
-    "card_products": "依系列與型號檢索產品",
-    "card_cases": "查看真實情境與成效",
-    "card_docs": "工程師手冊與整合指南",
-    "card_downloads": "規格書、CAD、韌體等",
-    "card_faqs": "選型與售後常見問答",
-    "card_more": "進入",
-    "dashboard": {
-      "title": "生態與資產",
-      "subtitle": "集中管理產品設定、工程資源與客戶案例。",
-      "stat_products": "產品",
-      "stat_categories": "分類",
-      "stat_resources": "資料",
-      "recent_title": "最近動態",
-      "recent_empty": "設定產品頻道根路徑後可在此檢視最近更新。",
-      "col_id": "編號",
-      "col_product": "產品",
-      "col_date": "日期",
-      "col_status": "狀態",
-      "status_done": "完成"
-    }
+    "featured_products": "精選產品"
   },
   "page": {
     "product": {
       "nav": {
         "aria": "產品頁內導覽",
         "overview": "概覽",
-        "specs": "技術規格",
-        "downloads": "物料庫",
-        "docs": "支援庫",
-        "faqs": "知識庫",
-        "cases": "案例庫"
+        "specs": "技術規格"
       },
       "toc": {
         "title": "本頁導覽",
@@ -144,64 +89,11 @@
       "specs": {
         "title": "技術規格"
       },
-      "hero": {
-        "no_image": "尚未上傳產品圖",
-        "key_specs": "核心參數",
-        "documentation": "技術文件"
-      },
-      "downloads": {
-        "eyebrow": "物料庫",
-        "title": "技術資料與圖紙",
-        "empty": "暫無可下載物料；點擊下方按鈕可向工程師索取。",
-        "request_access": "申請取得"
-      },
-      "docs": {
-        "eyebrow": "支援庫",
-        "title": "相關技術文件",
-        "doc": "文件",
-        "view_all": "查看全部文件",
-        "empty": "暫無關聯文件",
-        "not_configured": "站點未設定技術文件頻道路徑，請至「主題設定 → Product Hub」補齊 docs_root_path。"
-      },
-      "faqs": {
-        "eyebrow": "知識庫",
-        "title": "選型與售後問答",
-        "view_all": "查看全部問答",
-        "view_detail": "查看詳情",
-        "empty": "暫無相關問答",
-        "not_configured": "站點未設定 FAQ 頻道路徑，請至「主題設定 → Product Hub」補齊 faqs_root_path。"
-      },
-      "cases": {
-        "eyebrow": "案例庫",
-        "title": "客戶案例",
-        "view_all": "查看全部案例",
-        "view_detail": "查看案例",
-        "empty": "暫無關聯案例",
-        "not_configured": "站點未設定案例頻道路徑，請至「主題設定 → Product Hub」補齊 cases_root_path。"
+      "model_label": "型號",
+      "meta": {
+        "industries": "產業",
+        "scenarios": "情境"
       }
-    },
-    "case": {
-      "headline_metric": "關鍵成效",
-      "pain_point": "客戶痛點",
-      "solution": "解決方案",
-      "outcomes": "量化成果",
-      "about_client": "客戶概況",
-      "client_name": "客戶",
-      "industry": "產業",
-      "region": "區域",
-      "scale": "規模",
-      "related_products": "相關產品",
-      "cta": "聯絡業務團隊",
-      "cta_desc": "需要類似行業的方案細節？"
-    },
-    "doc": {
-      "eyebrow": "技術文件",
-      "toc": "目錄",
-      "on_this_page": "本頁大綱",
-      "no_toc": "無小節標題",
-      "updated_at": "最近更新",
-      "prev": "上一篇",
-      "next": "下一篇"
     }
   },
   "tag": {
@@ -211,22 +103,6 @@
     "title": "搜尋",
     "placeholder": "輸入關鍵字搜尋產品、文件與案例",
     "empty": "未找到符合結果"
-  },
-  "static": {
-    "recent": {
-      "subtitle": "依編輯時間倒序顯示，便於追蹤近期內容動態。"
-    }
-  },
-  "templates": {
-    "index": {
-      "list": {
-        "all": "全部"
-      }
-    },
-    "page": {
-      "current_version": "當前版本",
-      "visit_count": "訪問量"
-    }
   },
   "paginate": {
     "showing": "當前顯示第",

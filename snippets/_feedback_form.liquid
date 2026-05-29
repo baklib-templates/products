@@ -1,6 +1,7 @@
 {% assign default_title = 'snippets.feedback_form.title' | t %}
 {% assign title = site.plugins.feedback.useful_label | presence | default: default_title %}
 {% assign message_enabled = site.plugins.feedback.message_enabled %}
+{% assign message_required = site.plugins.feedback.message_required %}
 {% assign useful_types = site.plugins.feedback.useful_types %}
 {% assign posted_feedback = page.visitor_posted_feedback | default: {} %}
 

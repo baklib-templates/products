@@ -1,182 +1,187 @@
 {
   "theme_label": "product hub",
-  "theme_description": "B2B PIM hub and product digital-asset center, anchoring on Product with parameters, downloads, docs, FAQs and cases.",
+  "theme_description": "B2B product catalog hub. An online, searchable product dictionary anchored on each product: model code, taxonomy, spec groups, hero image and rich content.",
   "templates": {
     "index": {
       "name": "Product Hub home",
-      "description": "Hub navigation + featured products carousel",
+      "description": "Catalog overview: taxonomy facets + channel entries + featured products",
       "settings": {
-        "description": { "label": "Home intro", "info": "Rich text shown on the hero" }
+        "description": {
+          "label": "Home intro",
+          "info": "Rich text shown in the hero"
+        }
       }
-    },
-    "index_list": {
-      "name": "Home (list style)",
-      "description": "Suited for knowledge-hub style sites"
     },
     "channel": {
-      "name": "Channel (fallback)",
-      "description": "Used when no style is selected",
+      "name": "Product channel",
+      "description": "Product dictionary for one channel: banner + description + product grid",
       "settings": {
-        "intro": { "label": "Channel intro", "info": "Short blurb shown under the title" }
+        "thumb_image_url": {
+          "label": "Channel banner image"
+        },
+        "description": {
+          "label": "Channel description",
+          "info": "Short blurb shown under the title"
+        }
       }
-    },
-    "channel_products": {
-      "name": "Selection center",
-      "description": "Left category tree + dense product grid"
-    },
-    "channel_cases": {
-      "name": "Customer stories",
-      "description": "Image card masonry"
-    },
-    "channel_docs": {
-      "name": "Docs hub",
-      "description": "Left TOC + recent updates"
-    },
-    "channel_downloads": {
-      "name": "Downloads hub",
-      "description": "Minimal list with instant search"
-    },
-    "channel_faqs": {
-      "name": "Knowledge base",
-      "description": "Anchors + accordion"
     },
     "page": {
-      "name": "Generic page (fallback)",
-      "description": "Used when no style is selected",
-      "settings": {
-        "tagline": { "label": "Tagline" },
-        "body": { "label": "Body" },
-        "product_model": {
-          "label": "Product model",
-          "info": "When it matches a product page model, this page can appear in product-level FAQ and related modules"
-        },
-        "related_models": {
-          "label": "Related models (one per line)",
-          "info": "Associates FAQ / docs / downloads with product models"
-        },
-        "file_url": {
-          "label": "File URL",
-          "info": "Used by the Downloads channel (external link or DAM)"
-        },
-        "file_type": { "label": "File type", "info": "e.g. pdf, zip; inferred from URL when empty" },
-        "file_size": { "label": "File size", "info": "Display only, e.g. 2.1 MB" }
-      }
-    },
-    "page_product": {
       "name": "Product detail",
-      "description": "Hero + sticky sub-nav + five-section composition",
+      "description": "Title + model + taxonomy + spec table + hero image + rich content",
       "settings": {
-        "product_model": {
-          "label": "Model",
-          "info": "Primary key for cross-channel matching, e.g. X100-PRO"
+        "model_code": {
+          "label": "Model code",
+          "info": "Unique product identifier, e.g. X100-PRO"
         },
-        "tagline": { "label": "One-liner" },
-        "hero_images": {
-          "label": "Hero images (multi-line)",
-          "info": "One URL per line; rendered as a carousel"
+        "tags": {
+          "label": "Tags"
         },
-        "specifications": {
-          "label": "Spec table",
-          "info": "Per line `name|value|unit` (pipe-separated; unit optional)"
+        "industries": {
+          "label": "Industries",
+          "info": "Choices come from the global taxonomy"
         },
-        "highlights": { "label": "Highlights", "info": "One bullet per line" },
-        "body": { "label": "Overview" },
+        "scenarios": {
+          "label": "Scenarios",
+          "info": "Choices come from the global taxonomy"
+        },
+        "series": {
+          "label": "Series",
+          "info": "Choices come from the global taxonomy"
+        },
+        "spec_groups": {
+          "label": "Spec groups",
+          "info": "One row per line: `Group::Name::Value`. Rows are grouped by the first segment into spec tables."
+        },
+        "thumb_image_url": {
+          "label": "Main image"
+        },
+        "description": {
+          "label": "Summary",
+          "info": "One-liner used on cards and for SEO"
+        },
+        "content": {
+          "label": "Content"
+        },
         "downloads": {
-          "label": "Asset library",
-          "info": "Per line `name|type|URL|size`; type inferred from URL when omitted"
+          "label": "Downloads",
+          "info": ""
         },
-        "related_models": {
-          "label": "Related models",
-          "info": "One per line; back-links from this product to others"
+        "doc_refs": {
+          "label": "Doc references",
+          "info": ""
         },
-        "cta_quote_link": { "label": "Quote link (overrides dialog)" },
-        "cta_trial_link": { "label": "Trial link" }
-      }
-    },
-    "page_case": {
-      "name": "Case detail",
-      "description": "Pain / Solution / Outcomes narrative",
-      "settings": {
-        "tagline": { "label": "Subtitle" },
-        "client_name": { "label": "Client" },
-        "client_caption": { "label": "Client caption" },
-        "client_logo_url": { "label": "Client logo" },
-        "cover_image_url": { "label": "Cover image" },
-        "industry": { "label": "Industry" },
-        "region": { "label": "Region" },
-        "scale": { "label": "Scale" },
-        "headline_metric": { "label": "Headline metric", "info": "e.g. 38% throughput uplift" },
-        "pain_point": { "label": "Pain point" },
-        "solution": { "label": "Solution" },
-        "outcomes": { "label": "Quantified outcomes", "info": "Per line `value|unit|label`" },
-        "body": { "label": "Case body" },
-        "related_models": { "label": "Related product models" }
-      }
-    },
-    "page_doc": {
-      "name": "Doc detail",
-      "description": "Wide prose + left TOC + On this page",
-      "settings": {
-        "tagline": { "label": "Subtitle" },
-        "version": { "label": "Doc version" },
-        "body": { "label": "Body" },
-        "related_models": { "label": "Related models", "info": "One per line" }
+        "faq_refs": {
+          "label": "FAQ references",
+          "info": ""
+        },
+        "case_refs": {
+          "label": "Case references",
+          "info": ""
+        },
+        "related_products": {
+          "label": "Related products",
+          "info": ""
+        }
       }
     }
   },
   "generic": {
     "name": "General Settings",
     "settings": {
-      "slogan": { "label": "Slogan", "default": "B2B product information hub" },
-      "company_name": { "label": "Company Name", "default": "Baklib.cn", "info": "Displayed in the footer" },
-      "copyright_info": { "label": "Copyright/ICP Information", "placeholder": "ICP No.15035023" },
-      "is_allow_feedback": { "label": "Show User Feedback" },
-      "is_show_visit_count": { "label": "Show Visit Count" },
-      "is_allow_header": { "label": "Show Header Section" },
-      "is_allow_footer": { "label": "Show Footer Section" },
-      "sort_rule": {
-        "label": "List sort order",
-        "options": {
-          "created_at_desc": "Created — Newest first",
-          "created_at_asc": "Created — Oldest first",
-          "edited_at_desc": "Updated — Newest first",
-          "edited_at_asc": "Updated — Oldest first",
-          "visit_count_desc": "Views — High to low",
-          "visit_count_asc": "Views — Low to high",
-          "manual": "Manual order"
-        }
+      "slogan": {
+        "label": "Slogan",
+        "default": "B2B product catalog hub"
+      },
+      "logo_url": {
+        "label": "Logo image",
+        "info": "Shown in the header; falls back to favicon + site name when empty"
+      },
+      "company_name": {
+        "label": "Company Name",
+        "default": "Baklib.cn",
+        "info": "Displayed in the footer"
+      },
+      "is_allow_feedback": {
+        "label": "Show User Feedback"
+      },
+      "is_allow_header": {
+        "label": "Show Header Section"
+      },
+      "is_allow_footer": {
+        "label": "Show Footer Section"
+      }
+    }
+  },
+  "taxonomy": {
+    "name": "Taxonomy",
+    "settings": {
+      "industries": {
+        "label": "Industries (one per line)",
+        "info": "Controlled vocabulary referenced by product pages via choices_from: $site.industries"
+      },
+      "scenarios": {
+        "label": "Scenarios (one per line)",
+        "info": "Controlled vocabulary referenced by product pages via choices_from: $site.scenarios"
+      },
+      "series": {
+        "label": "Series (one per line)",
+        "info": "Controlled vocabulary referenced by product pages via choices_from: $site.series"
       }
     }
   },
   "hub": {
-    "name": "Product Hub channels",
+    "name": "Product Hub",
     "settings": {
-      "products_root_path": { "label": "Products root path", "info": "e.g. /products" },
-      "cases_root_path": { "label": "Cases root path", "info": "e.g. /cases" },
-      "docs_root_path": { "label": "Docs root path", "info": "e.g. /docs" },
-      "downloads_root_path": { "label": "Downloads root path", "info": "e.g. /downloads" },
-      "faqs_root_path": { "label": "FAQs root path", "info": "e.g. /faqs" },
-      "cta_quote_label": { "label": "Quote CTA label", "info": "Global override", "default": "Request a Quote" },
-      "cta_engineer_label": { "label": "Engineer CTA label", "info": "Global override", "default": "Talk to an Engineer" },
-      "cta_trial_label": { "label": "Trial CTA label", "info": "Global override", "default": "Start a Trial" },
-      "lead_email": { "label": "Lead inbox email", "info": "Mailto fallback when Site Feedback is disabled" }
+      "cta_quote_label": {
+        "label": "Quote CTA label",
+        "info": "Global override",
+        "default": "Request a Solution"
+      },
+      "cta_quote_url": {
+        "label": "Quote CTA link",
+        "info": "Where the primary CTA points, e.g. /s/quote"
+      }
     }
   },
   "custom_html": {
     "name": "Custom HTML Code",
     "settings": {
-      "head_html": { "label": "Custom HTML in <head>", "info": "HTML + limited Tailwind", "placeholder": "Analytics, chatbot, etc." },
-      "header_menu_html": { "label": "Header HTML", "info": "HTML + limited Tailwind", "placeholder": "External nav links" },
-      "footer_menu_html": { "label": "Footer HTML", "info": "HTML + limited Tailwind", "placeholder": "Friend / SEO links" }
+      "head_html": {
+        "label": "Custom HTML in <head>",
+        "info": "HTML + limited Tailwind",
+        "placeholder": "Analytics, chatbot, etc."
+      },
+      "header_menu_html": {
+        "label": "Header HTML",
+        "info": "HTML + limited Tailwind",
+        "placeholder": "External nav links"
+      },
+      "footer_menu_html": {
+        "label": "Footer HTML",
+        "info": "HTML + limited Tailwind",
+        "placeholder": "Friend / SEO links"
+      }
     }
   },
   "settings": {
     "weixin_share": {
       "title": "WeChat configuration",
-      "weixin_app_id": { "label": "AppID", "info": "" },
-      "weixin_app_secret": { "label": "AppSecret", "info": "" },
-      "weixin_enabled": { "label": "Enable WeChat share", "info": "" },
-      "weixin_debug": { "label": "Enable debug", "info": "" }
+      "weixin_app_id": {
+        "label": "AppID",
+        "info": ""
+      },
+      "weixin_app_secret": {
+        "label": "AppSecret",
+        "info": ""
+      },
+      "weixin_enabled": {
+        "label": "Enable WeChat share",
+        "info": ""
+      },
+      "weixin_debug": {
+        "label": "Enable debug",
+        "info": ""
+      }
     }
   }
 }

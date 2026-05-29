@@ -1,136 +1,187 @@
 {
   "theme_label": "product hub",
-  "theme_description": "B2B PIM 및 제품 디지털 자산 허브. 제품을 기준으로 사양·자료·문서·지식 베이스·고객 사례를 집약합니다.",
+  "theme_description": "B2B 제품 카탈로그 허브. 제품을 기준으로 한 검색 가능한 온라인 제품 사전: 모델 코드, 분류 체계, 사양 그룹, 메인 이미지, 리치 본문.",
   "templates": {
     "index": {
       "name": "Product Hub 홈",
-      "description": "채널 입구 + 추천 제품 캐러셀",
-      "settings": { "description": { "label": "홈 소개", "info": "히어로에 표시되는 리치 텍스트" } }
+      "description": "카탈로그 개요: 분류 패싯 + 채널 입구 + 추천 제품",
+      "settings": {
+        "description": {
+          "label": "홈 소개",
+          "info": "히어로에 표시되는 리치 텍스트"
+        }
+      }
     },
-    "index_list": { "name": "홈(리스트)", "description": "지식 허브 스타일에 적합" },
     "channel": {
-      "name": "채널(폴백)",
-      "description": "스타일 미선택 시 사용",
-      "settings": { "intro": { "label": "채널 설명", "info": "타이틀 아래에 표시" } }
+      "name": "제품 채널",
+      "description": "단일 채널의 제품 사전: 배너 + 설명 + 제품 그리드",
+      "settings": {
+        "thumb_image_url": {
+          "label": "채널 배너 이미지"
+        },
+        "description": {
+          "label": "채널 설명",
+          "info": "타이틀 아래에 표시"
+        }
+      }
     },
-    "channel_products": { "name": "선정 센터", "description": "좌측 카테고리 트리 + 우측 고밀도 그리드" },
-    "channel_cases": { "name": "고객 사례", "description": "이미지 카드 메소너리" },
-    "channel_docs": { "name": "문서 허브", "description": "좌측 목차 + 최근 업데이트" },
-    "channel_downloads": { "name": "다운로드 허브", "description": "미니멀 리스트 + 즉시 검색" },
-    "channel_faqs": { "name": "지식 베이스", "description": "앵커 + 아코디언" },
     "page": {
-      "name": "일반 페이지(폴백)",
-      "description": "스타일 미선택 시 사용",
-      "settings": {
-        "tagline": { "label": "부제" },
-        "body": { "label": "본문" },
-        "product_model": { "label": "제품 모델", "info": "제품 상세의 모델과 일치하면 FAQ 등에 표시됩니다" },
-        "related_models": { "label": "연관 모델(한 줄에 하나)", "info": "FAQ / 문서 / 다운로드와 제품을 연결합니다" },
-        "file_url": { "label": "파일 URL", "info": "다운로드 채널 목록에 사용" },
-        "file_type": { "label": "파일 유형", "info": "예: pdf, zip. 비우면 URL에서 추정" },
-        "file_size": { "label": "파일 크기", "info": "표시용 (예: 2.1 MB)" }
-      }
-    },
-    "page_product": {
       "name": "제품 상세",
-      "description": "Hero + 스티키 서브내비 + 5 섹션",
+      "description": "제목 + 모델 + 분류 + 사양 표 + 메인 이미지 + 리치 본문",
       "settings": {
-        "product_model": { "label": "모델", "info": "채널 간 매칭 키 (예: X100-PRO)" },
-        "tagline": { "label": "한 줄 설명" },
-        "hero_images": { "label": "히어로 이미지 (여러 줄)", "info": "한 줄에 URL 하나, 캐러셀로 표시" },
-        "specifications": { "label": "사양 표", "info": "한 줄당 `이름|값|단위` (단위는 선택)" },
-        "highlights": { "label": "하이라이트", "info": "한 줄에 한 항목" },
-        "body": { "label": "개요 본문" },
-        "downloads": { "label": "자료", "info": "한 줄당 `이름|유형|URL|크기`" },
-        "related_models": { "label": "연관 모델", "info": "한 줄당 모델 하나 (선택)" },
-        "cta_quote_link": { "label": "견적 링크(다이얼로그 우선)" },
-        "cta_trial_link": { "label": "체험 링크" }
-      }
-    },
-    "page_case": {
-      "name": "사례 상세",
-      "description": "과제 / 솔루션 / 성과 내러티브",
-      "settings": {
-        "tagline": { "label": "부제" },
-        "client_name": { "label": "고객" },
-        "client_caption": { "label": "고객 보조" },
-        "client_logo_url": { "label": "고객 로고" },
-        "cover_image_url": { "label": "커버 이미지" },
-        "industry": { "label": "산업" },
-        "region": { "label": "지역" },
-        "scale": { "label": "규모" },
-        "headline_metric": { "label": "주요 성과", "info": "예: 처리 효율 38% 향상" },
-        "pain_point": { "label": "고객 과제" },
-        "solution": { "label": "솔루션" },
-        "outcomes": { "label": "정량 성과", "info": "한 줄당 `값|단위|설명`" },
-        "body": { "label": "사례 본문" },
-        "related_models": { "label": "연관 제품 모델" }
-      }
-    },
-    "page_doc": {
-      "name": "문서 상세",
-      "description": "넓은 prose + 좌측 목차 + 우측 On this page",
-      "settings": {
-        "tagline": { "label": "부제" },
-        "version": { "label": "문서 버전" },
-        "body": { "label": "본문" },
-        "related_models": { "label": "연관 모델", "info": "한 줄당 하나" }
+        "model_code": {
+          "label": "모델 코드",
+          "info": "제품 고유 식별자 (예: X100-PRO)"
+        },
+        "tags": {
+          "label": "태그"
+        },
+        "industries": {
+          "label": "산업",
+          "info": "선택지는 전역 분류 체계에서 가져옵니다"
+        },
+        "scenarios": {
+          "label": "시나리오",
+          "info": "선택지는 전역 분류 체계에서 가져옵니다"
+        },
+        "series": {
+          "label": "시리즈",
+          "info": "선택지는 전역 분류 체계에서 가져옵니다"
+        },
+        "spec_groups": {
+          "label": "사양 그룹",
+          "info": "한 줄당 `그룹::이름::값`. 첫 번째 구간으로 그룹화하여 표로 표시합니다."
+        },
+        "thumb_image_url": {
+          "label": "메인 이미지"
+        },
+        "description": {
+          "label": "요약",
+          "info": "카드와 SEO에 사용되는 한 줄 설명"
+        },
+        "content": {
+          "label": "본문"
+        },
+        "downloads": {
+          "label": "다운로드(선언만)",
+          "info": "V1에서는 미표시, V2용으로 예약"
+        },
+        "doc_refs": {
+          "label": "문서 참조(선언만)",
+          "info": "V1에서는 미표시, V2용으로 예약"
+        },
+        "faq_refs": {
+          "label": "FAQ 참조(선언만)",
+          "info": "V1에서는 미표시, V2용으로 예약"
+        },
+        "case_refs": {
+          "label": "사례 참조(선언만)",
+          "info": "V1에서는 미표시, V2용으로 예약"
+        },
+        "related_products": {
+          "label": "관련 제품(선언만)",
+          "info": "V1에서는 미표시, V2용으로 예약"
+        }
       }
     }
   },
   "generic": {
     "name": "일반 설정",
     "settings": {
-      "slogan": { "label": "슬로건", "default": "B2B 제품 정보 허브" },
-      "company_name": { "label": "회사명", "default": "Baklib.cn", "info": "푸터에 표시" },
-      "copyright_info": { "label": "저작권/등록 정보", "placeholder": "" },
-      "is_allow_feedback": { "label": "사용자 피드백 표시" },
-      "is_show_visit_count": { "label": "방문 수 표시" },
-      "is_allow_header": { "label": "헤더 표시" },
-      "is_allow_footer": { "label": "푸터 표시" },
-      "sort_rule": {
-        "label": "리스트 정렬",
-        "options": {
-          "created_at_desc": "생성일 - 내림차순",
-          "created_at_asc": "생성일 - 오름차순",
-          "edited_at_desc": "수정일 - 내림차순",
-          "edited_at_asc": "수정일 - 오름차순",
-          "visit_count_desc": "방문 수 - 많은 순",
-          "visit_count_asc": "방문 수 - 적은 순",
-          "manual": "수동"
-        }
+      "slogan": {
+        "label": "슬로건",
+        "default": "B2B 제품 카탈로그 허브"
+      },
+      "logo_url": {
+        "label": "로고 이미지",
+        "info": "헤더에 표시되며, 비어 있으면 파비콘 + 사이트 이름으로 대체됩니다"
+      },
+      "company_name": {
+        "label": "회사명",
+        "default": "Baklib.cn",
+        "info": "푸터에 표시"
+      },
+      "is_allow_feedback": {
+        "label": "사용자 피드백 표시"
+      },
+      "is_allow_header": {
+        "label": "헤더 표시"
+      },
+      "is_allow_footer": {
+        "label": "푸터 표시"
+      }
+    }
+  },
+  "taxonomy": {
+    "name": "분류 체계",
+    "settings": {
+      "industries": {
+        "label": "산업(한 줄에 하나)",
+        "info": "제품 페이지가 choices_from: $site.industries 로 참조하는 관리 어휘"
+      },
+      "scenarios": {
+        "label": "시나리오(한 줄에 하나)",
+        "info": "제품 페이지가 choices_from: $site.scenarios 로 참조하는 관리 어휘"
+      },
+      "series": {
+        "label": "시리즈(한 줄에 하나)",
+        "info": "제품 페이지가 choices_from: $site.series 로 참조하는 관리 어휘"
       }
     }
   },
   "hub": {
-    "name": "Product Hub 채널",
+    "name": "Product Hub",
     "settings": {
-      "products_root_path": { "label": "제품 루트 경로", "info": "예: /products" },
-      "cases_root_path": { "label": "사례 루트 경로", "info": "예: /cases" },
-      "docs_root_path": { "label": "문서 루트 경로", "info": "예: /docs" },
-      "downloads_root_path": { "label": "다운로드 루트 경로", "info": "예: /downloads" },
-      "faqs_root_path": { "label": "FAQ 루트 경로", "info": "예: /faqs" },
-      "cta_quote_label": { "label": "견적 CTA 문구", "default": "견적 요청" },
-      "cta_engineer_label": { "label": "엔지니어 CTA 문구", "default": "엔지니어와 상담" },
-      "cta_trial_label": { "label": "체험 CTA 문구", "default": "체험 신청" },
-      "lead_email": { "label": "리드 수신 이메일", "info": "사이트 피드백 미사용 시 메일 폴백" }
+      "cta_quote_label": {
+        "label": "견적 CTA 문구",
+        "info": "전역 재정의",
+        "default": "솔루션 요청"
+      },
+      "cta_quote_url": {
+        "label": "견적 CTA 링크",
+        "info": "기본 CTA의 이동 대상, 예: /s/quote"
+      }
     }
   },
   "custom_html": {
     "name": "맞춤 HTML",
     "settings": {
-      "head_html": { "label": "<head> 맞춤 HTML", "info": "HTML + 제한적 Tailwind", "placeholder": "" },
-      "header_menu_html": { "label": "헤더 맞춤 HTML", "info": "HTML + 제한적 Tailwind", "placeholder": "" },
-      "footer_menu_html": { "label": "푸터 맞춤 HTML", "info": "HTML + 제한적 Tailwind", "placeholder": "" }
+      "head_html": {
+        "label": "<head> 맞춤 HTML",
+        "info": "HTML + 제한적 Tailwind",
+        "placeholder": ""
+      },
+      "header_menu_html": {
+        "label": "헤더 맞춤 HTML",
+        "info": "HTML + 제한적 Tailwind",
+        "placeholder": ""
+      },
+      "footer_menu_html": {
+        "label": "푸터 맞춤 HTML",
+        "info": "HTML + 제한적 Tailwind",
+        "placeholder": ""
+      }
     }
   },
   "settings": {
     "weixin_share": {
       "title": "WeChat 설정",
-      "weixin_app_id": { "label": "AppID", "info": "" },
-      "weixin_app_secret": { "label": "AppSecret", "info": "" },
-      "weixin_enabled": { "label": "WeChat 공유 활성화", "info": "" },
-      "weixin_debug": { "label": "디버그 활성화", "info": "" }
+      "weixin_app_id": {
+        "label": "AppID",
+        "info": ""
+      },
+      "weixin_app_secret": {
+        "label": "AppSecret",
+        "info": ""
+      },
+      "weixin_enabled": {
+        "label": "WeChat 공유 활성화",
+        "info": ""
+      },
+      "weixin_debug": {
+        "label": "디버그 활성화",
+        "info": ""
+      }
     }
   }
 }

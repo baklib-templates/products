@@ -10,6 +10,7 @@ dump.rdb
 
 #忽略开发时产生的资源文件
 /dist/
+/data/
 /node_modules/
 /yarn-error.log
 /yarn-debug.log

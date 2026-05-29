@@ -1,56 +1,45 @@
 {% assign footer_menu_html = site.settings.footer_menu_html | presence %}
 {% assign company_name = site.settings.company_name | presence %}
-{% assign copyright_info = site.settings.copyright_info | presence %}
-{% assign products_path = site.settings.products_root_path | default: '/products' %}
-{% assign cases_path = site.settings.cases_root_path | default: '/cases' %}
-{% assign docs_path = site.settings.docs_root_path | default: '/docs' %}
-{% assign downloads_path = site.settings.downloads_root_path | default: '/downloads' %}
-{% assign faqs_path = site.settings.faqs_root_path | default: '/faqs' %}
 {% assign index_path = site.index_path | default: '/' %}
+{% assign nav_channels = site.pages['/'].children_in_list | limit: 100 %}
+{% assign quote_url = site.settings.cta_quote_url | default: '/s/quote' %}
+{% assign quote_label = site.settings.cta_quote_label | default: 'hub.cta.quote' | t %}
 
 <footer class="mt-20 w-full bg-neutral py-16 text-neutral-content/70">
-  <div class="mx-auto grid w-full max-w-[1440px] gap-12 px-6 text-[14px] md:grid-cols-4">
-    <div>
+  <div class="mx-auto grid w-full max-w-[1280px] gap-12 px-6 text-[14px] md:grid-cols-4">
+    <div class="md:col-span-2">
       <span class="font-display text-[20px] font-medium text-neutral-content">{{ site.name }}</span>
       {% if site.settings.slogan != blank %}
-        <p class="mt-4 leading-relaxed">{{ site.settings.slogan }}</p>
+        <p class="mt-4 max-w-md leading-relaxed">{{ site.settings.slogan }}</p>
       {% else %}
-        <p class="mt-4 leading-relaxed">{{ 'footer.tagline' | t }}</p>
+        <p class="mt-4 max-w-md leading-relaxed">{{ 'footer.tagline' | t }}</p>
       {% endif %}
     </div>
     <div>
       <h4 class="mb-4 font-medium text-neutral-content">{{ 'footer.platform' | t }}</h4>
       <div class="flex flex-col items-start gap-2">
-        <a href="{{ products_path }}" class="transition-colors hover:text-neutral-content" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ 'nav.catalog' | t }}</a>
-        <a href="{{ downloads_path }}" class="transition-colors hover:text-neutral-content" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ 'nav.downloads' | t }}</a>
-        <a href="{{ cases_path }}" class="transition-colors hover:text-neutral-content" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ 'nav.cases' | t }}</a>
-        <a href="{{ docs_path }}" class="transition-colors hover:text-neutral-content" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ 'nav.docs' | t }}</a>
-        <a href="{{ faqs_path }}" class="transition-colors hover:text-neutral-content" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ 'nav.faqs' | t }}</a>
+        <a href="{{ index_path }}" class="inline-flex items-center gap-2 transition-colors hover:text-neutral-content" data-turbo-frame="main-content-frame" data-turbo-action="advance">{% render 'icon', name: 'home', class: 'w-4 h-4' %}{{ 'nav.dashboard' | t }}</a>
+        {% for nav_channel in nav_channels %}
+          <a href="{{ nav_channel.path }}" class="inline-flex items-center gap-2 transition-colors hover:text-neutral-content" data-turbo-frame="main-content-frame" data-turbo-action="advance">{% render 'icon', name: 'boxes', class: 'w-4 h-4' %}{{ nav_channel.link_text }}</a>
+        {% endfor %}
+        <a href="{{ site.search_path }}" class="inline-flex items-center gap-2 transition-colors hover:text-neutral-content" data-turbo-frame="main-content-frame" data-turbo-action="advance">{% render 'icon', name: 'search', class: 'w-4 h-4' %}{{ 'generic.placeholders.search' | t }}</a>
       </div>
     </div>
-    <div class="md:col-span-2 flex flex-col items-start md:items-end">
+    <div class="flex flex-col items-start">
       <h4 class="mb-4 font-mono text-[12px] font-semibold uppercase tracking-wider text-accent">{{ 'footer.cta_eyebrow' | t }}</h4>
-      <p class="mb-6 text-left font-display text-[24px] text-neutral-content md:text-right">{{ 'footer.cta_title' | t }}</p>
-      <div class="relative w-full max-w-sm md:w-auto">
-        <label class="sr-only" for="hub-footer-email">{{ 'footer.email_placeholder' | t }}</label>
-        <input id="hub-footer-email" type="email" readonly placeholder="{{ 'footer.email_placeholder' | t }}" class="w-full border-0 border-b border-neutral-content/30 bg-transparent py-3 pr-10 text-neutral-content placeholder:text-neutral-content/50 focus:border-neutral-content focus:outline-none md:w-[240px]" />
-        <svg class="pointer-events-none absolute right-0 top-[14px] h-5 w-5 text-neutral-content" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M5 12h14" />
-          <path d="m12 5 7 7-7 7" />
-        </svg>
-      </div>
+      <p class="mb-5 font-display text-[20px] leading-snug text-neutral-content">{{ 'footer.cta_title' | t }}</p>
+      <a href="{{ quote_url }}" data-turbo-frame="main-content-frame" data-turbo-action="advance" class="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-content transition-colors hover:bg-primary/90 no-underline">
+        {% render 'icon', name: 'message-square', class: 'w-4 h-4' %}{{ quote_label }}
+      </a>
     </div>
   </div>
 
-  {% if company_name or copyright_info or footer_menu_html %}
-    <div class="mx-auto mt-12 w-full max-w-[1440px] border-t border-neutral-content/10 px-6 pt-8 text-xs text-neutral-content/50">
+  {% if company_name or footer_menu_html %}
+    <div class="mx-auto mt-12 w-full max-w-[1280px] border-t border-neutral-content/10 px-6 pt-8 text-xs text-neutral-content/50">
       <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div class="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-3">
           {% if company_name %}
             <span>© {{ 'now' | date: '%Y' }} {{ company_name }} {{ 'generic.copyright' | t }}</span>
-          {% endif %}
-          {% if copyright_info %}
-            <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" class="hover:text-neutral-content hover:underline">{{ copyright_info }}</a>
           {% endif %}
         </div>
         {% if footer_menu_html %}

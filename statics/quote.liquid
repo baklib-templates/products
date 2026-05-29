@@ -1,0 +1,101 @@
+{%- comment -%}
+  Quote / "Request a Solution" static page (URL: /s/quote).
+  The platform feedback form natively carries only emoji + message, so the custom
+  contact fields (name / company / contact) are validated and concatenated into
+  the hidden message field by the `quote-feedback` Stimulus controller, which
+  POSTs with an explicit turbo-stream Accept header and feeds the response to
+  Turbo.renderStreamMessage. feedback_success_turbo_stream.liquid then renders its
+  success toast in place — no full-page navigation.
+{%- endcomment -%}
+{% assign index_path = site.index_path | default: '/' %}
+{% assign default_feedback_type = site.plugins.feedback.useful_types | first %}
+{% assign default_feedback_emoji = default_feedback_type.emoji | default: '' %}
+{% assign feedback_message_enabled = false %}
+{% if site.settings.is_allow_feedback and site.plugins.feedback.message_enabled %}
+  {% assign feedback_message_enabled = true %}
+{% endif %}
+
+<main class="mx-auto w-full max-w-[1280px] px-6 pb-20 pt-10">
+  <nav class="flex items-center gap-2 text-sm text-base-content/60" aria-label="Breadcrumb">
+    <a href="{{ index_path }}" class="inline-flex items-center gap-1.5 transition-colors hover:text-primary" data-turbo-frame="main-content-frame" data-turbo-action="advance">
+      {% render 'icon', name: 'home', class: 'w-4 h-4' %}{{ 'nav.dashboard' | t }}
+    </a>
+    <span class="text-base-content/30">/</span>
+    <span class="text-base-content">{{ 'quote.title' | t }}</span>
+  </nav>
+
+  <header class="mt-6 max-w-2xl">
+    <p class="mb-3 inline-flex items-center gap-1.5 font-mono text-xs font-medium uppercase tracking-wide text-accent">
+      {% render 'icon', name: 'message-square', class: 'w-4 h-4' %}{{ 'quote.eyebrow' | t }}
+    </p>
+    <h1 class="font-display text-3xl font-bold leading-tight tracking-tight text-base-content md:text-4xl">{{ 'quote.title' | t }}</h1>
+    <p class="mt-4 text-lg leading-relaxed text-base-content/70">{{ 'quote.subtitle' | t }}</p>
+  </header>
+
+  {% if feedback_message_enabled %}
+    <section class="mt-10 max-w-2xl" data-controller="quote-feedback">
+      {% form_tag 'feedback', page: page %}
+        <input type="hidden" name="{{ form.feedback_message_field_name }}" data-quote-feedback-target="messageField" />
+        <input type="hidden" name="{{ form.feedback_emoji_field_name }}" value="{{ default_feedback_emoji | escape_once }}" />
+
+        <div class="space-y-5 rounded-2xl border border-base-300 bg-base-100 p-6 shadow-sm sm:p-8">
+          <h2 class="text-lg font-semibold text-base-content">{{ 'quote.form_title' | t }}</h2>
+
+          <div role="alert" data-quote-feedback-target="formError" class="hidden items-start gap-2 rounded-lg border border-error/40 bg-error/10 px-3 py-2.5 text-sm text-error">
+            {% render 'icon', name: 'info', class: 'w-4 h-4 shrink-0' %}<span>{{ 'quote.error' | t }}</span>
+          </div>
+
+          <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+            <div>
+              <label for="quote-name" class="mb-1.5 block text-sm font-medium text-base-content/80">{{ 'quote.fields.name' | t }}</label>
+              <input id="quote-name" type="text" data-quote-feedback-target="name" placeholder="{{ 'quote.fields.name_placeholder' | t }}"
+                class="w-full rounded-lg border border-base-300 bg-base-100 px-3 py-2.5 text-sm text-base-content shadow-inner transition-colors placeholder:text-base-content/40 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20" />
+            </div>
+            <div>
+              <label for="quote-company" class="mb-1.5 block text-sm font-medium text-base-content/80">{{ 'quote.fields.company' | t }}</label>
+              <input id="quote-company" type="text" data-quote-feedback-target="company" placeholder="{{ 'quote.fields.company_placeholder' | t }}"
+                class="w-full rounded-lg border border-base-300 bg-base-100 px-3 py-2.5 text-sm text-base-content shadow-inner transition-colors placeholder:text-base-content/40 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20" />
+            </div>
+          </div>
+
+          <div>
+            <label for="quote-contact" class="mb-1.5 block text-sm font-medium text-base-content/80">
+              {{ 'quote.fields.contact' | t }} <span class="text-error">*</span>
+            </label>
+            <input id="quote-contact" type="text" required data-quote-feedback-target="contact" aria-describedby="quote-contact-error" placeholder="{{ 'quote.fields.contact_placeholder' | t }}"
+              class="w-full rounded-lg border border-base-300 bg-base-100 px-3 py-2.5 text-sm text-base-content shadow-inner transition-colors placeholder:text-base-content/40 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 aria-[invalid=true]:border-error aria-[invalid=true]:focus:border-error aria-[invalid=true]:focus:ring-error/20" />
+            <p id="quote-contact-error" role="alert" data-quote-feedback-target="contactError" class="mt-1 hidden text-xs text-error">{{ 'quote.required' | t }}</p>
+          </div>
+
+          <div>
+            <label for="quote-message" class="mb-1.5 block text-sm font-medium text-base-content/80">
+              {{ 'quote.fields.message' | t }} <span class="text-error">*</span>
+            </label>
+            <textarea id="quote-message" rows="6" required data-quote-feedback-target="message" aria-describedby="quote-message-error" placeholder="{{ 'quote.fields.message_placeholder' | t }}"
+              class="w-full rounded-lg border border-base-300 bg-base-100 px-3 py-2.5 text-sm text-base-content shadow-inner transition-colors placeholder:text-base-content/40 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 aria-[invalid=true]:border-error aria-[invalid=true]:focus:border-error aria-[invalid=true]:focus:ring-error/20"></textarea>
+            <p id="quote-message-error" role="alert" data-quote-feedback-target="messageError" class="mt-1 hidden text-xs text-error">{{ 'quote.required' | t }}</p>
+          </div>
+
+          <div class="flex flex-col gap-3 pt-1 sm:flex-row sm:items-center sm:justify-between">
+            <p class="inline-flex items-center gap-1.5 text-xs text-base-content/60">
+              {% render 'icon', name: 'circle-check', class: 'w-4 h-4 text-success' %}{{ 'quote.success_hint' | t }}
+            </p>
+            <button type="button" data-action="quote-feedback#submit" data-quote-feedback-target="submit"
+              class="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-2.5 text-sm font-medium text-primary-content shadow-sm transition-colors hover:bg-primary/90 disabled:opacity-60">
+              {% render 'icon', name: 'send', class: 'w-4 h-4' %}
+              <span data-quote-feedback-target="submitLabel">{{ 'quote.submit' | t }}</span>
+              <span data-quote-feedback-target="submittingLabel" class="hidden">{{ 'quote.submitting' | t }}</span>
+            </button>
+          </div>
+        </div>
+      {% endform_tag %}
+    </section>
+  {% else %}
+    <section class="mt-10 max-w-2xl">
+      <div class="flex items-start gap-3 rounded-2xl border border-base-300 bg-base-200/60 p-6 text-sm text-base-content/70">
+        {% render 'icon', name: 'info', class: 'w-5 h-5 shrink-0 text-base-content/50' %}
+        <p>{{ 'quote.unavailable' | t }}</p>
+      </div>
+    </section>
+  {% endif %}
+</main>

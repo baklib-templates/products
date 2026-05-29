@@ -1,130 +1,110 @@
 {%- comment -%}
-  Product Hub 首页（products-demo Dashboard）：统计卡 + 最近动态表。
+  Product catalog overview (dictionary home): hero + taxonomy facets +
+  product channel entries + featured product grid.
 {%- endcomment -%}
-{% assign products_root_path = site.settings.products_root_path | default: '/products' %}
-{% assign cases_root_path = site.settings.cases_root_path | default: '/cases' %}
-{% assign docs_root_path = site.settings.docs_root_path | default: '/docs' %}
-{% assign downloads_root_path = site.settings.downloads_root_path | default: '/downloads' %}
-{% assign faqs_root_path = site.settings.faqs_root_path | default: '/faqs' %}
-
-{% assign products_root = site.pages[products_root_path] %}
-{% assign downloads_root = site.pages[downloads_root_path] %}
-{% assign featured = products_root.pages_in_list | order_by: '-edited_at' | limit: 8 %}
+{% assign channels = page.children_in_list %}
+{% assign channels_count = channels | size %}
+{% assign first_channel = channels | first %}
+{% assign browse_path = first_channel.path | default: site.index_path | default: '/' %}
+{% assign featured = page.pages_in_list | where: 'template_name', 'page' | order_by: '-edited_at' | limit: 8 %}
 {% assign featured_count = featured | size %}
 
-{% assign stat_products = 0 %}
-{% assign stat_categories = 0 %}
-{% assign stat_resources = 0 %}
-{% if products_root %}
-  {% assign stat_products = products_root.pages_in_list | size %}
-  {% assign stat_categories = products_root.children_in_list | size %}
-{% endif %}
-{% if downloads_root %}
-  {% assign stat_resources = downloads_root.pages_in_list | size %}
-{% endif %}
+{% assign series_terms = site.settings.series | newline_to_br | split: '<br />' %}
+{% assign industries_terms = site.settings.industries | newline_to_br | split: '<br />' %}
+{% assign scenarios_terms = site.settings.scenarios | newline_to_br | split: '<br />' %}
+{% assign quote_url = site.settings.cta_quote_url | default: '/s/quote' %}
+{% assign quote_label = site.settings.cta_quote_label | default: 'hub.cta.quote' | t %}
 
-{% assign recent_rows = products_root.pages_in_list | order_by: '-edited_at' | limit: 8 %}
-
-<div class="mx-auto w-full max-w-[1024px] px-6 pb-16 pt-8">
-  <div class="mb-12">
-    <h1 class="font-display text-5xl font-bold leading-none tracking-tight text-base-content md:text-6xl">{{ 'index.dashboard.title' | t }}</h1>
+<div class="mx-auto w-full max-w-[1280px] px-6 pb-16 pt-10">
+  {%- comment -%} Hero {%- endcomment -%}
+  <section class="mb-14 max-w-3xl">
+    <p class="mb-3 inline-flex items-center gap-1.5 font-mono text-xs font-medium uppercase tracking-wide text-accent">
+      {% render 'icon', name: 'boxes', class: 'w-4 h-4' %}{{ 'index.eyebrow' | t }}
+    </p>
+    <h1 class="font-display text-4xl font-bold leading-none tracking-tight text-base-content md:text-5xl">{{ page.link_text }}</h1>
     {% if page.settings.description != blank %}
-      <div class="prose prose mt-4 max-w-[600px] text-[18px] text-base-content/70">{{ page.settings.description }}</div>
+      <div class="ProseMirror prose mt-5 max-w-2xl text-lg text-base-content/70">{{ page.settings.description }}</div>
     {% else %}
-      <p class="mt-4 max-w-[600px] text-[18px] text-base-content/60">{{ 'index.dashboard.subtitle' | t }}</p>
+      <p class="mt-5 max-w-2xl text-lg text-base-content/70">{{ 'index.intro' | t }}</p>
     {% endif %}
-  </div>
+    <div class="mt-7 flex flex-wrap gap-3">
+      <a href="{{ browse_path }}" class="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-content shadow-sm transition-colors hover:bg-primary/90 no-underline" data-turbo-frame="main-content-frame" data-turbo-action="advance">
+        {% render 'icon', name: 'grid', class: 'w-4 h-4' %}{{ 'index.cta_browse' | t }}
+      </a>
+      <a href="{{ quote_url }}" class="inline-flex items-center gap-2 rounded-lg border border-base-300 bg-base-100 px-5 py-2.5 text-sm font-medium text-base-content transition-colors hover:border-primary/40 hover:bg-primary/5 no-underline" data-turbo-frame="main-content-frame" data-turbo-action="advance">
+        {% render 'icon', name: 'message-square', class: 'w-4 h-4' %}{{ quote_label }}
+      </a>
+    </div>
+  </section>
 
-  <div class="mb-12 grid grid-cols-1 gap-6 md:grid-cols-3">
-    <div class="hub-liquid-card p-8">
-      <h3 class="mb-6 font-mono text-[14px] font-medium uppercase text-base-content/50">{{ 'index.dashboard.stat_products' | t }}</h3>
-      <span class="font-display text-5xl font-bold text-base-content">{{ stat_products }}</span>
-    </div>
-    <div class="hub-liquid-card p-8">
-      <h3 class="mb-6 font-mono text-[14px] font-medium uppercase text-base-content/50">{{ 'index.dashboard.stat_categories' | t }}</h3>
-      <span class="font-display text-5xl font-bold text-base-content">{{ stat_categories }}</span>
-    </div>
-    <div class="hub-liquid-card p-8">
-      <h3 class="mb-6 font-mono text-[14px] font-medium uppercase text-base-content/50">{{ 'index.dashboard.stat_resources' | t }}</h3>
-      <span class="font-display text-5xl font-bold text-base-content">{{ stat_resources }}</span>
-    </div>
-  </div>
-
-  <div class="hub-liquid-card mb-12">
-    <div class="border-b border-base-300 p-6">
-      <h3 class="text-[18px] font-semibold text-base-content">{{ 'index.dashboard.recent_title' | t }}</h3>
-    </div>
-    <div class="overflow-x-auto p-2">
-      {% if products_root == nil %}
-        <p class="px-6 py-8 text-sm text-base-content/60">{{ 'index.dashboard.recent_empty' | t }}</p>
-      {% else %}
-        <table class="w-full border-collapse text-left">
-          <thead>
-            <tr>
-              <th class="px-6 py-4 font-mono text-[13px] font-medium uppercase text-base-content/50">{{ 'index.dashboard.col_id' | t }}</th>
-              <th class="px-6 py-4 font-mono text-[13px] font-medium uppercase text-base-content/50">{{ 'index.dashboard.col_product' | t }}</th>
-              <th class="px-6 py-4 font-mono text-[13px] font-medium uppercase text-base-content/50">{{ 'index.dashboard.col_date' | t }}</th>
-              <th class="px-6 py-4 font-mono text-[13px] font-medium uppercase text-base-content/50">{{ 'index.dashboard.col_status' | t }}</th>
-            </tr>
-          </thead>
-          <tbody class="text-[14px] font-medium text-base-content">
-            {% assign row_i = 0 %}
-            {% for row in recent_rows %}
-              {% assign row_i = row_i | plus: 1 %}
-              <tr class="border-t border-base-200 transition-colors hover:bg-base-200">
-                <td class="px-6 py-4">#{{ row_i | plus: 12800 }}</td>
-                <td class="px-6 py-4">
-                  <a href="{{ row.path }}" class="text-primary hover:text-base-content" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ row.link_text }}</a>
-                </td>
-                <td class="px-6 py-4 font-mono text-[13px] text-base-content/60">{{ row.edited_at | default: row.published_at | date: '%Y-%m-%d' }}</td>
-                <td class="px-6 py-4">
-                  <span class="rounded-full bg-success/15 px-3 py-1 font-mono text-[11px] font-semibold uppercase text-success">{{ 'index.dashboard.status_done' | t }}</span>
-                </td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      {% endif %}
-    </div>
-  </div>
-
-  {% if featured_count > 0 %}
-    <div class="mb-8 flex items-baseline justify-between">
-      <h2 class="font-display text-2xl font-bold text-base-content">{{ 'index.featured_products' | t }}</h2>
-      <a href="{{ products_root_path }}" class="text-sm font-medium text-primary hover:underline" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ 'index.view_all' | t }} →</a>
-    </div>
-    <div class="-mx-2 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-3 [scrollbar-width:thin]">
-      {% for product in featured %}
-        <article class="hub-liquid-card flex w-[min(20rem,calc(100vw-3rem))] shrink-0 snap-start flex-col sm:w-80">
-          <div class="flex flex-1 flex-col p-6">
-            <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl border border-base-200 bg-base-200 shadow-sm">
-              {% assign cover = product.settings.thumb_image_url | default: product.settings.hero_image_url | default: product.settings.logo_image_url | presence %}
-              {% if cover %}
-                <img src="{{ cover }}" alt="" class="h-8 w-8 rounded-lg object-cover" loading="lazy" />
-              {% else %}
-                <svg class="h-6 w-6 text-base-content" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+  {%- comment -%} Taxonomy facets {%- endcomment -%}
+  <section class="mb-14">
+    <h2 class="mb-6 font-display text-2xl font-semibold text-base-content">{{ 'index.browse_title' | t }}</h2>
+    <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
+      {% assign facet_groups = 'series,industries,scenarios' | split: ',' %}
+      {% for fg in facet_groups %}
+        {% case fg %}
+          {% when 'series' %}{% assign terms = series_terms %}{% assign facet_icon = 'layers' %}{% assign facet_label = 'index.facet.series' | t %}
+          {% when 'industries' %}{% assign terms = industries_terms %}{% assign facet_icon = 'factory' %}{% assign facet_label = 'index.facet.industries' | t %}
+          {% when 'scenarios' %}{% assign terms = scenarios_terms %}{% assign facet_icon = 'target' %}{% assign facet_label = 'index.facet.scenarios' | t %}
+        {% endcase %}
+        <div class="rounded-2xl border border-base-300 bg-base-100 p-6">
+          <h3 class="mb-4 inline-flex items-center gap-2 text-sm font-semibold text-base-content">
+            <span class="text-primary">{% render 'icon', name: facet_icon, class: 'w-5 h-5' %}</span>{{ facet_label }}
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            {% for term in terms %}
+              {% assign term = term | strip %}
+              {% if term != blank %}
+                <a href="{{ site.search_path }}?q={{ term | url_encode }}" class="inline-flex items-center rounded-lg bg-base-200 px-2.5 py-1 text-xs text-base-content/80 transition-colors hover:bg-primary/10 hover:text-primary no-underline" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ term }}</a>
               {% endif %}
-            </div>
-            {% if product.settings.product_model != blank %}
-              <p class="mb-2 font-mono text-[13px] text-base-content/60">{{ product.settings.product_model }}</p>
-            {% endif %}
-            <h3 class="font-display text-lg font-bold text-base-content">
-              <a href="{{ product.path }}" class="hover:text-primary" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ product.link_text }}</a>
-            </h3>
-            {% if product.settings.tagline != blank %}
-              <p class="mt-2 line-clamp-2 text-sm text-base-content/70">{{ product.settings.tagline }}</p>
-            {% endif %}
-            <a href="{{ product.path }}" class="hub-pill-outline mt-6 w-full justify-center text-center no-underline" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ 'index.view_detail' | t }}</a>
+            {% endfor %}
           </div>
-        </article>
+        </div>
       {% endfor %}
     </div>
-  {% endif %}
+  </section>
 
-  <div class="mt-12 flex flex-wrap gap-4">
-    <a href="{{ products_root_path }}" class="hub-pill-primary no-underline" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ 'index.cta_browse' | t }}</a>
-    <button type="button" class="hub-pill-secondary border-0" data-lead-trigger data-lead-intent="quote">{{ site.settings.cta_quote_label | default: 'hub.cta.quote' | t }}</button>
-  </div>
+  {%- comment -%} Product channels {%- endcomment -%}
+  <section class="mb-14">
+    <div class="mb-6 flex items-baseline justify-between">
+      <h2 class="font-display text-2xl font-semibold text-base-content">{{ 'index.channels_title' | t }}</h2>
+    </div>
+    {% if channels_count == 0 %}
+      {% render '@shared/empty', message: 'index.empty_channels' | t %}
+    {% else %}
+      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {% for channel in channels %}
+          {% assign ch_count = channel.pages_in_list | where: 'template_name', 'page' | size %}
+          <a href="{{ channel.path }}" class="group flex flex-col rounded-2xl border border-base-300 bg-base-100 p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md no-underline" data-turbo-frame="main-content-frame" data-turbo-action="advance">
+            <div class="mb-4 flex h-11 w-11 items-center justify-center rounded-lg bg-primary/10 text-primary">{% render 'icon', name: 'boxes', class: 'w-5 h-5' %}</div>
+            <h3 class="font-display text-lg font-semibold text-base-content transition-colors group-hover:text-primary">{{ channel.link_text }}</h3>
+            {% if channel.settings.description != blank %}
+              <p class="mt-2 line-clamp-2 text-sm text-base-content/70">{{ channel.settings.description | strip_html | strip }}</p>
+            {% endif %}
+            <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-primary">
+              {{ ch_count }} {{ 'channels.products.count' | t }}{% render 'icon', name: 'arrow-right', class: 'w-4 h-4' %}
+            </span>
+          </a>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </section>
+
+  {%- comment -%} Featured products {%- endcomment -%}
+  {% if featured_count > 0 %}
+    <section>
+      <div class="mb-6 flex items-baseline justify-between">
+        <h2 class="font-display text-2xl font-semibold text-base-content">{{ 'index.featured_products' | t }}</h2>
+        <a href="{{ browse_path }}" class="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ 'index.view_all' | t }}{% render 'icon', name: 'arrow-right', class: 'w-4 h-4' %}</a>
+      </div>
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {% for product in featured %}
+          {% render 'product_card', page: product %}
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
 </div>
 
 {% schema %}

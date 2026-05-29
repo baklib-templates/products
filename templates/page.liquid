@@ -1,42 +1,171 @@
 {%- comment -%}
-  Page 兜底模板：未选具体样式时按通用详情渲染。
-  推荐为单品 / 案例 / 文档分别指定 page.product / page.case / page.doc 样式。
+  Unified detail template (V1, the only detail template). Renders the full
+  product-detail layout when the page is a product — detected by
+  `template_style == 'product'` or by the presence of product fields
+  (model_code / spec_groups) — and otherwise falls back to a generic content
+  page. Both modes share the same `description` (summary) + `content` (rich
+  body) fields, so there is a single source of truth and no duplicate fields.
 {%- endcomment -%}
+{% assign is_product = false %}
+{% if page.template_style == 'product' %}{% assign is_product = true %}{% endif %}
+{% if page.settings.model_code != blank or page.settings.spec_groups != blank %}{% assign is_product = true %}{% endif %}
+
 {% capture _title %}{{ page.link_text }}{% endcapture %}
 {% set_meta_title _title | strip %}
-{% if page.settings.tagline != blank %}
-  {% set_meta_description page.settings.tagline %}
+{% if page.settings.description != blank %}
+  {% set_meta_description page.settings.description | strip_html | strip %}
 {% endif %}
 
-<article class="mx-auto w-full max-w-4xl px-4 py-10 sm:px-6 lg:px-8">
-  {% render '@shared/breadcrumb', breadcrumb: page.breadcrumb %}
+{% if is_product %}
+  {% assign model = page.settings.model_code | strip %}
+  {% assign back_path = page.parent.path | default: site.index_path | default: '/' %}
+  {% assign cover = page.settings.thumb_image_url | presence %}
+  {% assign description = page.settings.description | strip %}
+  {% assign has_specs = page.settings.spec_groups | strip | presence %}
+  {% assign series_label = page.settings.series.label | default: page.settings.series | strip %}
+  {% assign industries = page.settings.industries %}
+  {% assign scenarios = page.settings.scenarios %}
+  {% assign industries_count = industries | size %}
+  {% assign scenarios_count = scenarios | size %}
+  {% assign tags_count = page.settings.tags | size %}
+  {% assign quote_url = site.settings.cta_quote_url | default: '/s/quote' %}
+  {% assign quote_label = site.settings.cta_quote_label | default: 'hub.cta.quote' | t %}
 
-  <header class="mt-4 border-b border-base-300 pb-6">
-    <h1 class="text-3xl font-bold tracking-tight text-base-content sm:text-4xl">{{ page.link_text }}</h1>
-    {% if page.settings.tagline != blank %}
-      <p class="mt-2 max-w-3xl text-base text-base-content/70">{{ page.settings.tagline }}</p>
-    {% endif %}
-    <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-base-content/60">
-      <span>{{ page.published_at | date: '%Y-%m-%d' }}</span>
-      {% if site.settings.is_show_visit_count %}
-        <span>{{ 'templates.page.visit_count' | t }}: {{ page.visits_count }}</span>
+  <article class="pb-16" x-data="productHub()" x-init="init()">
+    <div class="mx-auto w-full max-w-[1200px] px-6 pb-4 pt-8">
+      {% render '@shared/breadcrumb', breadcrumb: page.breadcrumb %}
+    </div>
+
+    <div class="mx-auto flex w-full max-w-[1200px] flex-col gap-10 px-6 lg:flex-row lg:gap-14">
+      {%- comment -%} Left: sticky on-this-page nav + CTA {%- endcomment -%}
+      <aside class="order-2 w-full shrink-0 lg:order-1 lg:w-[220px]">
+        <div class="lg:sticky lg:top-28">
+          <a href="{{ back_path }}" class="mb-8 inline-flex items-center gap-1.5 text-sm font-medium text-primary transition-colors hover:text-base-content" data-turbo-frame="main-content-frame" data-turbo-action="advance">
+            {% render 'icon', name: 'arrow-left', class: 'w-4 h-4' %}
+            {{ 'page.product.toc.back_catalog' | t }}
+          </a>
+          <h2 class="mb-4 font-mono text-xs font-medium uppercase tracking-wide text-accent">{{ 'page.product.toc.title' | t }}</h2>
+          <nav class="flex flex-col gap-3 border-l border-base-300 pl-4" aria-label="{{ 'page.product.nav.aria' | t }}">
+            <a href="#overview" @click.prevent="goTo('overview')" class="text-sm font-medium text-base-content/60 transition-colors hover:text-primary" :class="active === 'overview' ? 'text-primary' : ''">{{ 'page.product.nav.overview' | t }}</a>
+            {% if has_specs %}
+              <a href="#specs" @click.prevent="goTo('specs')" class="text-sm font-medium text-base-content/60 transition-colors hover:text-primary" :class="active === 'specs' ? 'text-primary' : ''">{{ 'page.product.nav.specs' | t }}</a>
+            {% endif %}
+          </nav>
+          <a href="{{ quote_url }}" data-turbo-frame="main-content-frame" data-turbo-action="advance" class="mt-8 hidden w-full items-center justify-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-content shadow-sm transition-colors hover:bg-primary/90 no-underline lg:inline-flex">
+            {% render 'icon', name: 'message-square', class: 'w-4 h-4' %}{{ quote_label }}
+          </a>
+        </div>
+      </aside>
+
+      {%- comment -%} Right: product content {%- endcomment -%}
+      <div class="order-1 min-w-0 flex-1 lg:order-2">
+        <section id="overview" class="scroll-mt-28" data-product-section>
+          <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
+            <div class="flex aspect-[4/3] items-center justify-center overflow-hidden rounded-2xl border border-base-300 bg-base-200">
+              {% if cover %}
+                <img src="{{ cover }}" alt="{{ page.link_text | escape }}" class="h-full w-full object-cover" />
+              {% else %}
+                <span class="text-base-content/30">{% render 'icon', name: 'package', class: 'w-20 h-20' %}</span>
+              {% endif %}
+            </div>
+
+            <div class="flex min-w-0 flex-col">
+              {% if series_label != blank %}
+                <span class="mb-3 inline-flex w-fit items-center gap-1.5 rounded-lg bg-accent/10 px-2.5 py-1 text-xs font-medium text-accent">
+                  {% render 'icon', name: 'layers', class: 'w-3.5 h-3.5' %}{{ series_label }}
+                </span>
+              {% endif %}
+              <h1 class="font-display text-3xl font-bold leading-tight tracking-tight text-base-content md:text-4xl">{{ page.link_text }}</h1>
+              {% if model != blank %}
+                <p class="mt-2 inline-flex items-center gap-2 font-mono text-sm text-base-content/60">
+                  <span class="text-base-content/40">{{ 'page.product.model_label' | t }}</span>{{ model }}
+                </p>
+              {% endif %}
+              {% if description != blank %}
+                <p class="mt-5 text-lg leading-relaxed text-base-content/80">{{ description }}</p>
+              {% endif %}
+
+              {%- comment -%} Taxonomy chips {%- endcomment -%}
+              {% if industries_count > 0 or scenarios_count > 0 or tags_count > 0 %}
+                <div class="mt-6 space-y-3">
+                  {% if industries_count > 0 %}
+                    <div class="flex flex-wrap items-center gap-2">
+                      <span class="inline-flex items-center gap-1.5 text-xs font-medium text-base-content/50">{% render 'icon', name: 'factory', class: 'w-3.5 h-3.5' %}{{ 'page.product.meta.industries' | t }}</span>
+                      {% for ind in industries %}
+                        {% assign ind_label = ind.label | default: ind | strip %}
+                        {% if ind_label != blank %}<span class="rounded-lg bg-base-200 px-2.5 py-1 text-xs text-base-content/80">{{ ind_label }}</span>{% endif %}
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+                  {% if scenarios_count > 0 %}
+                    <div class="flex flex-wrap items-center gap-2">
+                      <span class="inline-flex items-center gap-1.5 text-xs font-medium text-base-content/50">{% render 'icon', name: 'target', class: 'w-3.5 h-3.5' %}{{ 'page.product.meta.scenarios' | t }}</span>
+                      {% for sc in scenarios %}
+                        {% assign sc_label = sc.label | default: sc | strip %}
+                        {% if sc_label != blank %}<span class="rounded-lg bg-base-200 px-2.5 py-1 text-xs text-base-content/80">{{ sc_label }}</span>{% endif %}
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+                  {% if tags_count > 0 %}
+                    <div class="flex flex-wrap items-center gap-2">
+                      <span class="inline-flex items-center gap-1.5 text-xs font-medium text-base-content/50">{% render 'icon', name: 'tag', class: 'w-3.5 h-3.5' %}</span>
+                      {% for tag in page.settings.tags %}{% render 'tag', tag: tag %}{% endfor %}
+                    </div>
+                  {% endif %}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+
+          {% if page.settings.content != blank %}
+            <div id="page-content" class="ProseMirror prose mt-10 max-w-none rounded-2xl border border-base-300 bg-base-100 p-6 sm:p-8">
+              {{ page.settings.content }}
+            </div>
+          {% endif %}
+        </section>
+
+        {% if has_specs %}
+          <div class="mt-12">
+            {% render 'product-specs', page: page %}
+          </div>
+        {% endif %}
+
+        {% if site.settings.is_allow_feedback %}
+          <div class="mt-12 flex justify-center border-t border-base-300 pt-10">
+            {% render 'feedback_button', page: page %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </article>
+{% else %}
+  <article class="mx-auto w-full max-w-4xl px-4 py-10 sm:px-6 lg:px-8">
+    {% render '@shared/breadcrumb', breadcrumb: page.breadcrumb %}
+
+    <header class="mt-4 border-b border-base-300 pb-6">
+      <h1 class="text-3xl font-bold tracking-tight text-base-content sm:text-4xl">{{ page.link_text }}</h1>
+      {% if page.settings.description != blank %}
+        <p class="mt-2 max-w-3xl text-base text-base-content/70">{{ page.settings.description }}</p>
       {% endif %}
-      {% for tag in page.tags %}
-        {% render 'tag', tag: tag %}
-      {% endfor %}
-    </div>
-  </header>
+      <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-base-content/60">
+        <span>{{ page.published_at | date: '%Y-%m-%d' }}</span>
+        {% for tag in page.settings.tags %}
+          {% render 'tag', tag: tag %}
+        {% endfor %}
+      </div>
+    </header>
 
-  <div id="page-content" class="prose prose mt-8 max-w-none">
-    {{ page.settings.body }}
-  </div>
-
-  {% if site.settings.is_allow_feedback %}
-    <div class="mt-10 border-t border-base-300 pt-8">
-      {% render 'feedback_button', page: page %}
+    <div id="page-content" class="ProseMirror prose mt-8 max-w-none">
+      {{ page.settings.content }}
     </div>
-  {% endif %}
-</article>
+
+    {% if site.settings.is_allow_feedback %}
+      <div class="mt-10 border-t border-base-300 pt-8">
+        {% render 'feedback_button', page: page %}
+      </div>
+    {% endif %}
+  </article>
+{% endif %}
 
 {% schema %}
   {
@@ -46,44 +175,101 @@
     "sub_page_templates": ["page"],
     "settings": [
       {
-        "id": "tagline",
+        "id": "model_code",
         "type": "text",
-        "label": "t:schema.templates.page.settings.tagline.label"
+        "label": "t:schema.templates.page.settings.model_code.label",
+        "info": "t:schema.templates.page.settings.model_code.info"
       },
       {
-        "id": "body",
-        "type": "richtext",
-        "to_markdown": true,
-        "label": "t:schema.templates.page.settings.body.label"
+        "id": "tags",
+        "type": "tag_picker",
+        "multiple": true,
+        "label": "t:schema.templates.page.settings.tags.label"
       },
       {
-        "id": "product_model",
-        "type": "text",
-        "label": "t:schema.templates.page.settings.product_model.label",
-        "info": "t:schema.templates.page.settings.product_model.info"
+        "id": "industries",
+        "type": "select",
+        "multiple": true,
+        "choices_from": "$site.industries",
+        "label": "t:schema.templates.page.settings.industries.label",
+        "info": "t:schema.templates.page.settings.industries.info"
       },
       {
-        "id": "related_models",
+        "id": "scenarios",
+        "type": "select",
+        "multiple": true,
+        "choices_from": "$site.scenarios",
+        "label": "t:schema.templates.page.settings.scenarios.label",
+        "info": "t:schema.templates.page.settings.scenarios.info"
+      },
+      {
+        "id": "series",
+        "type": "select",
+        "choices_from": "$site.series",
+        "label": "t:schema.templates.page.settings.series.label",
+        "info": "t:schema.templates.page.settings.series.info"
+      },
+      {
+        "id": "spec_groups",
         "type": "textarea",
-        "label": "t:schema.templates.page.settings.related_models.label",
-        "info": "t:schema.templates.page.settings.related_models.info",
+        "label": "t:schema.templates.page.settings.spec_groups.label",
+        "info": "t:schema.templates.page.settings.spec_groups.info",
+        "rows": 8
+      },
+      {
+        "id": "thumb_image_url",
+        "type": "image_picker",
+        "ratio": "4:3",
+        "width": 240,
+        "label": "t:schema.templates.page.settings.thumb_image_url.label"
+      },
+      {
+        "id": "description",
+        "type": "textarea",
+        "label": "t:schema.templates.page.settings.description.label",
+        "info": "t:schema.templates.page.settings.description.info",
         "rows": 3
       },
       {
-        "id": "file_url",
-        "type": "text",
-        "label": "t:schema.templates.page.settings.file_url.label",
-        "info": "t:schema.templates.page.settings.file_url.info"
+        "id": "content",
+        "type": "richtext",
+        "to_markdown": true,
+        "label": "t:schema.templates.page.settings.content.label"
       },
       {
-        "id": "file_type",
-        "type": "text",
-        "label": "t:schema.templates.page.settings.file_type.label"
+        "id": "downloads",
+        "type": "textarea",
+        "label": "t:schema.templates.page.settings.downloads.label",
+        "info": "t:schema.templates.page.settings.downloads.info",
+        "rows": 3
       },
       {
-        "id": "file_size",
-        "type": "text",
-        "label": "t:schema.templates.page.settings.file_size.label"
+        "id": "doc_refs",
+        "type": "textarea",
+        "label": "t:schema.templates.page.settings.doc_refs.label",
+        "info": "t:schema.templates.page.settings.doc_refs.info",
+        "rows": 3
+      },
+      {
+        "id": "faq_refs",
+        "type": "textarea",
+        "label": "t:schema.templates.page.settings.faq_refs.label",
+        "info": "t:schema.templates.page.settings.faq_refs.info",
+        "rows": 3
+      },
+      {
+        "id": "case_refs",
+        "type": "textarea",
+        "label": "t:schema.templates.page.settings.case_refs.label",
+        "info": "t:schema.templates.page.settings.case_refs.info",
+        "rows": 3
+      },
+      {
+        "id": "related_products",
+        "type": "textarea",
+        "label": "t:schema.templates.page.settings.related_products.label",
+        "info": "t:schema.templates.page.settings.related_products.info",
+        "rows": 3
       }
     ]
   }

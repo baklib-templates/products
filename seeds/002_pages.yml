@@ -3,357 +3,250 @@ pages:
   slug: "index"
   template_name: "index"
   settings:
-    description: "<p>以「<strong>Baklib X1 智能知识中心</strong>」为锚点，统一呈现<strong>规格、物料、技术文档、常见问题与客户案例</strong>，适合企业产品门户开箱演示。</p>"
+    description: "<p>A working demo of the <strong>Product Hub</strong> catalog: browse products by series, industry and scenario, open a channel to see the product grid, and open any product for its spec table and rich content.</p>"
 
   children:
-    - name: "产品中心"
+    - name: "Sensors & Vision"
       slug: "products"
       template_name: "channel"
-      template_style: "products"
       settings:
-        intro: "按型号浏览企业版与团队版；左侧为系列入口，右侧为高密度产品卡片。以下为演示数据，可在后台替换为真实 SKU。"
+        thumb_image_url: "https://picsum.photos/seed/hub-sensors/1280/400"
+        description: "Industrial sensors and machine-vision modules for inline measurement, inspection and identification. Demo data — replace with your real SKUs."
       children:
-        - name: "Baklib X1 企业版"
-          slug: "baklib-x1-enterprise"
+        - name: "VistaScan V100 Smart Camera"
+          slug: "vistascan-v100"
           template_name: "page"
-          template_style: "product"
+          tags: ["Vision", "Inline Inspection"]
           settings:
-            product_model: "X1-ENT"
-            tagline: "面向多业务单元的一体化知识治理与交付，支持私有化与混合云。"
-            thumb_image_url: "images/theme/thumb.png"
-            hero_images: |
-              https://picsum.photos/seed/baklibx1hero-a/960/640
-              https://picsum.photos/seed/baklibx1hero-b/960/640
-            specifications: |
-              部署形态|私有化 / SaaS / 混合云|可选
-              单集群推荐规模|≤ 200 万篇条目|文档对象
-              全文检索延迟|P95 ≤ 280|ms
-              权限模型|RBAC + 资源级 ACL|细粒度
-              审计与留痕|操作 / 导出 / 登录|合规增强
-              开放接口|REST + Webhook|可选模块
-            highlights: |
-              统一目录、模板与发布流程，降低多站点维护成本
-              与工单、CRM 通过 Webhook 联动，缩短销售到交付链路
-              多语言与多区域发布，一套内容多出口
-              内置审批与草稿隔离，适合受控行业场景
-            body: |
-              <h2 id="overview">产品概述</h2>
-              <p>Baklib X1 企业版将产品资料、帮助中心与客户成功知识沉淀在同一平台，支持按团队、区域与渠道拆分视图，并保持品牌与口径一致。</p>
-              <h3>典型使用场景</h3>
+            model_code: "V100-PRO"
+            industries:
+              - "Electronics Manufacturing"
+              - "Industrial Automation"
+            scenarios:
+              - "Quality Inspection"
+              - "Production Line Integration"
+            series: "X Series"
+            thumb_image_url: "https://picsum.photos/seed/v100/800/600"
+            description: "A 5 MP smart camera with on-device inference for high-speed defect detection."
+            spec_groups: |
+              General::Resolution::5 MP (2592 x 1944)
+              General::Max Frame Rate::60 fps
+              General::Sensor::1/1.8" Global Shutter CMOS
+              Interface::Data::GigE Vision / USB3
+              Interface::I/O::8 opto-isolated lines
+              Environment::Protection Rating::IP67
+              Environment::Operating Temperature::-10 to 50 C
+            content: |
+              <h2 id="overview">Overview</h2>
+              <p>VistaScan V100 combines a global-shutter sensor with an embedded inference engine, so defect classification runs on the camera without a separate industrial PC.</p>
+              <h2 id="applications">Typical applications</h2>
               <ul>
-                <li>面向销售与渠道伙伴的「可对外」产品手册与报价说明</li>
-                <li>面向交付与二开的「对内」集成说明与版本变更</li>
-                <li>面向客户成功的上线 checklist 与最佳实践</li>
+                <li>Surface defect detection on PCB assembly lines</li>
+                <li>Presence / absence verification before packaging</li>
+                <li>1D / 2D code reading at line speed</li>
               </ul>
             downloads: |
-              Baklib X1 企业版规格说明.pdf|pdf|https://example.com/downloads/baklib-x1-enterprise-spec.pdf|1.8 MB
-              X1 部署检查清单.xlsx|xlsx|https://example.com/downloads/baklib-x1-deployment-checklist.xlsx|420 KB
-              X1 品牌组件包.zip|zip|https://example.com/downloads/baklib-x1-brand-kit.zip|12 MB
-              X1 集成示例 Postman 集合.json|json|https://example.com/downloads/baklib-x1-postman.json|96 KB
-            related_models: |
-              X1-TEAM
-            cta_trial_link: "https://example.com/trial"
-            cta_quote_link: "https://example.com/contact"
+              V100 Datasheet|pdf|https://example.com/v100-datasheet.pdf
+            doc_refs: ""
+            faq_refs: ""
+            case_refs: ""
+            related_products: |
+              V200-PRO
 
-        - name: "Baklib X1 团队版"
-          slug: "baklib-x1-team"
+        - name: "VistaScan V200 Line-Scan Camera"
+          slug: "vistascan-v200"
           template_name: "page"
-          template_style: "product"
+          tags: ["Vision", "Line Scan"]
           settings:
-            product_model: "X1-TEAM"
-            tagline: "为 50～500 人团队提供轻量知识库与产品说明站，分钟级上线。"
-            thumb_image_url: "images/theme/thumb.png"
-            hero_images: |
-              https://picsum.photos/seed/baklibx1team-a/960/640
-            specifications: |
-              成员规模|≤ 500 人|推荐上限
-              空间策略|按站点配额|可扩展
-              模板数量|≤ 120 套|单站点
-              集成|Webhook + Zapier 类连接器|可选
-              审计|基础操作日志|90 天滚动
-            highlights: |
-              开箱主题与导航结构，适合市场与产品团队自建站点
-              与 Slack / 飞书 机器人同步关键更新（示意能力）
-              一键导出静态镜像，便于归档与灾备
-            body: |
-              <h2 id="overview">产品概述</h2>
-              <p>Baklib X1 团队版聚焦「快上线、易协作」，用受控模板与预设信息架构，帮助团队在不影响品牌一致性的前提下快速发布内容。</p>
+            model_code: "V200-PRO"
+            industries:
+              - "Electronics Manufacturing"
+              - "Logistics & Warehousing"
+            scenarios:
+              - "Quality Inspection"
+            series: "Pro Series"
+            thumb_image_url: "https://picsum.photos/seed/v200/800/600"
+            description: "An 8k line-scan camera for continuous web and roll-to-roll inspection."
+            spec_groups: |
+              General::Line Rate::80 kHz
+              General::Resolution::8192 px
+              Interface::Data::CoaXPress CXP-6
+              Environment::Protection Rating::IP54
+              Environment::Operating Temperature::0 to 45 C
+            content: |
+              <h2 id="overview">Overview</h2>
+              <p>VistaScan V200 is built for high-throughput surface inspection of moving material such as film, foil and textiles.</p>
+              <h2 id="integration">Integration notes</h2>
+              <p>Pair with an encoder for constant resolution across variable line speeds.</p>
+            downloads: ""
+            doc_refs: ""
+            faq_refs: ""
+            case_refs: ""
+            related_products: |
+              V100-PRO
+
+        - name: "ProxSense P40 Inductive Sensor"
+          slug: "proxsense-p40"
+          template_name: "page"
+          tags: ["Proximity"]
+          settings:
+            model_code: "P40-S"
+            industries:
+              - "Industrial Automation"
+              - "Energy & Power"
+            scenarios:
+              - "Production Line Integration"
+              - "Hazardous Environment"
+            series: "S Series"
+            thumb_image_url: "https://picsum.photos/seed/p40/800/600"
+            description: "A rugged M18 inductive proximity sensor with extended sensing range."
+            spec_groups: |
+              General::Sensing Range::12 mm
+              General::Housing::M18 stainless steel
+              Electrical::Supply Voltage::10-30 VDC
+              Electrical::Output::PNP NO/NC
+              Environment::Protection Rating::IP69K
+            content: |
+              <h2 id="overview">Overview</h2>
+              <p>ProxSense P40 delivers reliable non-contact detection in wet and high-pressure wash-down environments.</p>
+            downloads: ""
+            doc_refs: ""
+            faq_refs: ""
+            case_refs: ""
+            related_products: ""
+
+        - name: "ThermoEye T9 Compact Thermal Module"
+          slug: "thermoeye-t9"
+          template_name: "page"
+          tags: ["Thermal", "Monitoring"]
+          settings:
+            model_code: "T9-C"
+            industries:
+              - "Energy & Power"
+              - "Industrial Automation"
+            scenarios:
+              - "Remote Monitoring"
+              - "Outdoor Deployment"
+            series: "Compact Series"
+            thumb_image_url: "https://picsum.photos/seed/t9/800/600"
+            description: "A compact LWIR thermal imaging module for condition monitoring and hotspot detection."
+            spec_groups: |
+              General::Resolution::640 x 512
+              General::Spectral Range::8-14 um
+              General::Thermal Sensitivity::< 40 mK
+              Interface::Output::MIPI CSI-2 / USB
+              Environment::Protection Rating::IP66
+            content: |
+              <h2 id="overview">Overview</h2>
+              <p>ThermoEye T9 is a small-footprint thermal core for embedding into outdoor monitoring units and substations.</p>
+              <h2 id="calibration">Calibration</h2>
+              <p>Factory radiometric calibration is included; field re-calibration is optional.</p>
+            downloads: ""
+            doc_refs: ""
+            faq_refs: ""
+            case_refs: ""
+            related_products: ""
+
+    - name: "Robotics & Motion"
+      slug: "robotics"
+      template_name: "channel"
+      settings:
+        thumb_image_url: "https://picsum.photos/seed/hub-robotics/1280/400"
+        description: "Robot arms, motion controllers and actuators for automated handling and assembly. Demo data — replace with your real SKUs."
+      children:
+        - name: "MotionArm R6 Collaborative Robot"
+          slug: "motionarm-r6"
+          template_name: "page"
+          tags: ["Cobot", "Assembly"]
+          settings:
+            model_code: "R6-COBOT"
+            industries:
+              - "Industrial Automation"
+              - "Electronics Manufacturing"
+            scenarios:
+              - "Production Line Integration"
+              - "Quality Inspection"
+            series: "X Series"
+            thumb_image_url: "https://picsum.photos/seed/r6/800/600"
+            description: "A 6-axis collaborative robot with 6 kg payload for light assembly and pick-and-place."
+            spec_groups: |
+              General::Payload::6 kg
+              General::Reach::914 mm
+              General::Repeatability::+/- 0.03 mm
+              General::Axes::6
+              Electrical::Supply::48 VDC
+              Environment::Protection Rating::IP54
+              Environment::Operating Temperature::0 to 50 C
+            content: |
+              <h2 id="overview">Overview</h2>
+              <p>MotionArm R6 is a safety-rated collaborative robot that can work alongside operators without fencing in most deployments.</p>
+              <h2 id="programming">Programming</h2>
+              <p>Teach by hand-guiding or use the graphical flow editor; an open API is available for advanced integration.</p>
             downloads: |
-              Baklib X1 团队版功能对照.pdf|pdf|https://example.com/downloads/baklib-x1-team-matrix.pdf|860 KB
-              X1 团队版快速配置指南.md|md|https://example.com/downloads/baklib-x1-team-quickstart.md|24 KB
-            related_models: |
-              X1-ENT
-            cta_trial_link: "https://example.com/trial"
+              R6 Datasheet|pdf|https://example.com/r6-datasheet.pdf
+            doc_refs: ""
+            faq_refs: ""
+            case_refs: ""
+            related_products: |
+              R12-COBOT
 
-    - name: "客户案例"
-      slug: "cases"
-      template_name: "channel"
-      template_style: "cases"
-      settings:
-        intro: "以下为虚构客户与量化指标，仅用于展示版式与跨栏目关联；上线后请替换为真实客户授权内容。"
-      children:
-        - name: "制造企业：用 X1 企业版统一产品资料与客户交付包"
-          slug: "case-manufacturing-x1"
+        - name: "MotionArm R12 Heavy-Payload Robot"
+          slug: "motionarm-r12"
           template_name: "page"
-          template_style: "case"
+          tags: ["Cobot", "Palletizing"]
           settings:
-            tagline: "将分散在网盘与邮件中的产品说明，收敛为可检索的单一事实源。"
-            client_name: "某高端装备制造企业"
-            client_caption: "国内细分赛道前三，海外渠道占比约四成"
-            industry: "先进制造"
-            region: "华东"
-            scale: "8 条产品线 · 全球 40+ 经销商"
-            headline_metric: "销售资料准备周期缩短 35%，渠道投诉下降 22%"
-            pain_point: "同一 SKU 存在多份互相矛盾的 PDF；海外版本滞后；无法追踪渠道下载。"
-            solution: |
-              <p>部署 Baklib X1 企业版作为「对外产品资料」主站，按区域与渠道拆分视图，并与 CRM 中的商机阶段联动展示推荐物料。</p>
-              <ul><li>版本与生效日期可视化</li><li>渠道下载留痕</li><li>关键页面只读镜像导出</li></ul>
-            outcomes: |
-              35|%|销售资料准备周期缩短
-              22|%|渠道资料相关投诉下降
-              18|天|新 SKU 上线平均周期（从 22 天缩短）
-            body: "<p>本案例正文为演示占位，可替换为访谈纪要、架构图与客户引言。</p>"
-            related_models: |
-              X1-ENT
-            cover_image_url: "https://picsum.photos/seed/baklibcase-mfg/960/520"
+            model_code: "R12-COBOT"
+            industries:
+              - "Logistics & Warehousing"
+              - "Industrial Automation"
+            scenarios:
+              - "Production Line Integration"
+            series: "Pro Series"
+            thumb_image_url: "https://picsum.photos/seed/r12/800/600"
+            description: "A 12 kg payload collaborative robot for palletizing and machine tending."
+            spec_groups: |
+              General::Payload::12 kg
+              General::Reach::1300 mm
+              General::Repeatability::+/- 0.05 mm
+              General::Axes::6
+              Environment::Protection Rating::IP54
+            content: |
+              <h2 id="overview">Overview</h2>
+              <p>MotionArm R12 extends the R-series with a longer reach and higher payload for end-of-line palletizing.</p>
+            downloads: ""
+            doc_refs: ""
+            faq_refs: ""
+            case_refs: ""
+            related_products: |
+              R6-COBOT
 
-        - name: "软件企业：X1 团队版支撑产品市场与售前的「单一手册」"
-          slug: "case-software-x1-team"
+        - name: "DriveCore M2 Motion Controller"
+          slug: "drivecore-m2"
           template_name: "page"
-          template_style: "case"
+          tags: ["Controller", "EtherCAT"]
           settings:
-            tagline: "市场、售前与客户成功共用一套页面，减少重复撰写与分叉版本。"
-            client_name: "某 B2B SaaS 企业"
-            client_caption: "ARR 增长期，产品线快速扩张"
-            industry: "软件与信息服务"
-            region: "华北"
-            scale: "200+ 研发与市场人员"
-            headline_metric: "对外文档更新频次提升 2.4 倍，重复问询下降 31%"
-            pain_point: "功能发布节奏快，帮助中心更新跟不上；销售自建 Deck 与官方口径不一致。"
-            solution: |
-              <p>以 X1-TEAM 建立「对外手册 + 对内说明」双出口，发布走模板审批，关键变更自动同步到 CRM 侧栏链接。</p>
-            outcomes: |
-              2.4|倍|对外文档更新频次
-              31|%|重复售前问询下降
-              5|分钟|新功能要点页面上线中位时间
-            body: "<p>演示正文：可嵌入路线图、对比表与短视频嵌入位。</p>"
-            related_models: |
-              X1-TEAM
-            cover_image_url: "https://picsum.photos/seed/baklibcase-saas/960/520"
-
-        - name: "服务企业：以 X1 企业版交付「可审计」的客户项目知识库"
-          slug: "case-services-x1"
-          template_name: "page"
-          template_style: "case"
-          settings:
-            tagline: "项目交付物、培训材料与运维手册统一归档，满足审计抽检。"
-            client_name: "某全国性专业服务集团"
-            client_caption: "多事业部、多法人主体"
-            industry: "专业服务"
-            region: "全国"
-            scale: "300+ 并行项目 / 年"
-            headline_metric: "项目复盘材料检索时间从平均 25 分钟降至约 4 分钟"
-            pain_point: "交付物分散在网盘、邮件与本地盘；审计抽取样本成本高。"
-            solution: "<p>以 X1-ENT 作为项目空间模板，按客户与合同维度归档，导出包一键生成。</p>"
-            outcomes: |
-              25|min|检索耗时（优化前平均）
-              4|min|检索耗时（优化后平均）
-              99.2|%|抽检样本可定位率
-            body: "<p>演示占位正文。</p>"
-            related_models: |
-              X1-ENT
-            cover_image_url: "https://picsum.photos/seed/baklibcase-svc/960/520"
-
-        - name: "教育集团：X1 团队版支撑多校区产品资料与招生物料"
-          slug: "case-education-x1-team"
-          template_name: "page"
-          template_style: "case"
-          settings:
-            tagline: "多校区统一模板，区域招生物料差异受控发布。"
-            client_name: "某职业教育集团"
-            client_caption: "线下校区与线上交付并行"
-            industry: "教育"
-            region: "华南"
-            scale: "40+ 校区"
-            headline_metric: "招生物料差错导致的客诉下降 40%"
-            pain_point: "各校区自行改稿，品牌与价格口径不一致；总部难以及时回收旧版。"
-            solution: "<p>使用 X1-TEAM 建立总部模板与区域变量，关键字段锁定，变更一键下发。</p>"
-            outcomes: |
-              40|%|招生物料相关客诉下降
-              12|小时|总部政策触达全校区中位时间
-            body: "<p>演示占位正文。</p>"
-            related_models: |
-              X1-TEAM
-            cover_image_url: "https://picsum.photos/seed/baklibcase-edu/960/520"
-
-    - name: "技术文档"
-      slug: "docs"
-      template_name: "channel"
-      template_style: "docs"
-      settings:
-        intro: "以下为与 X1 型号关联的演示文档；正文含标题层级，便于文档页右侧「On this page」示例。"
-      children:
-        - name: "Baklib X1 快速上手"
-          slug: "doc-x1-quickstart"
-          template_name: "page"
-          template_style: "doc"
-          settings:
-            tagline: "从开通租户到发布首个站点的主线步骤（演示）。"
-            version: "2026.1"
-            related_models: |
-              X1-ENT
-              X1-TEAM
-            body: |
-              <h2 id="sec-prereq">前置条件</h2>
-              <p>准备管理员账号、品牌素材与域名策略（演示文案）。</p>
-              <h2 id="sec-steps">推荐步骤</h2>
-              <ol>
-                <li>创建站点并选择本主题</li>
-                <li>导入种子数据或按信息架构新建频道</li>
-                <li>配置站点级 Hub 路径与 CTA 文案</li>
-              </ol>
-              <h3 id="sec-verify">验收建议</h3>
-              <p>检查首页统计、单品五段与频道搜索是否可完整走通。</p>
-
-        - name: "X1 部署与权限模型"
-          slug: "doc-x1-deployment"
-          template_name: "page"
-          template_style: "doc"
-          settings:
-            tagline: "网络、身份与审计字段的参考说明（演示）。"
-            version: "2026.1"
-            related_models: |
-              X1-ENT
-            body: |
-              <h2 id="sec-topology">部署拓扑</h2>
-              <p>支持单集群与双活示意；生产环境请遵循贵司安全基线。</p>
-              <h2 id="sec-iam">权限与审计</h2>
-              <p>RBAC 角色与资源级 ACL 的组合方式，以及导出审计样例字段说明。</p>
-
-        - name: "X1 API 与 Webhook 集成"
-          slug: "doc-x1-api"
-          template_name: "page"
-          template_style: "doc"
-          settings:
-            tagline: "与内部系统同步发布事件的常见模式（演示）。"
-            version: "2026.1"
-            related_models: |
-              X1-ENT
-            body: |
-              <h2 id="sec-auth">认证</h2>
-              <p>使用服务账号与最小权限原则；定期轮换密钥。</p>
-              <h2 id="sec-webhook">Webhook</h2>
-              <p>订阅页面发布、回滚与下载事件，在下游系统落库或触发流水线。</p>
-
-    - name: "资料下载"
-      slug: "downloads"
-      template_name: "channel"
-      template_style: "downloads"
-      settings:
-        intro: "频道内每条为独立资源页，支持外链下载；以下为演示文件元数据。"
-      children:
-        - name: "Baklib X1 企业版规格说明（PDF）"
-          slug: "dl-x1-enterprise-spec"
-          template_name: "page"
-          settings:
-            tagline: "面向采购与安全的概要规格（演示链接）。"
-            product_model: "X1-ENT"
-            file_type: "pdf"
-            file_size: "1.8 MB"
-            file_url: "https://example.com/downloads/baklib-x1-enterprise-spec.pdf"
-            body: "<p>请在后台替换为实际上传文件或 DAM 资源。</p>"
-        - name: "X1 部署检查清单（表格）"
-          slug: "dl-x1-deployment-checklist"
-          template_name: "page"
-          settings:
-            tagline: "上线前自检项示例。"
-            related_models: |
-              X1-ENT
-            file_type: "xlsx"
-            file_size: "420 KB"
-            file_url: "https://example.com/downloads/baklib-x1-deployment-checklist.xlsx"
-            body: "<p>含网络、备份与账号策略等检查项（演示）。</p>"
-        - name: "X1 品牌组件包"
-          slug: "dl-x1-brand-kit"
-          template_name: "page"
-          settings:
-            tagline: "Logo、版式与文案口径示例包。"
-            related_models: |
-              X1-ENT
-              X1-TEAM
-            file_type: "zip"
-            file_size: "12 MB"
-            file_url: "https://example.com/downloads/baklib-x1-brand-kit.zip"
-            body: "<p>演示占位：可放矢量源文件与字体授权说明。</p>"
-        - name: "X1 团队版功能对照（PDF）"
-          slug: "dl-x1-team-matrix"
-          template_name: "page"
-          settings:
-            tagline: "团队版与企业版能力对照（演示）。"
-            product_model: "X1-TEAM"
-            file_type: "pdf"
-            file_size: "860 KB"
-            file_url: "https://example.com/downloads/baklib-x1-team-matrix.pdf"
-            body: "<p>用于内部选型会议分发（演示）。</p>"
-
-    - name: "常见问题"
-      slug: "faqs"
-      template_name: "channel"
-      template_style: "faqs"
-      settings:
-        intro: "按场景分组展示；单品页会从整棵 FAQ 子树中按型号匹配相关问答。"
-      children:
-        - name: "选型与部署"
-          slug: "faq-group-selection"
-          template_name: "page"
-          settings:
-            tagline: "购买前与上线阶段常见问答（演示）。"
-            body: "<p>以下为该分组下的条目列表；点击条目标题进入详情页。</p>"
-          children:
-            - name: "X1 企业版与团队版应如何选择？"
-              slug: "faq-x1-edition-compare"
-              template_name: "page"
-              settings:
-                related_models: |
-                  X1-ENT
-                  X1-TEAM
-                body: "<p>企业版适合多业务单元、强合规与复杂集成；团队版适合单一组织快速上线与轻量协作（演示说明）。</p>"
-            - name: "私有化部署需要准备哪些网络与安全基线？"
-              slug: "faq-x1-private-network"
-              template_name: "page"
-              settings:
-                product_model: "X1-ENT"
-                body: "<p>建议准备 TLS 证书、出站白名单、集中日志与备份策略；具体以贵司安全基线为准（演示）。</p>"
-            - name: "团队版是否支持多站点？"
-              slug: "faq-x1-team-multi-site"
-              template_name: "page"
-              settings:
-                product_model: "X1-TEAM"
-                body: "<p>支持多站点配额与模板隔离；大规模多品牌场景更推荐企业版（演示）。</p>"
-        - name: "安全与合规"
-          slug: "faq-group-security"
-          template_name: "page"
-          settings:
-            tagline: "审计、导出与访问控制相关问答（演示）。"
-            body: "<p>以下为安全向条目示例。</p>"
-          children:
-            - name: "是否支持细粒度到页面与附件的权限？"
-              slug: "faq-x1-acl"
-              template_name: "page"
-              settings:
-                product_model: "X1-ENT"
-                body: "<p>企业版提供资源级 ACL 与空间级策略组合；团队版以角色与站点级策略为主（演示）。</p>"
-            - name: "导出的静态镜像是否包含访问控制？"
-              slug: "faq-x1-static-export"
-              template_name: "page"
-              settings:
-                related_models: |
-                  X1-ENT
-                  X1-TEAM
-                body: "<p>静态镜像为公开内容快照；敏感材料请保留在受控空间或走单独鉴权分发（演示）。</p>"
-            - name: "审计日志默认保留多久？"
-              slug: "faq-x1-audit-retention"
-              template_name: "page"
-              settings:
-                product_model: "X1-ENT"
-                body: "<p>演示数据：基础日志滚动 90 天；企业版可对接外部 SIEM（示意）。</p>"
+            model_code: "M2-CTRL"
+            industries:
+              - "Industrial Automation"
+              - "Robotics"
+            scenarios:
+              - "Production Line Integration"
+            series: "S Series"
+            thumb_image_url: "https://picsum.photos/seed/m2/800/600"
+            description: "A multi-axis EtherCAT motion controller for coordinated robotic and CNC motion."
+            spec_groups: |
+              General::Axes::Up to 16
+              General::Cycle Time::250 us
+              Interface::Fieldbus::EtherCAT
+              Interface::I/O::32 DI / 32 DO
+              Environment::Operating Temperature::0 to 55 C
+            content: |
+              <h2 id="overview">Overview</h2>
+              <p>DriveCore M2 synchronizes up to sixteen axes over EtherCAT with deterministic cycle times for demanding motion profiles.</p>
+              <h2 id="safety">Functional safety</h2>
+              <p>Supports STO and SS1 safety functions via FSoE.</p>
+            downloads: ""
+            doc_refs: ""
+            faq_refs: ""
+            case_refs: ""
+            related_products: ""

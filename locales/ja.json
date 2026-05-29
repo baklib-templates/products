@@ -17,125 +17,70 @@
     "hub": "Product Hub",
     "dashboard": "ダッシュボード",
     "catalog": "カタログ",
-    "sign_in": "サインイン",
-    "products": "製品",
-    "cases": "導入事例",
-    "docs": "ドキュメント",
-    "downloads": "ダウンロード",
-    "faqs": "よくある質問"
+    "menu": "メニュー"
   },
   "footer": {
-    "tagline": "エンタープライズ向けロボティクスとデジタル資産のハブ。",
+    "tagline": "製品カタログ・仕様・ソリューションを一つのハブに。",
     "platform": "プラットフォーム",
-    "cta_eyebrow": "エンジニアリングは速い",
-    "cta_title": "最新の技術情報を受け取るには登録してください。",
-    "email_placeholder": "メールアドレス"
+    "cta_eyebrow": "お問い合わせ",
+    "cta_title": "ご要望をお聞かせください。最適なソリューションをご提案します。"
   },
   "hub": {
     "cta": {
-      "quote": "見積もりを依頼",
-      "engineer": "エンジニアに相談",
-      "trial": "トライアルを申し込む"
-    },
-    "lead": {
-      "subtitle": "営業日 1 日以内にエンジニアより返信いたします。",
-      "submit": "送信する",
-      "send_mail": "メールで送信",
-      "feedback_hint": "サイトのフィードバック機能経由で送信され、CMS で一元管理できます。",
-      "mailto_hint": "送信時にメールクライアントが起動します:",
-      "unavailable": "オンライン送信にはサイトフィードバックとメッセージ欄の有効化が必要です。",
-      "fields": {
-        "message": "ご要望",
-        "message_placeholder": "ユースケース、主要パラメータ、ご希望の時期"
-      }
+      "quote": "ソリューションを依頼"
     }
+  },
+  "quote": {
+    "eyebrow": "ソリューションを依頼",
+    "title": "ソリューションを依頼",
+    "subtitle": "プロジェクトの内容をお知らせください。営業日 1 日以内にエンジニアよりご返信します。",
+    "form_title": "ご要望を送信",
+    "fields": {
+      "name": "お名前",
+      "name_placeholder": "山田 太郎",
+      "company": "会社名",
+      "company_placeholder": "株式会社サンプル",
+      "contact": "メールまたは電話",
+      "contact_placeholder": "you@example.com / 090-0000-0000",
+      "message": "ご要望",
+      "message_placeholder": "ユースケース、主要パラメータ、ご希望の時期"
+    },
+    "required": "この項目は必須です。",
+    "error": "送信に失敗しました。しばらくしてからもう一度お試しください。",
+    "submit": "送信する",
+    "submitting": "送信中…",
+    "success_hint": "サイトのフィードバック機能経由で送信され、CMS で一元管理できます。",
+    "unavailable": "オンライン送信にはサイトフィードバックとメッセージ欄の有効化が必要です。"
   },
   "channels": {
     "products": {
-      "eyebrow": "型番選定センター",
-      "categories": "カテゴリ",
-      "directory": "ディレクトリ",
-      "filters": "フィルター",
-      "filter_payload": "ペイロード範囲",
-      "filter_ip": "IP 等級",
       "search_placeholder": "仕様を検索…",
-      "browse_category": "このカテゴリの製品を見る",
-      "no_categories": "カテゴリがありません。製品チャンネル下に子ページを追加してください。",
-      "all": "すべての製品",
-      "showing_all": "すべての製品を表示中",
-      "showing_filter": "カテゴリで絞り込み中",
       "view_detail": "詳細を見る",
+      "count": "件の製品",
       "empty": "製品はまだありません"
-    },
-    "cases": {
-      "eyebrow": "導入事例",
-      "filters": "フィルター",
-      "filter_industry": "業界",
-      "filter_application": "用途",
-      "search_placeholder": "事例を検索…",
-      "read_full": "全文を読む",
-      "empty": "導入事例はまだ公開されていません"
-    },
-    "docs": {
-      "eyebrow": "サポートドキュメント",
-      "toc": "目次",
-      "recent": "最近の更新"
-    },
-    "downloads": {
-      "eyebrow": "資料センター",
-      "filters": "フィルター",
-      "filter_format": "形式",
-      "filter_category": "製品カテゴリ",
-      "search_placeholder": "名前・型番・形式で検索",
-      "download": "ダウンロード",
-      "view_detail": "詳細を見る",
-      "empty": "ダウンロード可能な資料はまだありません"
-    },
-    "faqs": {
-      "eyebrow": "ナレッジベース",
-      "toc": "カテゴリ",
-      "related_models": "対応型番",
-      "view_detail": "詳細を見る",
-      "empty": "FAQ はまだありません"
     }
   },
   "index": {
     "eyebrow": "Product Hub",
     "cta_browse": "型番選定センターへ",
+    "intro": "シリーズ・業界・用途で製品カタログ全体を閲覧できます。",
+    "browse_title": "絞り込み",
+    "channels_title": "製品チャネル",
+    "empty_channels": "製品チャネルがありません。ホーム配下に子ページを追加してください。",
+    "facet": {
+      "series": "シリーズ",
+      "industries": "業界",
+      "scenarios": "用途"
+    },
     "view_all": "すべて表示",
-    "view_detail": "詳細を見る",
-    "featured_products": "注目の製品",
-    "card_products": "シリーズ・型番で製品を検索",
-    "card_cases": "実際の成果を確認",
-    "card_docs": "エンジニア向けマニュアルと連携手順",
-    "card_downloads": "仕様書、CAD、ファームウェアなど",
-    "card_faqs": "選定・運用のよくある質問",
-    "card_more": "開く",
-    "dashboard": {
-      "title": "エコシステムと資産",
-      "subtitle": "製品構成、エンジニアリングリソース、導入事例を一元管理します。",
-      "stat_products": "製品",
-      "stat_categories": "カテゴリ",
-      "stat_resources": "リソース",
-      "recent_title": "最近のアクティビティ",
-      "recent_empty": "製品チャンネルのルートを設定すると最近の更新が表示されます。",
-      "col_id": "ID",
-      "col_product": "製品",
-      "col_date": "日付",
-      "col_status": "ステータス",
-      "status_done": "完了"
-    }
+    "featured_products": "注目の製品"
   },
   "page": {
     "product": {
       "nav": {
         "aria": "ページ内ナビゲーション",
         "overview": "概要",
-        "specs": "仕様",
-        "downloads": "資料",
-        "docs": "ドキュメント",
-        "faqs": "FAQ",
-        "cases": "事例"
+        "specs": "仕様"
       },
       "toc": {
         "title": "このページ",
@@ -144,64 +89,11 @@
       "specs": {
         "title": "技術仕様"
       },
-      "hero": {
-        "no_image": "製品画像が未登録です",
-        "key_specs": "主要仕様",
-        "documentation": "ドキュメント"
-      },
-      "downloads": {
-        "eyebrow": "資料",
-        "title": "技術資料・図面",
-        "empty": "公開資料はまだありません。下のボタンから請求してください。",
-        "request_access": "資料を請求"
-      },
-      "docs": {
-        "eyebrow": "サポート",
-        "title": "関連ドキュメント",
-        "doc": "ドキュメント",
-        "view_all": "すべて表示",
-        "empty": "関連ドキュメントはまだありません",
-        "not_configured": "ドキュメントチャネルのルートパスが未設定です。docs_root_path を設定してください。"
-      },
-      "faqs": {
-        "eyebrow": "ナレッジベース",
-        "title": "選定・運用 FAQ",
-        "view_all": "すべての FAQ",
-        "view_detail": "詳細",
-        "empty": "関連 FAQ はまだありません",
-        "not_configured": "FAQ チャネルのルートパスが未設定です。faqs_root_path を設定してください。"
-      },
-      "cases": {
-        "eyebrow": "事例",
-        "title": "導入事例",
-        "view_all": "すべての事例",
-        "view_detail": "事例を読む",
-        "empty": "関連事例はまだありません",
-        "not_configured": "事例チャネルのルートパスが未設定です。cases_root_path を設定してください。"
+      "model_label": "型番",
+      "meta": {
+        "industries": "業界",
+        "scenarios": "用途"
       }
-    },
-    "case": {
-      "headline_metric": "主な成果",
-      "pain_point": "課題",
-      "solution": "ソリューション",
-      "outcomes": "定量成果",
-      "about_client": "顧客情報",
-      "client_name": "顧客",
-      "industry": "業界",
-      "region": "地域",
-      "scale": "規模",
-      "related_products": "関連製品",
-      "cta": "営業に問い合わせる",
-      "cta_desc": "貴社の業界向けの詳細をご相談ください。"
-    },
-    "doc": {
-      "eyebrow": "ドキュメント",
-      "toc": "目次",
-      "on_this_page": "ページ内目次",
-      "no_toc": "見出しがありません",
-      "updated_at": "更新日",
-      "prev": "前のページ",
-      "next": "次のページ"
     }
   },
   "tag": {
@@ -211,22 +103,6 @@
     "title": "検索",
     "placeholder": "製品・ドキュメント・事例を検索",
     "empty": "結果が見つかりません"
-  },
-  "static": {
-    "recent": {
-      "subtitle": "更新日時の新しい順に表示します。"
-    }
-  },
-  "templates": {
-    "index": {
-      "list": {
-        "all": "すべて"
-      }
-    },
-    "page": {
-      "current_version": "現在のバージョン",
-      "visit_count": "閲覧数"
-    }
   },
   "paginate": {
     "showing": "現在表示中",

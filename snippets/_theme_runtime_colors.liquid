@@ -1,0 +1,65 @@
+{%- comment -%}
+  Runtime color mapping: platform `--theme-color-*` (HSL triplets, no hsl()
+  wrapper) -> daisyUI `--color-*`. Render inside <head> BEFORE application.css
+  so daisyUI (themes: false) has its color variables ready on first paint.
+  Covers 12 semantic roles + each `-content` (20 vars), a dark-theme branch
+  (both `[data-theme="dark"]` and `input.theme-controller[value=dark]:checked`),
+  and theme-level layout variables (header height, content/sidebar widths).
+
+  Each var ships a fallback HSL triplet aligned with the `baklib` brand palette
+  (statics/brand.liquid). Fallbacks are the ONLY hardcoded color values allowed
+  in the theme; when the site backend injects `--theme-color-*` they win.
+{%- endcomment -%}
+<style>
+  :root {
+    --color-base-100: hsl(var(--theme-color-base-100, 30 22% 96%));
+    --color-base-200: hsl(var(--theme-color-base-200, 40 18% 93%));
+    --color-base-300: hsl(var(--theme-color-base-300, 38 14% 87%));
+    --color-base-content: hsl(var(--theme-color-base-content, 30 12% 24%));
+    --color-primary: hsl(var(--theme-color-primary, 175 78% 26%));
+    --color-primary-content: hsl(var(--theme-color-primary-content, 30 22% 96%));
+    --color-secondary: hsl(var(--theme-color-secondary, 21 89% 41%));
+    --color-secondary-content: hsl(var(--theme-color-secondary-content, 30 40% 97%));
+    --color-accent: hsl(var(--theme-color-accent, 222 47% 11%));
+    --color-accent-content: hsl(var(--theme-color-accent-content, 210 40% 98%));
+    --color-neutral: hsl(var(--theme-color-neutral, 217 33% 17%));
+    --color-neutral-content: hsl(var(--theme-color-neutral-content, 30 22% 96%));
+    --color-info: hsl(var(--theme-color-info, 199 92% 60%));
+    --color-info-content: hsl(var(--theme-color-info-content, 204 80% 16%));
+    --color-success: hsl(var(--theme-color-success, 173 80% 40%));
+    --color-success-content: hsl(var(--theme-color-success-content, 170 90% 12%));
+    --color-warning: hsl(var(--theme-color-warning, 27 96% 61%));
+    --color-warning-content: hsl(var(--theme-color-warning-content, 26 84% 16%));
+    --color-error: hsl(var(--theme-color-error, 0 72% 51%));
+    --color-error-content: hsl(var(--theme-color-error-content, 0 0% 98%));
+
+    --max-content-width: {{ site.settings.screen_width.value | presence | default: '1200px' }};
+    --left-sidebar-width: {{ site.settings.left_sidebar_width.value | presence | default: '240px' }};
+    --right-sidebar-width: {{ site.settings.right_sidebar_width.value | presence | default: '240px' }};
+    --header-height: {{ site.settings.header_height.value | presence | default: '68px' }};
+  }
+
+  :root:has(input.theme-controller[value=dark]:checked),
+  [data-theme="dark"] {
+    --color-base-100: hsl(var(--theme-color-base-100-dark, 222 30% 11%));
+    --color-base-200: hsl(var(--theme-color-base-200-dark, 222 28% 14%));
+    --color-base-300: hsl(var(--theme-color-base-300-dark, 220 24% 20%));
+    --color-base-content: hsl(var(--theme-color-base-content-dark, 30 16% 90%));
+    --color-primary: hsl(var(--theme-color-primary-dark, 172 66% 50%));
+    --color-primary-content: hsl(var(--theme-color-primary-content-dark, 175 80% 10%));
+    --color-secondary: hsl(var(--theme-color-secondary-dark, 21 90% 55%));
+    --color-secondary-content: hsl(var(--theme-color-secondary-content-dark, 20 90% 12%));
+    --color-accent: hsl(var(--theme-color-accent-dark, 210 40% 96%));
+    --color-accent-content: hsl(var(--theme-color-accent-content-dark, 222 47% 11%));
+    --color-neutral: hsl(var(--theme-color-neutral-dark, 217 24% 22%));
+    --color-neutral-content: hsl(var(--theme-color-neutral-content-dark, 30 16% 92%));
+    --color-info: hsl(var(--theme-color-info-dark, 199 90% 64%));
+    --color-info-content: hsl(var(--theme-color-info-content-dark, 204 80% 12%));
+    --color-success: hsl(var(--theme-color-success-dark, 172 66% 50%));
+    --color-success-content: hsl(var(--theme-color-success-content-dark, 170 90% 10%));
+    --color-warning: hsl(var(--theme-color-warning-dark, 27 96% 61%));
+    --color-warning-content: hsl(var(--theme-color-warning-content-dark, 26 84% 12%));
+    --color-error: hsl(var(--theme-color-error-dark, 0 75% 60%));
+    --color-error-content: hsl(var(--theme-color-error-content-dark, 0 0% 10%));
+  }
+</style>

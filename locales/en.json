@@ -17,125 +17,70 @@
     "hub": "Product Hub",
     "dashboard": "Dashboard",
     "catalog": "Catalog",
-    "sign_in": "Sign In",
-    "products": "Products",
-    "cases": "Customer Stories",
-    "docs": "Docs",
-    "downloads": "Downloads",
-    "faqs": "FAQs"
+    "menu": "Menu"
   },
   "footer": {
-    "tagline": "Enterprise robotics & digital asset command center.",
+    "tagline": "Your product catalog, specifications, and solutions in one hub.",
     "platform": "Platform",
-    "cta_eyebrow": "Engineering moves fast",
-    "cta_title": "Sign up to get the latest engineering updates.",
-    "email_placeholder": "Email address"
+    "cta_eyebrow": "Let's talk",
+    "cta_title": "Tell us what you need and our team will help you find the right fit."
   },
   "hub": {
     "cta": {
-      "quote": "Request a Quote",
-      "engineer": "Talk to an Engineer",
-      "trial": "Start a Trial"
-    },
-    "lead": {
-      "subtitle": "An engineer will get back to you within one business day.",
-      "submit": "Send Request",
-      "send_mail": "Send via Email",
-      "feedback_hint": "Submitted via the site feedback system so your team can track it in the CMS.",
-      "mailto_hint": "Submitting opens your mail client to",
-      "unavailable": "Online submission requires Site Feedback enabled with the message field on.",
-      "fields": {
-        "message": "Tell us what you need",
-        "message_placeholder": "Use case, key parameters, target timeline"
-      }
+      "quote": "Request a Solution"
     }
+  },
+  "quote": {
+    "eyebrow": "Get a solution",
+    "title": "Request a Solution",
+    "subtitle": "Tell us about your project and our engineers will get back to you within one business day.",
+    "form_title": "Send your request",
+    "fields": {
+      "name": "Your name",
+      "name_placeholder": "Jane Doe",
+      "company": "Company",
+      "company_placeholder": "Acme Inc.",
+      "contact": "Email or phone",
+      "contact_placeholder": "jane@example.com / +1 555 123 4567",
+      "message": "What do you need?",
+      "message_placeholder": "Use case, key parameters, target timeline"
+    },
+    "required": "This field is required.",
+    "error": "Something went wrong. Please try again later.",
+    "submit": "Submit request",
+    "submitting": "Submitting…",
+    "success_hint": "Your request is submitted through the site feedback system and tracked in the CMS.",
+    "unavailable": "Online submission requires Site Feedback enabled with the message field on."
   },
   "channels": {
     "products": {
-      "eyebrow": "Selection center",
-      "categories": "Categories",
-      "directory": "Directory",
-      "filters": "Filters",
-      "filter_payload": "Payload range",
-      "filter_ip": "IP rating",
       "search_placeholder": "Search specifications…",
-      "browse_category": "View products in this category",
-      "no_categories": "No categories yet — add child pages under the products channel.",
-      "all": "All products",
-      "showing_all": "Browsing all products",
-      "showing_filter": "Filtered by category",
       "view_detail": "View details",
+      "count": "products",
       "empty": "No products yet"
-    },
-    "cases": {
-      "eyebrow": "Customer stories",
-      "filters": "Filters",
-      "filter_industry": "Industry",
-      "filter_application": "Application",
-      "search_placeholder": "Search case studies…",
-      "read_full": "Read full study",
-      "empty": "No customer stories yet"
-    },
-    "docs": {
-      "eyebrow": "Support docs",
-      "toc": "Contents",
-      "recent": "Recently updated"
-    },
-    "downloads": {
-      "eyebrow": "Asset library",
-      "filters": "Filters",
-      "filter_format": "Format",
-      "filter_category": "Product category",
-      "search_placeholder": "Search by name, model, or type",
-      "download": "Download",
-      "view_detail": "View details",
-      "empty": "No downloads yet"
-    },
-    "faqs": {
-      "eyebrow": "Knowledge base",
-      "toc": "Categories",
-      "related_models": "Applies to",
-      "view_detail": "View details",
-      "empty": "No FAQs yet"
     }
   },
   "index": {
     "eyebrow": "Product Hub",
     "cta_browse": "Open selection center",
+    "intro": "Browse the full product catalog by series, industry, and scenario.",
+    "browse_title": "Browse by",
+    "channels_title": "Product channels",
+    "empty_channels": "No product channels yet. Add child pages under the home page.",
+    "facet": {
+      "series": "Series",
+      "industries": "Industries",
+      "scenarios": "Scenarios"
+    },
     "view_all": "View all",
-    "view_detail": "View details",
-    "featured_products": "Featured products",
-    "card_products": "Search products by series and model",
-    "card_cases": "See real-world outcomes",
-    "card_docs": "Engineer manuals and guides",
-    "card_downloads": "Datasheets, CAD, firmware",
-    "card_faqs": "Selection and after-sales answers",
-    "card_more": "Open",
-    "dashboard": {
-      "title": "Ecosystem & assets",
-      "subtitle": "Manage and explore product configurations, engineering resources, and customer case studies.",
-      "stat_products": "Products",
-      "stat_categories": "Categories",
-      "stat_resources": "Resources",
-      "recent_title": "Recent activities",
-      "recent_empty": "Configure a products channel root to see recent updates.",
-      "col_id": "ID",
-      "col_product": "Product",
-      "col_date": "Date",
-      "col_status": "Status",
-      "status_done": "Done"
-    }
+    "featured_products": "Featured products"
   },
   "page": {
     "product": {
       "nav": {
         "aria": "In-page navigation",
         "overview": "Overview",
-        "specs": "Specifications",
-        "downloads": "Downloads",
-        "docs": "Docs",
-        "faqs": "FAQs",
-        "cases": "Cases"
+        "specs": "Specifications"
       },
       "toc": {
         "title": "On this page",
@@ -144,64 +89,11 @@
       "specs": {
         "title": "Technical specifications"
       },
-      "hero": {
-        "no_image": "No product image yet",
-        "key_specs": "Key specifications",
-        "documentation": "Documentation"
-      },
-      "downloads": {
-        "eyebrow": "Asset library",
-        "title": "Technical files & drawings",
-        "empty": "No downloadables yet — request access from our engineers.",
-        "request_access": "Request access"
-      },
-      "docs": {
-        "eyebrow": "Support",
-        "title": "Related documentation",
-        "doc": "Doc",
-        "view_all": "All docs",
-        "empty": "No related docs",
-        "not_configured": "Docs channel root is not configured. Set docs_root_path in the theme settings."
-      },
-      "faqs": {
-        "eyebrow": "Knowledge base",
-        "title": "Selection & after-sales",
-        "view_all": "All FAQs",
-        "view_detail": "View",
-        "empty": "No related FAQs",
-        "not_configured": "FAQs channel root is not configured. Set faqs_root_path in the theme settings."
-      },
-      "cases": {
-        "eyebrow": "Case studies",
-        "title": "Customer stories",
-        "view_all": "All cases",
-        "view_detail": "Read case",
-        "empty": "No related cases",
-        "not_configured": "Cases channel root is not configured. Set cases_root_path in the theme settings."
+      "model_label": "Model",
+      "meta": {
+        "industries": "Industries",
+        "scenarios": "Scenarios"
       }
-    },
-    "case": {
-      "headline_metric": "Highlighted outcome",
-      "pain_point": "Pain points",
-      "solution": "Solution",
-      "outcomes": "Quantified outcomes",
-      "about_client": "About the client",
-      "client_name": "Client",
-      "industry": "Industry",
-      "region": "Region",
-      "scale": "Scale",
-      "related_products": "Related products",
-      "cta": "Talk to sales",
-      "cta_desc": "Need a similar solution in your industry?"
-    },
-    "doc": {
-      "eyebrow": "Documentation",
-      "toc": "Contents",
-      "on_this_page": "On this page",
-      "no_toc": "No subsections",
-      "updated_at": "Updated",
-      "prev": "Previous",
-      "next": "Next"
     }
   },
   "tag": {
@@ -211,22 +103,6 @@
     "title": "Search",
     "placeholder": "Search products, docs and cases",
     "empty": "No results"
-  },
-  "static": {
-    "recent": {
-      "subtitle": "Listed in reverse-edit order to help you track recent updates."
-    }
-  },
-  "templates": {
-    "index": {
-      "list": {
-        "all": "All"
-      }
-    },
-    "page": {
-      "current_version": "Current",
-      "visit_count": "Visits"
-    }
   },
   "paginate": {
     "showing": "currently showing",

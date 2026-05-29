@@ -1,27 +1,30 @@
 {%- comment -%}
-  通用内容卡片：用于搜索结果与标签页等列表场景。
+  Generic content card: used by search results and tag pages.
 {%- endcomment -%}
-<article class="rounded-md border border-base-300 bg-base-100 p-5 transition hover:border-primary/50 hover:shadow-sm">
+<article class="rounded-2xl border border-base-300 bg-base-100 p-5 transition hover:border-primary/50 hover:shadow-sm">
   <div class="flex items-start gap-4">
-    {% assign thumb = page.settings.thumb_image_url | default: page.settings.logo_image_url | presence %}
+    {% assign thumb = page.settings.thumb_image_url | presence %}
     {% if thumb %}
-      <div class="hidden h-16 w-24 shrink-0 overflow-hidden rounded ring-1 ring-base-300 sm:block">
+      <div class="hidden h-16 w-24 shrink-0 overflow-hidden rounded-lg ring-1 ring-base-300 sm:block">
         <img src="{{ thumb }}" alt="" class="h-full w-full object-cover" loading="lazy" />
       </div>
     {% endif %}
     <div class="min-w-0 flex-1">
       <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-base-content/60">
+        {% if page.settings.model_code != blank %}
+          <span class="font-mono text-base-content/80">{{ page.settings.model_code }}</span>
+        {% endif %}
         {% if page.published_at %}
           <span class="font-mono">{{ page.published_at | date: '%Y-%m-%d' }}</span>
         {% endif %}
-        {% for tag in page.tags %}
-          <a href="{{ tag.path }}" class="rounded-full bg-base-200 px-2 py-0.5 text-[11px] text-base-content/70 hover:bg-primary/10 hover:text-primary">{{ tag.name }}</a>
+        {% for tag in page.settings.tags %}
+          <a href="{{ tag.path }}" class="rounded-lg bg-base-200 px-2 py-0.5 text-[11px] text-base-content/70 hover:bg-primary/10 hover:text-primary">{{ tag.name }}</a>
         {% endfor %}
       </div>
       <h3 class="mt-2 text-base font-semibold text-base-content sm:text-lg">
         <a href="{{ page.path }}" class="hover:text-primary hover:underline">{{ page.link_text }}</a>
       </h3>
-      {% assign desc = page.settings.description | default: page.settings.tagline %}
+      {% assign desc = page.settings.description %}
       {% if desc != blank %}
         <p class="mt-1 line-clamp-2 text-sm text-base-content/70">{{ desc | strip_html | strip }}</p>
       {% endif %}

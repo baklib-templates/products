@@ -1,138 +1,187 @@
 {
   "theme_label": "product hub",
-  "theme_description": "B2B 企業 PIM 與產品數位資產樞紐，以「單品」為錨點聚合參數、物料、文件、知識庫與客戶案例。",
+  "theme_description": "B2B 產品目錄庫。以「單品」為錨點的線上可檢索產品字典：型號、分類詞表、參數分組、主圖與富文本正文。",
   "templates": {
     "index": {
       "name": "Product Hub 首頁",
-      "description": "頻道入口 + 精選產品橫向滾動",
+      "description": "目錄庫總覽：分類分面 + 頻道入口 + 精選產品",
       "settings": {
-        "description": { "label": "首頁說明", "info": "首屏簡短介紹（富文本）" }
+        "description": {
+          "label": "首頁說明",
+          "info": "首屏簡短介紹（富文本）"
+        }
       }
     },
-    "index_list": { "name": "首頁（清單樣式）", "description": "適合知識中心型首頁" },
     "channel": {
-      "name": "頻道（兜底）",
-      "description": "未指定樣式時使用",
-      "settings": { "intro": { "label": "頻道說明", "info": "顯示在標題下方的簡短介紹" } }
+      "name": "產品頻道",
+      "description": "單個頻道下的產品字典：頭圖 + 描述 + 產品卡片網格",
+      "settings": {
+        "thumb_image_url": {
+          "label": "頻道頭圖"
+        },
+        "description": {
+          "label": "頻道描述",
+          "info": "顯示在標題下方的簡短介紹"
+        }
+      }
     },
-    "channel_products": { "name": "選型中心", "description": "左側分類樹 + 右側高密度產品清單" },
-    "channel_cases": { "name": "客戶案例庫", "description": "圖片卡片瀑布流" },
-    "channel_docs": { "name": "技術文件庫", "description": "左側目錄 + 右側近期更新" },
-    "channel_downloads": { "name": "資料下載庫", "description": "極簡列表 + 快捷搜尋" },
-    "channel_faqs": { "name": "知識庫（FAQ）", "description": "錨點導覽 + 手風琴折疊" },
     "page": {
-      "name": "通用頁面（兜底）",
-      "description": "未指定樣式時的簡潔詳情",
+      "name": "產品詳情",
+      "description": "標題 + 型號 + 分類 + 參數表 + 主圖 + 富文本正文",
       "settings": {
-        "tagline": { "label": "副標題" },
-        "body": { "label": "正文" },
-        "product_model": { "label": "產品型號", "info": "與單品頁型號一致時，可於 FAQ 等模組中匹配" },
-        "related_models": { "label": "關聯型號（每行一個）", "info": "用於 FAQ / 文件 / 下載與單品關聯" },
-        "file_url": { "label": "檔案下載 URL", "info": "用於「資料下載」頻道清單" },
-        "file_type": { "label": "檔案類型", "info": "如 pdf、zip；留空則依 URL 推斷" },
-        "file_size": { "label": "檔案大小", "info": "僅展示用，如 2.1 MB" }
-      }
-    },
-    "page_product": {
-      "name": "單品詳情",
-      "description": "Hero + 吸頂導覽 + 物料 / 文件 / FAQ / 案例五段組裝",
-      "settings": {
-        "product_model": { "label": "產品型號", "info": "跨頻道關聯比對的主鍵，例 X100-PRO" },
-        "tagline": { "label": "一句話定位" },
-        "hero_images": { "label": "主圖（多行）", "info": "每行一條 URL，依序作為輪播" },
-        "specifications": { "label": "參數表", "info": "每行 `名稱|數值|單位`，竖線分隔；單位可省略" },
-        "highlights": { "label": "亮點要點", "info": "每行一條" },
-        "body": { "label": "概覽正文" },
-        "downloads": { "label": "物料庫", "info": "每行 `名稱|類型|URL|大小`；類型留空依後綴推斷" },
-        "related_models": { "label": "關聯型號", "info": "每行一個（可選）" },
-        "cta_quote_link": { "label": "「獲取方案」連結（覆蓋對話框）" },
-        "cta_trial_link": { "label": "「申請試用」連結" }
-      }
-    },
-    "page_case": {
-      "name": "客戶案例詳情",
-      "description": "痛點 / 方案 / 成果敘事版式",
-      "settings": {
-        "tagline": { "label": "副標題" },
-        "client_name": { "label": "客戶名稱" },
-        "client_caption": { "label": "客戶備註" },
-        "client_logo_url": { "label": "客戶 Logo" },
-        "cover_image_url": { "label": "封面圖" },
-        "industry": { "label": "產業" },
-        "region": { "label": "區域" },
-        "scale": { "label": "規模" },
-        "headline_metric": { "label": "關鍵成效", "info": "如「上線後處理效率提升 38%」" },
-        "pain_point": { "label": "客戶痛點" },
-        "solution": { "label": "解決方案" },
-        "outcomes": { "label": "量化成果", "info": "每行 `數值|單位|說明`" },
-        "body": { "label": "案例正文" },
-        "related_models": { "label": "關聯產品型號" }
-      }
-    },
-    "page_doc": {
-      "name": "技術文件詳情",
-      "description": "寬 prose + 左目錄 + 右 On this page",
-      "settings": {
-        "tagline": { "label": "副標題" },
-        "version": { "label": "文件版本" },
-        "body": { "label": "正文" },
-        "related_models": { "label": "關聯型號", "info": "每行一個" }
+        "model_code": {
+          "label": "產品型號",
+          "info": "產品唯一識別，例如 X100-PRO"
+        },
+        "tags": {
+          "label": "標籤"
+        },
+        "industries": {
+          "label": "產業分類",
+          "info": "候選來自全域分類詞表"
+        },
+        "scenarios": {
+          "label": "情境分類",
+          "info": "候選來自全域分類詞表"
+        },
+        "series": {
+          "label": "系列分類",
+          "info": "候選來自全域分類詞表"
+        },
+        "spec_groups": {
+          "label": "參數分組",
+          "info": "每行 `分組::參數名::參數值`；依第一段聚合為分組參數表。"
+        },
+        "thumb_image_url": {
+          "label": "主圖"
+        },
+        "description": {
+          "label": "摘要",
+          "info": "一句話摘要，用於卡片與 SEO"
+        },
+        "content": {
+          "label": "正文"
+        },
+        "downloads": {
+          "label": "下載資料（僅宣告）",
+          "info": "V1 不渲染，預留給 V2"
+        },
+        "doc_refs": {
+          "label": "關聯文件（僅宣告）",
+          "info": "V1 不渲染，預留給 V2"
+        },
+        "faq_refs": {
+          "label": "關聯 FAQ（僅宣告）",
+          "info": "V1 不渲染，預留給 V2"
+        },
+        "case_refs": {
+          "label": "關聯案例（僅宣告）",
+          "info": "V1 不渲染，預留給 V2"
+        },
+        "related_products": {
+          "label": "相關產品（僅宣告）",
+          "info": "V1 不渲染，預留給 V2"
+        }
       }
     }
   },
   "generic": {
     "name": "通用設定",
     "settings": {
-      "slogan": { "label": "一句話描述", "default": "B2B 企業級產品資訊樞紐" },
-      "company_name": { "label": "公司名稱", "default": "Baklib.cn", "info": "顯示在頁腳" },
-      "copyright_info": { "label": "備案 / 版權資訊", "placeholder": "ICP 編號" },
-      "is_allow_feedback": { "label": "是否顯示使用者回饋" },
-      "is_show_visit_count": { "label": "是否顯示訪問量" },
-      "is_allow_header": { "label": "是否顯示頁首" },
-      "is_allow_footer": { "label": "是否顯示頁腳" },
-      "sort_rule": {
-        "label": "清單排序規則",
-        "options": {
-          "created_at_desc": "依建立日期-倒序",
-          "created_at_asc": "依建立日期-正序",
-          "edited_at_desc": "依更新日期-倒序",
-          "edited_at_asc": "依更新日期-正序",
-          "visit_count_desc": "依訪問量（多到少）",
-          "visit_count_asc": "依訪問量（少到多）",
-          "manual": "手動排序"
-        }
+      "slogan": {
+        "label": "一句話描述",
+        "default": "B2B 產品目錄庫"
+      },
+      "logo_url": {
+        "label": "Logo 圖片",
+        "info": "顯示在頁首；留空時回退為站點圖示 + 站點名稱"
+      },
+      "company_name": {
+        "label": "公司名稱",
+        "default": "Baklib.cn",
+        "info": "顯示在頁腳"
+      },
+      "is_allow_feedback": {
+        "label": "是否顯示使用者回饋"
+      },
+      "is_allow_header": {
+        "label": "是否顯示頁首"
+      },
+      "is_allow_footer": {
+        "label": "是否顯示頁腳"
+      }
+    }
+  },
+  "taxonomy": {
+    "name": "分類詞表",
+    "settings": {
+      "industries": {
+        "label": "產業分類（每行一個）",
+        "info": "站點級受控詞表，供產品頁透過 choices_from: $site.industries 引用"
+      },
+      "scenarios": {
+        "label": "情境分類（每行一個）",
+        "info": "站點級受控詞表，供產品頁透過 choices_from: $site.scenarios 引用"
+      },
+      "series": {
+        "label": "系列分類（每行一個）",
+        "info": "站點級受控詞表，供產品頁透過 choices_from: $site.series 引用"
       }
     }
   },
   "hub": {
-    "name": "Product Hub 頻道",
+    "name": "Product Hub",
     "settings": {
-      "products_root_path": { "label": "產品中心路徑", "info": "如 /products" },
-      "cases_root_path": { "label": "案例庫路徑", "info": "如 /cases" },
-      "docs_root_path": { "label": "文件庫路徑", "info": "如 /docs" },
-      "downloads_root_path": { "label": "資料庫路徑", "info": "如 /downloads" },
-      "faqs_root_path": { "label": "知識庫路徑", "info": "如 /faqs" },
-      "cta_quote_label": { "label": "「獲取方案」按鈕文案", "info": "全域 CTA 文案", "default": "獲取方案" },
-      "cta_engineer_label": { "label": "「聯絡工程師」按鈕文案", "info": "全域 CTA 文案", "default": "聯絡工程師" },
-      "cta_trial_label": { "label": "「申請試用」按鈕文案", "info": "全域 CTA 文案", "default": "申請試用" },
-      "lead_email": { "label": "線索接收信箱", "info": "未啟用站點回饋時的郵件兜底地址" }
+      "cta_quote_label": {
+        "label": "「獲取方案」按鈕文案",
+        "info": "全域 CTA 文案，可被頁面級覆蓋",
+        "default": "獲取方案"
+      },
+      "cta_quote_url": {
+        "label": "「獲取方案」跳轉連結",
+        "info": "主 CTA 的目標位址，如 /s/quote"
+      }
     }
   },
   "custom_html": {
     "name": "自訂 HTML 程式碼",
     "settings": {
-      "head_html": { "label": "<head> 區塊自訂 HTML", "info": "支援 HTML 與有限 Tailwind", "placeholder": "通常用於分析或客服機器人" },
-      "header_menu_html": { "label": "頁首區插入 HTML", "info": "支援 HTML 與有限 Tailwind", "placeholder": "" },
-      "footer_menu_html": { "label": "頁腳區插入 HTML", "info": "支援 HTML 與有限 Tailwind", "placeholder": "" }
+      "head_html": {
+        "label": "<head> 區塊自訂 HTML",
+        "info": "支援 HTML 與有限 Tailwind",
+        "placeholder": "通常用於分析或客服機器人"
+      },
+      "header_menu_html": {
+        "label": "頁首區插入 HTML",
+        "info": "支援 HTML 與有限 Tailwind",
+        "placeholder": "通常插入其他網站導航連結"
+      },
+      "footer_menu_html": {
+        "label": "頁腳區插入 HTML",
+        "info": "支援 HTML 與有限 Tailwind",
+        "placeholder": "通常插入外部導航、友情連結、SEO 連結等"
+      }
     }
   },
   "settings": {
     "weixin_share": {
       "title": "微信設定",
-      "weixin_app_id": { "label": "AppID", "info": "" },
-      "weixin_app_secret": { "label": "AppSecret", "info": "" },
-      "weixin_enabled": { "label": "啟用微信分享", "info": "" },
-      "weixin_debug": { "label": "啟用 debug 提示", "info": "" }
+      "weixin_app_id": {
+        "label": "AppID",
+        "info": ""
+      },
+      "weixin_app_secret": {
+        "label": "AppSecret",
+        "info": ""
+      },
+      "weixin_enabled": {
+        "label": "啟用微信分享",
+        "info": ""
+      },
+      "weixin_debug": {
+        "label": "啟用 debug 提示",
+        "info": ""
+      }
     }
   }
 }

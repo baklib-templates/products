@@ -1,10 +1,10 @@
 {
   "theme_label": "product hub",
-  "theme_description": "B2B 企业 PIM 与产品数字资产枢纽，以「单品」为锚点聚合参数、物料、文档、知识库与客户案例。",
+  "theme_description": "B2B 产品目录库。以「单品」为锚点的在线可检索产品字典：型号、分类词表、参数分组、主图与富文本正文。",
   "templates": {
     "index": {
       "name": "Product Hub 首页",
-      "description": "频道入口 + 精选产品横向滚动",
+      "description": "目录库总览：分类分面 + 栏目入口 + 精选产品",
       "settings": {
         "description": {
           "label": "首页说明",
@@ -12,151 +12,75 @@
         }
       }
     },
-    "index_list": {
-      "name": "首页（列表样式）",
-      "description": "适合知识中心型首页"
-    },
     "channel": {
-      "name": "频道（兜底）",
-      "description": "未指定样式时使用",
+      "name": "产品栏目",
+      "description": "单个栏目下的产品字典：头图 + 描述 + 产品卡片网格",
       "settings": {
-        "intro": {
-          "label": "频道说明",
+        "thumb_image_url": {
+          "label": "栏目头图"
+        },
+        "description": {
+          "label": "栏目描述",
           "info": "显示在标题下方的简短介绍"
         }
       }
     },
-    "channel_products": {
-      "name": "选型中心",
-      "description": "左侧分类树 + 右侧高密度产品列表"
-    },
-    "channel_cases": {
-      "name": "客户案例库",
-      "description": "图片卡片瀑布流"
-    },
-    "channel_docs": {
-      "name": "技术文档库",
-      "description": "左侧目录 + 右侧近期更新"
-    },
-    "channel_downloads": {
-      "name": "资料下载库",
-      "description": "极简列表 + 快捷搜索"
-    },
-    "channel_faqs": {
-      "name": "知识库（FAQ）",
-      "description": "锚点导航 + 手风琴折叠"
-    },
     "page": {
-      "name": "通用页面（兜底）",
-      "description": "未指定样式时的简洁详情",
+      "name": "产品详情",
+      "description": "标题 + 型号 + 分类 + 参数表 + 主图 + 富文本正文",
       "settings": {
-        "tagline": {
-          "label": "一句话简介"
+        "model_code": {
+          "label": "产品型号",
+          "info": "产品唯一标识，例如 X100-PRO"
         },
-        "body": {
+        "tags": {
+          "label": "标签"
+        },
+        "industries": {
+          "label": "行业分类",
+          "info": "候选来自全局分类词表"
+        },
+        "scenarios": {
+          "label": "场景分类",
+          "info": "候选来自全局分类词表"
+        },
+        "series": {
+          "label": "系列分类",
+          "info": "候选来自全局分类词表"
+        },
+        "spec_groups": {
+          "label": "参数分组",
+          "info": "每行 `分组::参数名::参数值`；按第一段聚合为分组参数表。"
+        },
+        "thumb_image_url": {
+          "label": "主图"
+        },
+        "description": {
+          "label": "摘要",
+          "info": "一句话摘要，用于卡片与 SEO"
+        },
+        "content": {
           "label": "正文"
         },
-        "product_model": {
-          "label": "产品型号",
-          "info": "与单品页 product_model 一致时，可在单品页 FAQ 等模块中匹配本页"
-        },
-        "related_models": {
-          "label": "关联型号（每行一个）",
-          "info": "用于 FAQ / 文档 / 下载与单品页的型号关联"
-        },
-        "file_url": {
-          "label": "文件下载 URL",
-          "info": "用于「资料下载」频道列表的外链或 DAM 地址"
-        },
-        "file_type": {
-          "label": "文件类型",
-          "info": "如 pdf、zip；留空时尝试从 URL 推断"
-        },
-        "file_size": {
-          "label": "文件大小",
-          "info": "如 2.1 MB，仅展示用"
-        }
-      }
-    },
-    "page_product": {
-      "name": "单品详情",
-      "description": "Hero + 吸顶导航 + 物料 / 文档 / FAQ / 案例五段组装",
-      "settings": {
-        "product_model": {
-          "label": "产品型号",
-          "info": "用于跨栏目关联匹配的主键，例如 X100-PRO"
-        },
-        "tagline": {
-          "label": "一句话定位"
-        },
-        "hero_images": {
-          "label": "主图（多行）",
-          "info": "每行一条 URL（DAM 资源或外链），按顺序作为轮播"
-        },
-        "specifications": {
-          "label": "参数表",
-          "info": "每行 `参数名|值|单位`，使用竖线分隔；单位可省略"
-        },
-        "highlights": {
-          "label": "亮点要点",
-          "info": "每行一条；显示在 Hero 右侧的勾选要点"
-        },
-        "body": {
-          "label": "概览正文"
-        },
         "downloads": {
-          "label": "物料库",
-          "info": "每行 `名称|文件类型|URL|大小`；类型留空将从 URL 后缀推断"
+          "label": "下载资料",
+          "info": ""
         },
-        "related_models": {
-          "label": "关联型号",
-          "info": "每行一个型号；用于跨栏目内容的反向关联（可选）"
+        "doc_refs": {
+          "label": "关联文档",
+          "info": ""
         },
-        "cta_quote_link": {
-          "label": "获取方案链接",
-          "info": "为空则使用全局 lead dialog"
+        "faq_refs": {
+          "label": "关联 FAQ",
+          "info": ""
         },
-        "cta_trial_link": {
-          "label": "申请试用链接"
-        }
-      }
-    },
-    "page_case": {
-      "name": "客户案例详情",
-      "description": "痛点 / 方案 / 成果叙事版式",
-      "settings": {
-        "tagline": { "label": "副标题" },
-        "client_name": { "label": "客户名称" },
-        "client_caption": { "label": "客户备注" },
-        "client_logo_url": { "label": "客户 Logo" },
-        "cover_image_url": { "label": "封面图" },
-        "industry": { "label": "行业" },
-        "region": { "label": "区域" },
-        "scale": { "label": "规模" },
-        "headline_metric": {
-          "label": "关键成效",
-          "info": "如「上线后处理效率提升 38%」"
+        "case_refs": {
+          "label": "关联案例",
+          "info": ""
         },
-        "pain_point": { "label": "客户痛点" },
-        "solution": { "label": "解决方案" },
-        "outcomes": {
-          "label": "量化成果",
-          "info": "每行 `数值|单位|说明`"
-        },
-        "body": { "label": "案例正文" },
-        "related_models": { "label": "关联产品型号" }
-      }
-    },
-    "page_doc": {
-      "name": "技术文档详情",
-      "description": "宽 prose + 左目录 + 右 On this page",
-      "settings": {
-        "tagline": { "label": "副标题" },
-        "version": { "label": "文档版本" },
-        "body": { "label": "正文" },
-        "related_models": {
-          "label": "关联型号",
-          "info": "每行一个；用于在产品页的 Docs 段中反向匹配"
+        "related_products": {
+          "label": "相关产品",
+          "info": ""
         }
       }
     }
@@ -166,76 +90,56 @@
     "settings": {
       "slogan": {
         "label": "一句话描述",
-        "default": "B2B 企业级产品信息枢纽"
+        "default": "B2B 产品目录库"
+      },
+      "logo_url": {
+        "label": "Logo 图片",
+        "info": "展示在页头；留空时回退为站点图标 + 站点名称"
       },
       "company_name": {
         "label": "公司名称",
         "default": "Baklib.cn",
         "info": "显示在页脚"
       },
-      "copyright_info": {
-        "label": "备案 / 版权信息",
-        "placeholder": "蜀ICP备15035023号"
+      "is_allow_feedback": {
+        "label": "是否展示用户反馈"
       },
-      "is_allow_feedback": { "label": "是否展示用户反馈" },
-      "is_show_visit_count": { "label": "是否展示访问量" },
-      "is_allow_header": { "label": "是否展示页头" },
-      "is_allow_footer": { "label": "是否展示页脚" },
-      "sort_rule": {
-        "label": "列表排序规则",
-        "options": {
-          "created_at_desc": "按创建日期-倒序",
-          "created_at_asc": "按创建日期-正序",
-          "edited_at_desc": "按更新日期-倒序",
-          "edited_at_asc": "按更新日期-正序",
-          "visit_count_desc": "按访问量（从多到少）",
-          "visit_count_asc": "按访问量（从少到多）",
-          "manual": "手动排序"
-        }
+      "is_allow_header": {
+        "label": "是否展示页头"
+      },
+      "is_allow_footer": {
+        "label": "是否展示页脚"
+      }
+    }
+  },
+  "taxonomy": {
+    "name": "分类词表",
+    "settings": {
+      "industries": {
+        "label": "行业分类（每行一个）",
+        "info": "站点级受控词表，供产品页通过 choices_from: $site.industries 引用"
+      },
+      "scenarios": {
+        "label": "场景分类（每行一个）",
+        "info": "站点级受控词表，供产品页通过 choices_from: $site.scenarios 引用"
+      },
+      "series": {
+        "label": "系列分类（每行一个）",
+        "info": "站点级受控词表，供产品页通过 choices_from: $site.series 引用"
       }
     }
   },
   "hub": {
-    "name": "Product Hub 频道",
+    "name": "Product Hub",
     "settings": {
-      "products_root_path": {
-        "label": "产品中心路径",
-        "info": "选型中心频道前台路径，如 /products"
-      },
-      "cases_root_path": {
-        "label": "案例库路径",
-        "info": "客户案例频道前台路径，如 /cases"
-      },
-      "docs_root_path": {
-        "label": "文档库路径",
-        "info": "技术文档频道前台路径，如 /docs"
-      },
-      "downloads_root_path": {
-        "label": "资料库路径",
-        "info": "下载中心频道前台路径，如 /downloads"
-      },
-      "faqs_root_path": {
-        "label": "知识库路径",
-        "info": "FAQ 频道前台路径，如 /faqs"
-      },
       "cta_quote_label": {
         "label": "「获取方案」按钮文案",
         "info": "全局 CTA 文案，可被页面级覆盖",
         "default": "获取方案"
       },
-      "cta_engineer_label": {
-        "label": "「联系工程师」按钮文案",
-        "info": "全局 CTA 文案",
-        "default": "联系工程师"
-      },
-      "cta_trial_label": {
-        "label": "「申请试用」按钮文案",
-        "info": "全局 CTA 文案",
-        "default": "申请试用"
-      },
-      "lead_email": {
-        "label": "线索接收邮箱",
-        "info": "未启用站点反馈时作为邮件兜底地址"
+      "cta_quote_url": {
+        "label": "「获取方案」跳转链接",
+        "info": "主 CTA 的目标地址，如 /s/quote"
       }
     }
   },
@@ -266,9 +170,18 @@
         "label": "开发者ID(AppID)",
         "info": "<a href='https://mp.weixin.qq.com/cgi-bin/frame'>微信公众号/设置与开发/开发接口管理</a>中获取"
       },
-      "weixin_app_secret": { "label": "开发者密码(AppSecret)", "info": "" },
-      "weixin_enabled": { "label": "是否启用微信分享", "info": "" },
-      "weixin_debug": { "label": "是否开启 debug 提示", "info": "" }
+      "weixin_app_secret": {
+        "label": "开发者密码(AppSecret)",
+        "info": ""
+      },
+      "weixin_enabled": {
+        "label": "是否启用微信分享",
+        "info": ""
+      },
+      "weixin_debug": {
+        "label": "是否开启 debug 提示",
+        "info": ""
+      }
     }
   }
 }

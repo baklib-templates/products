@@ -1,81 +1,75 @@
 {%- comment -%}
-  Product Hub 顶栏（products-demo）：固定 72px、玻璃拟态；主导航 Dashboard / Catalog / Downloads / Cases。
-  文档与知识库入口迁至页脚与抽屉菜单。
+  Product Hub top bar (V1, product-only): glass header, brand logo + channel nav,
+  search, sign-in / user menu, mobile drawer.
 {%- endcomment -%}
-{% assign products_path = site.settings.products_root_path | default: '/products' %}
-{% assign cases_path = site.settings.cases_root_path | default: '/cases' %}
-{% assign docs_path = site.settings.docs_root_path | default: '/docs' %}
-{% assign downloads_path = site.settings.downloads_root_path | default: '/downloads' %}
-{% assign faqs_path = site.settings.faqs_root_path | default: '/faqs' %}
 {% assign index_path = site.index_path | default: '/' %}
+{% assign nav_channels = site.pages['/'].children_in_list | limit: 100 %}
+{% assign logo_url = site.settings.logo_url | presence %}
+{% assign quote_url = site.settings.cta_quote_url | default: '/s/quote' %}
+{% assign quote_label = site.settings.cta_quote_label | default: 'hub.cta.quote' | t %}
 
 <header
   x-data=""
-  x-ref="header"
   class="product-hub-glass fixed inset-x-0 top-0 z-50 flex h-[72px] items-center border-b border-base-300/80"
 >
-  <div class="mx-auto flex h-full w-full max-w-[1440px] items-center justify-between gap-4 px-6">
+  <div class="mx-auto flex h-full w-full max-w-[1280px] items-center justify-between gap-4 px-6">
     <div class="flex min-w-0 items-center gap-2">
-      {% assign logo = 'images/logo.png' | asset_url %}
+      {% assign fallback_logo = 'images/logo.png' | asset_url %}
       <a href="{{ index_path }}" class="flex shrink-0 items-center gap-2" data-turbo-frame="main-content-frame" data-turbo-action="advance">
-        <img src="{{ site.favicon_url | default: logo }}" alt="" class="h-9 w-9 rounded-2xl border border-base-300 bg-base-100 object-contain shadow-sm" onerror="this.style.display='none';" />
-        <span class="hidden min-w-0 sm:flex sm:flex-col">
-          <span class="font-display text-[24px] font-bold tracking-tight text-base-content">{{ site.name }}</span>
-          {% if site.settings.slogan != blank %}
-            <span class="font-sans text-[16px] font-normal text-base-content/50">{{ site.settings.slogan }}</span>
-          {% endif %}
-        </span>
+        {% if logo_url %}
+          <img src="{{ logo_url }}" alt="{{ site.name | escape }}" class="h-9 w-auto max-w-[180px] object-contain" />
+        {% else %}
+          <img src="{{ site.favicon_url | default: fallback_logo }}" alt="" class="h-9 w-9 rounded-lg border border-base-300 bg-base-100 object-contain shadow-sm" onerror="this.style.display='none';" />
+          <span class="hidden min-w-0 sm:flex sm:flex-col">
+            <span class="font-display text-[20px] font-bold tracking-tight text-base-content">{{ site.name }}</span>
+            {% if site.settings.slogan != blank %}
+              <span class="font-sans text-[13px] font-normal text-base-content/50">{{ site.settings.slogan }}</span>
+            {% endif %}
+          </span>
+        {% endif %}
       </a>
-      <nav class="ml-8 hidden items-center gap-8 pt-1 text-[14px] font-medium text-base-content/60 md:flex" aria-label="Product Hub">
+      <nav class="ml-8 hidden items-center gap-8 text-[14px] font-medium text-base-content/60 md:flex" aria-label="Product Hub">
         <a href="{{ index_path }}" class="transition-colors hover:text-base-content" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ 'nav.dashboard' | t }}</a>
-        <a href="{{ products_path }}" class="transition-colors hover:text-base-content" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ 'nav.catalog' | t }}</a>
+        {% for nav_channel in nav_channels %}
+          <a href="{{ nav_channel.path }}" class="transition-colors hover:text-base-content" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ nav_channel.link_text }}</a>
+        {% endfor %}
       </nav>
     </div>
 
-    <div class="flex items-center gap-6 text-[14px] text-base-content/60">
-      <a href="{{ downloads_path }}" class="hidden transition-colors hover:text-primary sm:inline" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ 'nav.downloads' | t }}</a>
-      <a href="{{ cases_path }}" class="hidden transition-colors hover:text-primary sm:inline" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ 'nav.cases' | t }}</a>
+    <div class="flex items-center gap-4 text-[14px] text-base-content/60">
       <a
         href="{{ site.search_path }}"
-        class="hidden items-center gap-2 rounded-full border border-base-300 bg-base-100 px-4 py-2 text-[13px] shadow-sm transition-colors hover:border-primary/40 hover:text-primary lg:inline-flex"
+        class="hidden items-center gap-2 rounded-lg border border-base-300 bg-base-100 px-4 py-2 text-[13px] shadow-sm transition-colors hover:border-primary/40 hover:text-primary lg:inline-flex"
         data-turbo-frame="main-content-frame"
         data-turbo-action="advance"
         aria-label="{{ 'generic.placeholders.search' | t }}"
       >
-        <svg class="h-4 w-4 text-base-content/50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"></circle>
-          <path d="m21 21-4.3-4.3"></path>
-        </svg>
+        {% render 'icon', name: 'search', class: 'w-4 h-4 text-base-content/50' %}
         <span>{{ 'generic.placeholders.search' | t }}</span>
       </a>
       {% if current_user %}
         <div class="dropdown dropdown-end hidden md:block">
-          <div tabindex="0" role="button" class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-base-300 bg-base-100 shadow-sm">
+          <div tabindex="0" role="button" aria-haspopup="menu" aria-label="{{ current_user.name | escape }}" class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-base-300 bg-base-100 shadow-sm">
             {% if current_user.image %}
               <img src="{{ current_user.image }}" alt="{{ current_user.name }}" class="h-10 w-10 rounded-full object-cover" />
             {% else %}
-              <svg class="h-5 w-5 text-base-content/60" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <circle cx="12" cy="8" r="4" />
-                <path d="M4 20c0-4 8-4 8-4s8 0 8 4" />
-              </svg>
+              <span class="text-base-content/60">{% render 'icon', name: 'user', class: 'w-5 h-5' %}</span>
             {% endif %}
           </div>
           <div tabindex="0" class="dropdown-content z-[60] mt-2 w-44 space-y-2 rounded-2xl border border-base-300 bg-base-100 p-3 text-sm text-base-content shadow-lg">
             <div class="line-clamp-1 border-b border-base-200 pb-2 font-medium text-base-content">{{ current_user.name }}</div>
             {% form_tag 'sign_out' %}
-              <button class="w-full text-left text-base-content/60 hover:text-primary hover:underline">{{ 'generic.buttons.signout' | t }}</button>
+              <button class="inline-flex w-full items-center gap-2 text-left text-base-content/60 hover:text-primary hover:underline">{% render 'icon', name: 'log-out', class: 'w-4 h-4' %}{{ 'generic.buttons.signout' | t }}</button>
             {% endform_tag %}
           </div>
         </div>
       {% else %}
-        <a href="#lead-dialog" data-lead-trigger class="hub-pill-primary-sm hidden no-underline md:inline-flex">
-          {{ 'nav.sign_in' | t }}
+        <a href="{{ quote_url }}" data-turbo-frame="main-content-frame" data-turbo-action="advance" class="hidden items-center gap-2 rounded-lg bg-primary px-4 py-2 text-[13px] font-medium text-primary-content shadow-sm transition-colors hover:bg-primary/90 no-underline md:inline-flex">
+          {% render 'icon', name: 'message-square', class: 'w-4 h-4' %}{{ quote_label }}
         </a>
       {% endif %}
-      {% render 'header_drawer', products_path: products_path, cases_path: cases_path, docs_path: docs_path, downloads_path: downloads_path, faqs_path: faqs_path, index_path: index_path %}
+      {% render 'header_drawer', nav_channels: nav_channels, index_path: index_path, quote_url: quote_url, quote_label: quote_label %}
     </div>
   </div>
 </header>
 <div class="h-[72px]" aria-hidden="true"></div>
-
-{% render 'lead_dialog' %}

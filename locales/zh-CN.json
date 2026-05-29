@@ -17,125 +17,70 @@
     "hub": "Product Hub",
     "dashboard": "控制台",
     "catalog": "产品目录",
-    "sign_in": "登录 / 留资",
-    "products": "产品中心",
-    "cases": "客户案例",
-    "docs": "技术文档",
-    "downloads": "资料下载",
-    "faqs": "常见问题"
+    "menu": "菜单"
   },
   "footer": {
-    "tagline": "企业级机器人与数字资产指挥中心。",
+    "tagline": "产品目录、技术规格与解决方案，集中于一处。",
     "platform": "平台",
-    "cta_eyebrow": "工程迭代很快",
-    "cta_title": "订阅以获取最新工程更新。",
-    "email_placeholder": "邮箱地址"
+    "cta_eyebrow": "联系我们",
+    "cta_title": "告诉我们你的需求，我们的团队会帮你找到合适的方案。"
   },
   "hub": {
     "cta": {
-      "quote": "获取方案",
-      "engineer": "联系工程师",
-      "trial": "申请试用"
-    },
-    "lead": {
-      "subtitle": "工程师将在 1 个工作日内与您联系。",
-      "submit": "提交申请",
-      "send_mail": "通过邮件发送",
-      "feedback_hint": "通过站点反馈系统提交，便于在 CMS 中统一查看与跟进。",
-      "mailto_hint": "提交后将打开邮件客户端发送至",
-      "unavailable": "在线提交需开启站点反馈并启用留言字段。",
-      "fields": {
-        "message": "需求描述",
-        "message_placeholder": "请简要描述您的应用场景、关键参数与时间窗口"
-      }
+      "quote": "获取方案"
     }
+  },
+  "quote": {
+    "eyebrow": "获取方案",
+    "title": "获取方案",
+    "subtitle": "告诉我们您的项目需求，工程师将在 1 个工作日内与您联系。",
+    "form_title": "提交您的需求",
+    "fields": {
+      "name": "您的称呼",
+      "name_placeholder": "张三",
+      "company": "公司名称",
+      "company_placeholder": "示例科技有限公司",
+      "contact": "邮箱或电话",
+      "contact_placeholder": "you@example.com / +86 138 0000 0000",
+      "message": "您的需求",
+      "message_placeholder": "请简要描述您的应用场景、关键参数与时间窗口"
+    },
+    "required": "此项为必填。",
+    "error": "提交失败，请稍后重试。",
+    "submit": "提交需求",
+    "submitting": "提交中…",
+    "success_hint": "通过站点反馈系统提交，便于在 CMS 中统一查看与跟进。",
+    "unavailable": "在线提交需开启站点反馈并启用留言字段。"
   },
   "channels": {
     "products": {
-      "eyebrow": "选型中心",
-      "categories": "分类",
-      "directory": "目录",
-      "filters": "筛选",
-      "filter_payload": "负载区间",
-      "filter_ip": "防护等级",
       "search_placeholder": "搜索规格参数…",
-      "browse_category": "查看该分类下产品",
-      "no_categories": "暂无分类 — 请在产品频道下添加子页面作为分类。",
-      "all": "全部产品",
-      "showing_all": "正在浏览全部产品",
-      "showing_filter": "已按分类筛选",
       "view_detail": "查看详情",
+      "count": "件产品",
       "empty": "暂无产品"
-    },
-    "cases": {
-      "eyebrow": "客户案例",
-      "filters": "筛选",
-      "filter_industry": "行业",
-      "filter_application": "应用场景",
-      "search_placeholder": "搜索案例…",
-      "read_full": "阅读全文",
-      "empty": "尚未发布客户案例"
-    },
-    "docs": {
-      "eyebrow": "技术支持",
-      "toc": "目录",
-      "recent": "近期更新"
-    },
-    "downloads": {
-      "eyebrow": "资料中心",
-      "filters": "筛选",
-      "filter_format": "格式",
-      "filter_category": "产品分类",
-      "search_placeholder": "搜索资料名称、型号或类型",
-      "download": "下载",
-      "view_detail": "查看详情",
-      "empty": "暂无可下载资料"
-    },
-    "faqs": {
-      "eyebrow": "知识库",
-      "toc": "分类导航",
-      "related_models": "适用型号",
-      "view_detail": "查看详情",
-      "empty": "暂无问答"
     }
   },
   "index": {
     "eyebrow": "Product Hub",
     "cta_browse": "进入选型中心",
+    "intro": "按系列、行业与场景浏览完整产品目录。",
+    "browse_title": "按维度浏览",
+    "channels_title": "产品栏目",
+    "empty_channels": "暂无产品栏目，请在首页下添加子页面。",
+    "facet": {
+      "series": "系列",
+      "industries": "行业",
+      "scenarios": "场景"
+    },
     "view_all": "查看全部",
-    "view_detail": "查看详情",
-    "featured_products": "精选产品",
-    "card_products": "按系列与型号检索产品",
-    "card_cases": "查看真实场景与成效",
-    "card_docs": "工程师手册与集成指南",
-    "card_downloads": "规格书、CAD、固件等",
-    "card_faqs": "选型与售后常见问答",
-    "card_more": "进入",
-    "dashboard": {
-      "title": "生态与资产",
-      "subtitle": "集中管理产品配置、工程资源与客户案例。",
-      "stat_products": "产品",
-      "stat_categories": "分类",
-      "stat_resources": "资料",
-      "recent_title": "最近动态",
-      "recent_empty": "配置产品频道根路径后可在此查看最近更新。",
-      "col_id": "编号",
-      "col_product": "产品",
-      "col_date": "日期",
-      "col_status": "状态",
-      "status_done": "完成"
-    }
+    "featured_products": "精选产品"
   },
   "page": {
     "product": {
       "nav": {
         "aria": "产品页内导航",
         "overview": "概览",
-        "specs": "技术规格",
-        "downloads": "物料库",
-        "docs": "支持库",
-        "faqs": "知识库",
-        "cases": "案例库"
+        "specs": "技术规格"
       },
       "toc": {
         "title": "本页导航",
@@ -144,64 +89,11 @@
       "specs": {
         "title": "技术规格"
       },
-      "hero": {
-        "no_image": "尚未上传产品图",
-        "key_specs": "核心参数",
-        "documentation": "技术文档"
-      },
-      "downloads": {
-        "eyebrow": "物料库",
-        "title": "技术资料与图纸",
-        "empty": "暂无可下载物料；点击下方按钮可向工程师索取。",
-        "request_access": "申请获取"
-      },
-      "docs": {
-        "eyebrow": "支持库",
-        "title": "相关技术文档",
-        "doc": "文档",
-        "view_all": "查看全部文档",
-        "empty": "暂无关联文档",
-        "not_configured": "站点未配置技术文档频道路径，请前往「主题设置 → Product Hub」补全 docs_root_path。"
-      },
-      "faqs": {
-        "eyebrow": "知识库",
-        "title": "选型与售后问答",
-        "view_all": "查看全部问答",
-        "view_detail": "查看详情",
-        "empty": "暂无相关问答",
-        "not_configured": "站点未配置 FAQ 频道路径，请前往「主题设置 → Product Hub」补全 faqs_root_path。"
-      },
-      "cases": {
-        "eyebrow": "案例库",
-        "title": "客户案例",
-        "view_all": "查看全部案例",
-        "view_detail": "查看案例",
-        "empty": "暂无关联案例",
-        "not_configured": "站点未配置案例频道路径，请前往「主题设置 → Product Hub」补全 cases_root_path。"
+      "model_label": "型号",
+      "meta": {
+        "industries": "行业",
+        "scenarios": "场景"
       }
-    },
-    "case": {
-      "headline_metric": "关键成效",
-      "pain_point": "客户痛点",
-      "solution": "解决方案",
-      "outcomes": "量化成果",
-      "about_client": "客户概况",
-      "client_name": "客户",
-      "industry": "行业",
-      "region": "区域",
-      "scale": "规模",
-      "related_products": "相关产品",
-      "cta": "联系业务团队",
-      "cta_desc": "需要类似行业的方案细节？"
-    },
-    "doc": {
-      "eyebrow": "技术文档",
-      "toc": "目录",
-      "on_this_page": "本页大纲",
-      "no_toc": "无小节标题",
-      "updated_at": "最近更新",
-      "prev": "上一篇",
-      "next": "下一篇"
     }
   },
   "tag": {
@@ -211,22 +103,6 @@
     "title": "搜索",
     "placeholder": "输入关键词搜索产品、文档与案例",
     "empty": "未找到匹配结果"
-  },
-  "static": {
-    "recent": {
-      "subtitle": "按编辑时间倒序展示，便于跟踪近期内容动态。"
-    }
-  },
-  "templates": {
-    "index": {
-      "list": {
-        "all": "全部"
-      }
-    },
-    "page": {
-      "current_version": "当前版本",
-      "visit_count": "访问量"
-    }
   },
   "paginate": {
     "showing": "当前显示第",
