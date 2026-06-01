@@ -1,5 +1,5 @@
 {
-  "theme_label": "product hub",
+  "theme_label": "products",
   "theme_description": "B2B 製品カタログハブ。製品を起点とする検索可能なオンライン製品ディクショナリ：型番、タクソノミー、スペックグループ、メイン画像、リッチ本文。",
   "templates": {
     "index": {

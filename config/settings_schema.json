@@ -2,19 +2,20 @@
   {
     "name": "theme_info",
     "theme_name": "products",
-    "theme_label": "product hub",
-    "theme_description": "B2B product catalog hub. An online, searchable product dictionary anchored on each product: model code, taxonomy (series / industries / scenarios), spec groups, hero image and rich content. Rational industrial style, teal brand, no e-commerce.",
-    "theme_version": "1.0.0",
+    "theme_label": "t:schema.theme_label",
+    "theme_description": "t:schema.theme_description",
+    "theme_version": "2.0.0",
     "theme_syntax_version": "v2",
     "theme_scope": "cms",
     "theme_author": "Baklib",
-    "theme_documentation_url": "https://help.baklib.cn/",
-    "theme_support_url": "https://help.baklib.cn/",
+    "theme_documentation_url": "https://www.github.com/baklib/cms-templates/products",
+    "theme_support_url": "https://www.github.com/baklib/cms-templates/products",
     "theme_thumb_url": "images/theme/thumb.png",
     "theme_preview_images": [
-      "images/theme/release-guide.png",
-      "images/theme/index-card.png",
-      "images/theme/page.png"
+      "images/theme/${lang}/cover.png",
+      "images/theme/${lang}/index.png",
+      "images/theme/${lang}/channel.png",
+      "images/theme/${lang}/page.png"
     ],
     "theme_languages": [
       { "name": "中文简体", "value": "zh-CN" },

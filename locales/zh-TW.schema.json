@@ -1,5 +1,5 @@
 {
-  "theme_label": "product hub",
+  "theme_label": "Products",
   "theme_description": "B2B 產品目錄庫。以「單品」為錨點的線上可檢索產品字典：型號、分類詞表、參數分組、主圖與富文本正文。",
   "templates": {
     "index": {

@@ -1,5 +1,5 @@
 {
-  "theme_label": "product hub",
+  "theme_label": "Products",
   "theme_description": "B2B product catalog hub. An online, searchable product dictionary anchored on each product: model code, taxonomy, spec groups, hero image and rich content.",
   "templates": {
     "index": {

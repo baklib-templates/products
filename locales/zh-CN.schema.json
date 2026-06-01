@@ -1,5 +1,5 @@
 {
-  "theme_label": "product hub",
+  "theme_label": "Products",
   "theme_description": "B2B 产品目录库。以「单品」为锚点的在线可检索产品字典：型号、分类词表、参数分组、主图与富文本正文。",
   "templates": {
     "index": {
