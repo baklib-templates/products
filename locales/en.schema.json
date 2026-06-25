@@ -64,23 +64,23 @@
         },
         "downloads": {
           "label": "Downloads",
-          "info": ""
+          "info": "Format: `Name::Link` per line, supports multiple lines"
         },
         "doc_refs": {
           "label": "Doc references",
-          "info": ""
+          "info": "Format: `Name::Link` per line, supports multiple lines"
         },
         "faq_refs": {
           "label": "FAQ references",
-          "info": ""
+          "info": "Format: `Name::Link` per line, supports multiple lines"
         },
         "case_refs": {
           "label": "Case references",
-          "info": ""
+          "info": "Format: `Name::Link` per line, supports multiple lines"
         },
         "related_products": {
           "label": "Related products",
-          "info": ""
+          "info": "Format: `Name::Link` per line, supports multiple lines"
         }
       }
     }

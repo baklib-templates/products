@@ -80,7 +80,12 @@
       "nav": {
         "aria": "In-page navigation",
         "overview": "Overview",
-        "specs": "Specifications"
+        "specs": "Specifications",
+        "downloads": "Downloads",
+        "docs": "Docs",
+        "faqs": "FAQs",
+        "cases": "Cases",
+        "related_products": "Related Products"
       },
       "toc": {
         "title": "On this page",

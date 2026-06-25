@@ -29,7 +29,7 @@
         {% endif %}
       </a>
       <nav class="ml-8 hidden items-center gap-8 text-[14px] font-medium text-base-content/60 md:flex" aria-label="Product Hub">
-        {% if site.settings.header_menu_html  %}
+        {% if site.settings.header_menu_html != "" %}
           {{ site.settings.header_menu_html }}
         {% else %}
           <a href="{{ index_path }}" class="transition-colors hover:text-base-content" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ 'nav.dashboard' | t }}</a>

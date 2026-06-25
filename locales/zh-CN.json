@@ -80,7 +80,12 @@
       "nav": {
         "aria": "产品页内导航",
         "overview": "概览",
-        "specs": "技术规格"
+        "specs": "技术规格",
+        "downloads": "下载资料",
+        "docs": "关联文档",
+        "faqs": "关联 FAQ",
+        "cases": "关联案例",
+        "related_products": "相关产品"
       },
       "toc": {
         "title": "本页导航",

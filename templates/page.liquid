@@ -31,6 +31,81 @@
   {% assign quote_url = site.settings.cta_quote_url | default: '/s/quote' %}
   {% assign quote_label = site.settings.cta_quote_label | default: 'hub.cta.quote' | t %}
 
+  {%- assign has_downloads = false -%}
+  {%- assign downloads_raw = page.settings.downloads | strip -%}
+  {%- if downloads_raw != blank -%}
+    {%- assign download_lines = downloads_raw | newline_to_br | split: '<br />' -%}
+    {%- for line in download_lines -%}
+      {%- assign parts = line | split: '::' -%}
+      {%- assign name = parts[0] | strip -%}
+      {%- assign url = parts[1] | strip -%}
+      {%- if name != blank and url != blank -%}
+        {%- assign has_downloads = true -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+
+  {%- assign has_docs = false -%}
+  {%- assign docs_raw = page.settings.doc_refs | strip -%}
+  {%- if docs_raw != blank -%}
+    {%- assign doc_lines = docs_raw | newline_to_br | split: '<br />' -%}
+    {%- for line in doc_lines -%}
+      {%- assign parts = line | split: '::' -%}
+      {%- assign name = parts[0] | strip -%}
+      {%- assign url = parts[1] | strip -%}
+      {%- if name != blank and url != blank -%}
+        {%- assign has_docs = true -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+
+  {%- assign has_faqs = false -%}
+  {%- assign faqs_raw = page.settings.faq_refs | strip -%}
+  {%- if faqs_raw != blank -%}
+    {%- assign faq_lines = faqs_raw | newline_to_br | split: '<br />' -%}
+    {%- for line in faq_lines -%}
+      {%- assign parts = line | split: '::' -%}
+      {%- assign name = parts[0] | strip -%}
+      {%- assign url = parts[1] | strip -%}
+      {%- if name != blank and url != blank -%}
+        {%- assign has_faqs = true -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+
+  {%- assign has_cases = false -%}
+  {%- assign cases_raw = page.settings.case_refs | strip -%}
+  {%- if cases_raw != blank -%}
+    {%- assign case_lines = cases_raw | newline_to_br | split: '<br />' -%}
+    {%- for line in case_lines -%}
+      {%- assign parts = line | split: '::' -%}
+      {%- assign name = parts[0] | strip -%}
+      {%- assign url = parts[1] | strip -%}
+      {%- if name != blank and url != blank -%}
+        {%- assign has_cases = true -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+
+  {%- assign has_related = false -%}
+  {%- assign related_raw = page.settings.related_products | strip -%}
+  {%- if related_raw != blank -%}
+    {%- assign related_lines = related_raw | newline_to_br | split: '<br />' -%}
+    {%- for line in related_lines -%}
+      {%- assign parts = line | split: '::' -%}
+      {%- assign name = parts[0] | strip -%}
+      {%- assign url = parts[1] | strip -%}
+      {%- if name != blank and url != blank -%}
+        {%- assign has_related = true -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+
   <article class="pb-16" x-data="productHub()" x-init="init()">
     <div class="mx-auto w-full max-w-[1200px] px-6 pb-4 pt-8">
       {% render '@shared/breadcrumb', breadcrumb: page.breadcrumb %}
@@ -49,6 +124,21 @@
             <a href="#overview" @click.prevent="goTo('overview')" class="text-sm font-medium text-base-content/60 transition-colors hover:text-primary" :class="active === 'overview' ? 'text-primary' : ''">{{ 'page.product.nav.overview' | t }}</a>
             {% if has_specs %}
               <a href="#specs" @click.prevent="goTo('specs')" class="text-sm font-medium text-base-content/60 transition-colors hover:text-primary" :class="active === 'specs' ? 'text-primary' : ''">{{ 'page.product.nav.specs' | t }}</a>
+            {% endif %}
+            {% if has_downloads %}
+              <a href="#downloads" @click.prevent="goTo('downloads')" class="text-sm font-medium text-base-content/60 transition-colors hover:text-primary" :class="active === 'downloads' ? 'text-primary' : ''">{{ 'page.product.nav.downloads' | t | default: '下载资料' }}</a>
+            {% endif %}
+            {% if has_docs %}
+              <a href="#docs" @click.prevent="goTo('docs')" class="text-sm font-medium text-base-content/60 transition-colors hover:text-primary" :class="active === 'docs' ? 'text-primary' : ''">{{ 'page.product.nav.docs' | t | default: '关联文档' }}</a>
+            {% endif %}
+            {% if has_faqs %}
+              <a href="#faqs" @click.prevent="goTo('faqs')" class="text-sm font-medium text-base-content/60 transition-colors hover:text-primary" :class="active === 'faqs' ? 'text-primary' : ''">{{ 'page.product.nav.faqs' | t | default: '关联 FAQ' }}</a>
+            {% endif %}
+            {% if has_cases %}
+              <a href="#cases" @click.prevent="goTo('cases')" class="text-sm font-medium text-base-content/60 transition-colors hover:text-primary" :class="active === 'cases' ? 'text-primary' : ''">{{ 'page.product.nav.cases' | t | default: '关联案例' }}</a>
+            {% endif %}
+            {% if has_related %}
+              <a href="#related-products" @click.prevent="goTo('related-products')" class="text-sm font-medium text-base-content/60 transition-colors hover:text-primary" :class="active === 'related-products' ? 'text-primary' : ''">{{ 'page.product.nav.related_products' | t | default: '相关产品' }}</a>
             {% endif %}
           </nav>
           <a href="{{ quote_url }}" data-turbo-frame="main-content-frame" data-turbo-action="advance" class="mt-8 hidden w-full items-center justify-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-content shadow-sm transition-colors hover:bg-primary/90 no-underline lg:inline-flex">
@@ -128,6 +218,141 @@
           <div class="mt-12">
             {% render 'product-specs', page: page %}
           </div>
+        {% endif %}
+
+        {% if has_downloads %}
+          <section id="downloads" class="scroll-mt-28 mt-12" data-product-section>
+            <h2 class="mb-6 flex items-center gap-2 font-display text-2xl font-semibold text-base-content">
+              {% render 'icon', name: 'download', class: 'w-6 h-6 text-primary' %}
+              {{ 'page.product.nav.downloads' | t | default: '下载资料' }}
+            </h2>
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {%- for line in download_lines -%}
+                {%- assign line = line | strip -%}
+                {%- if line == blank -%}{%- continue -%}{%- endif -%}
+                {%- assign parts = line | split: '::' -%}
+                {%- assign name = parts[0] | strip -%}
+                {%- assign url = parts[1] | strip -%}
+                {%- if name != blank and url != blank -%}
+                  <a href="{{ url }}" target="_blank" class="group flex items-center justify-between rounded-xl border border-base-300 bg-base-200 p-4 transition duration-300 hover:border-primary/40 hover:bg-base-300/40 no-underline">
+                    <div class="flex items-center gap-3 min-w-0">
+                      <span class="text-base-content/60 group-hover:text-primary">{% render 'icon', name: 'file-text', class: 'w-5 h-5' %}</span>
+                      <span class="truncate text-sm font-medium text-base-content group-hover:text-primary">{{ name }}</span>
+                    </div>
+                    <span class="text-base-content/40 group-hover:text-primary">{% render 'icon', name: 'download', class: 'w-4 h-4' %}</span>
+                  </a>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </section>
+        {% endif %}
+
+        {% if has_docs %}
+          <section id="docs" class="scroll-mt-28 mt-12" data-product-section>
+            <h2 class="mb-6 flex items-center gap-2 font-display text-2xl font-semibold text-base-content">
+              {% render 'icon', name: 'file-text', class: 'w-6 h-6 text-primary' %}
+              {{ 'page.product.nav.docs' | t | default: '关联文档' }}
+            </h2>
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {%- for line in doc_lines -%}
+                {%- assign line = line | strip -%}
+                {%- if line == blank -%}{%- continue -%}{%- endif -%}
+                {%- assign parts = line | split: '::' -%}
+                {%- assign name = parts[0] | strip -%}
+                {%- assign url = parts[1] | strip -%}
+                {%- if name != blank and url != blank -%}
+                  <a href="{{ url }}" target="_blank" class="group flex items-center justify-between rounded-xl border border-base-300 bg-base-200 p-4 transition duration-300 hover:border-primary/40 hover:bg-base-300/40 no-underline">
+                    <div class="flex items-center gap-3 min-w-0">
+                      <span class="text-base-content/60 group-hover:text-primary">{% render 'icon', name: 'file-text', class: 'w-5 h-5' %}</span>
+                      <span class="truncate text-sm font-medium text-base-content group-hover:text-primary">{{ name }}</span>
+                    </div>
+                    <span class="text-base-content/40 group-hover:text-primary">{% render 'icon', name: 'external-link', class: 'w-4 h-4' %}</span>
+                  </a>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </section>
+        {% endif %}
+
+        {% if has_faqs %}
+          <section id="faqs" class="scroll-mt-28 mt-12" data-product-section>
+            <h2 class="mb-6 flex items-center gap-2 font-display text-2xl font-semibold text-base-content">
+              {% render 'icon', name: 'info', class: 'w-6 h-6 text-primary' %}
+              {{ 'page.product.nav.faqs' | t | default: '关联 FAQ' }}
+            </h2>
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {%- for line in faq_lines -%}
+                {%- assign line = line | strip -%}
+                {%- if line == blank -%}{%- continue -%}{%- endif -%}
+                {%- assign parts = line | split: '::' -%}
+                {%- assign name = parts[0] | strip -%}
+                {%- assign url = parts[1] | strip -%}
+                {%- if name != blank and url != blank -%}
+                  <a href="{{ url }}" target="_blank" class="group flex items-center justify-between rounded-xl border border-base-300 bg-base-200 p-4 transition duration-300 hover:border-primary/40 hover:bg-base-300/40 no-underline">
+                    <div class="flex items-center gap-3 min-w-0">
+                      <span class="text-base-content/60 group-hover:text-primary">{% render 'icon', name: 'message-square', class: 'w-5 h-5' %}</span>
+                      <span class="truncate text-sm font-medium text-base-content group-hover:text-primary">{{ name }}</span>
+                    </div>
+                    <span class="text-base-content/40 group-hover:text-primary">{% render 'icon', name: 'external-link', class: 'w-4 h-4' %}</span>
+                  </a>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </section>
+        {% endif %}
+
+        {% if has_cases %}
+          <section id="cases" class="scroll-mt-28 mt-12" data-product-section>
+            <h2 class="mb-6 flex items-center gap-2 font-display text-2xl font-semibold text-base-content">
+              {% render 'icon', name: 'compass', class: 'w-6 h-6 text-primary' %}
+              {{ 'page.product.nav.cases' | t | default: '关联案例' }}
+            </h2>
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {%- for line in case_lines -%}
+                {%- assign line = line | strip -%}
+                {%- if line == blank -%}{%- continue -%}{%- endif -%}
+                {%- assign parts = line | split: '::' -%}
+                {%- assign name = parts[0] | strip -%}
+                {%- assign url = parts[1] | strip -%}
+                {%- if name != blank and url != blank -%}
+                  <a href="{{ url }}" target="_blank" class="group flex items-center justify-between rounded-xl border border-base-300 bg-base-200 p-4 transition duration-300 hover:border-primary/40 hover:bg-base-300/40 no-underline">
+                    <div class="flex items-center gap-3 min-w-0">
+                      <span class="text-base-content/60 group-hover:text-primary">{% render 'icon', name: 'sparkles', class: 'w-5 h-5' %}</span>
+                      <span class="truncate text-sm font-medium text-base-content group-hover:text-primary">{{ name }}</span>
+                    </div>
+                    <span class="text-base-content/40 group-hover:text-primary">{% render 'icon', name: 'external-link', class: 'w-4 h-4' %}</span>
+                  </a>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </section>
+        {% endif %}
+
+        {% if has_related %}
+          <section id="related-products" class="scroll-mt-28 mt-12" data-product-section>
+            <h2 class="mb-6 flex items-center gap-2 font-display text-2xl font-semibold text-base-content">
+              {% render 'icon', name: 'package', class: 'w-6 h-6 text-primary' %}
+              {{ 'page.product.nav.related_products' | t | default: '相关产品' }}
+            </h2>
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {%- for line in related_lines -%}
+                {%- assign line = line | strip -%}
+                {%- if line == blank -%}{%- continue -%}{%- endif -%}
+                {%- assign parts = line | split: '::' -%}
+                {%- assign name = parts[0] | strip -%}
+                {%- assign url = parts[1] | strip -%}
+                {%- if name != blank and url != blank -%}
+                  <a href="{{ url }}" target="_blank" class="group flex items-center justify-between rounded-xl border border-base-300 bg-base-200 p-4 transition duration-300 hover:border-primary/40 hover:bg-base-300/40 no-underline">
+                    <div class="flex items-center gap-3 min-w-0">
+                      <span class="text-base-content/60 group-hover:text-primary">{% render 'icon', name: 'boxes', class: 'w-5 h-5' %}</span>
+                      <span class="truncate text-sm font-medium text-base-content group-hover:text-primary">{{ name }}</span>
+                    </div>
+                    <span class="text-base-content/40 group-hover:text-primary">{% render 'icon', name: 'external-link', class: 'w-4 h-4' %}</span>
+                  </a>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </section>
         {% endif %}
 
         {% if site.settings.is_allow_feedback %}

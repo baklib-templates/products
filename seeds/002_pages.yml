@@ -46,12 +46,15 @@ pages:
                 <li>1D / 2D code reading at line speed</li>
               </ul>
             downloads: |
-              V100 Datasheet|pdf|https://example.com/v100-datasheet.pdf
-            doc_refs: ""
-            faq_refs: ""
-            case_refs: ""
+              V100 Datasheet::https://example.com/v100-datasheet.pdf
+            doc_refs: |
+              V100 User Manual::https://example.com/v100-manual.pdf
+            faq_refs: |
+              V100 FAQ::https://example.com/v100-faq
+            case_refs: |
+              Quality Inspection Case Study::https://example.com/case-quality-inspection
             related_products: |
-              V200-PRO
+              VistaScan V200 Line-Scan Camera::/products/vistascan-v200
 
         - name: "VistaScan V200 Line-Scan Camera"
           slug: "vistascan-v200"
@@ -78,12 +81,16 @@ pages:
               <p>VistaScan V200 is built for high-throughput surface inspection of moving material such as film, foil and textiles.</p>
               <h2 id="integration">Integration notes</h2>
               <p>Pair with an encoder for constant resolution across variable line speeds.</p>
-            downloads: ""
-            doc_refs: ""
-            faq_refs: ""
-            case_refs: ""
+            downloads: |
+              V200 Datasheet::https://example.com/v200-datasheet.pdf
+            doc_refs: |
+              V200 Integration Guide::https://example.com/v200-guide.pdf
+            faq_refs: |
+              Line-Scan Integration FAQ::https://example.com/faq-line-scan
+            case_refs: |
+              Steel Mill Inspection Case::https://example.com/case-steel-inspection
             related_products: |
-              V100-PRO
+              VistaScan V100 Smart Camera::/products/vistascan-v100
 
         - name: "ProxSense P40 Inductive Sensor"
           slug: "proxsense-p40"
@@ -109,10 +116,14 @@ pages:
             content: |
               <h2 id="overview">Overview</h2>
               <p>ProxSense P40 delivers reliable non-contact detection in wet and high-pressure wash-down environments.</p>
-            downloads: ""
-            doc_refs: ""
-            faq_refs: ""
-            case_refs: ""
+            downloads: |
+              P40 Technical Datasheet::https://example.com/p40-datasheet.pdf
+            doc_refs: |
+              Inductive Sensor Wiring Guide::https://example.com/wiring-guide.pdf
+            faq_refs: |
+              IP69K Sensors FAQ::https://example.com/faq-ip69k
+            case_refs: |
+              Beverage Plant Packaging Case::https://example.com/case-beverage
             related_products: ""
 
         - name: "ThermoEye T9 Compact Thermal Module"
@@ -141,10 +152,14 @@ pages:
               <p>ThermoEye T9 is a small-footprint thermal core for embedding into outdoor monitoring units and substations.</p>
               <h2 id="calibration">Calibration</h2>
               <p>Factory radiometric calibration is included; field re-calibration is optional.</p>
-            downloads: ""
-            doc_refs: ""
-            faq_refs: ""
-            case_refs: ""
+            downloads: |
+              T9 Datasheet::https://example.com/t9-datasheet.pdf
+            doc_refs: |
+              Thermal Imaging SDK Reference::https://example.com/t9-sdk-ref.pdf
+            faq_refs: |
+              Thermal Radiometric Calibration FAQ::https://example.com/faq-calibration
+            case_refs: |
+              Substation Monitoring Case::https://example.com/case-substation
             related_products: ""
 
     - name: "Robotics & Motion"
@@ -183,12 +198,15 @@ pages:
               <h2 id="programming">Programming</h2>
               <p>Teach by hand-guiding or use the graphical flow editor; an open API is available for advanced integration.</p>
             downloads: |
-              R6 Datasheet|pdf|https://example.com/r6-datasheet.pdf
-            doc_refs: ""
-            faq_refs: ""
-            case_refs: ""
+              R6 Datasheet::https://example.com/r6-datasheet.pdf
+            doc_refs: |
+              R6 Robot Programming Manual::https://example.com/r6-programming.pdf
+            faq_refs: |
+              Cobot Safety Regulations FAQ::https://example.com/faq-safety
+            case_refs: |
+              Automotive Electronics Assembly Case::https://example.com/case-automotive
             related_products: |
-              R12-COBOT
+              MotionArm R12 Heavy-Payload Robot::/products/motionarm-r12
 
         - name: "MotionArm R12 Heavy-Payload Robot"
           slug: "motionarm-r12"
@@ -213,12 +231,16 @@ pages:
             content: |
               <h2 id="overview">Overview</h2>
               <p>MotionArm R12 extends the R-series with a longer reach and higher payload for end-of-line palletizing.</p>
-            downloads: ""
-            doc_refs: ""
-            faq_refs: ""
-            case_refs: ""
+            downloads: |
+              R12 Datasheet::https://example.com/r12-datasheet.pdf
+            doc_refs: |
+              R12 Palletizing Pack Guide::https://example.com/r12-palletizing.pdf
+            faq_refs: |
+              Heavy Payload Cobot Safety FAQ::https://example.com/faq-heavy-payload
+            case_refs: |
+              Warehouse Depalletizing Automation Case::https://example.com/case-depalletizing
             related_products: |
-              R6-COBOT
+              MotionArm R6 Collaborative Robot::/products/motionarm-r6
 
         - name: "DriveCore M2 Motion Controller"
           slug: "drivecore-m2"
@@ -245,8 +267,12 @@ pages:
               <p>DriveCore M2 synchronizes up to sixteen axes over EtherCAT with deterministic cycle times for demanding motion profiles.</p>
               <h2 id="safety">Functional safety</h2>
               <p>Supports STO and SS1 safety functions via FSoE.</p>
-            downloads: ""
-            doc_refs: ""
-            faq_refs: ""
-            case_refs: ""
+            downloads: |
+              M2 Motion Controller Datasheet::https://example.com/m2-datasheet.pdf
+            doc_refs: |
+              EtherCAT CoE Integration Manual::https://example.com/m2-ethercat.pdf
+            faq_refs: |
+              FSoE STO Function Safety FAQ::https://example.com/faq-fsoe
+            case_refs: |
+              Multi-Axis Gantry CNC Case::https://example.com/case-gantry
             related_products: ""

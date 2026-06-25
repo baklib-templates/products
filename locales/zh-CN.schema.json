@@ -64,23 +64,23 @@
         },
         "downloads": {
           "label": "下载资料",
-          "info": ""
+          "info": "每行格式为 `名称::链接`，支持输入多行"
         },
         "doc_refs": {
           "label": "关联文档",
-          "info": ""
+          "info": "每行格式为 `名称::链接`，支持输入多行"
         },
         "faq_refs": {
           "label": "关联 FAQ",
-          "info": ""
+          "info": "每行格式为 `名称::链接`，支持输入多行"
         },
         "case_refs": {
           "label": "关联案例",
-          "info": ""
+          "info": "每行格式为 `名称::链接`，支持输入多行"
         },
         "related_products": {
           "label": "相关产品",
-          "info": ""
+          "info": "每行格式为 `名称::链接`，支持输入多行"
         }
       }
     }

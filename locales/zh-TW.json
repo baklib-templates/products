@@ -80,7 +80,12 @@
       "nav": {
         "aria": "產品頁內導覽",
         "overview": "概覽",
-        "specs": "技術規格"
+        "specs": "技術規格",
+        "downloads": "下載資料",
+        "docs": "關聯文件",
+        "faqs": "關聯 FAQ",
+        "cases": "關聯案例",
+        "related_products": "相關產品"
       },
       "toc": {
         "title": "本頁導覽",

@@ -80,7 +80,12 @@
       "nav": {
         "aria": "ページ内ナビゲーション",
         "overview": "概要",
-        "specs": "仕様"
+        "specs": "仕様",
+        "downloads": "ダウンロード資料",
+        "docs": "関連ドキュメント",
+        "faqs": "関連 FAQ",
+        "cases": "関連事例",
+        "related_products": "関連製品"
       },
       "toc": {
         "title": "このページ",

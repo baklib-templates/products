@@ -80,7 +80,12 @@
       "nav": {
         "aria": "페이지 내 내비게이션",
         "overview": "개요",
-        "specs": "사양"
+        "specs": "사양",
+        "downloads": "다운로드 자료",
+        "docs": "관련 문서",
+        "faqs": "관련 FAQ",
+        "cases": "관련 사례",
+        "related_products": "관련 제품"
       },
       "toc": {
         "title": "이 페이지",
