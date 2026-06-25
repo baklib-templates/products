@@ -12,19 +12,19 @@
     </label>
   {% endform_tag %}
 
-  <nav class="rounded-2xl border border-base-300 bg-base-100 p-4">
+  <nav class="rounded-2xl border border-base-300 bg-base-200 p-4">
     <p class="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-base-content/60">{{ 'nav.hub' | t }}</p>
     <ul class="space-y-1 text-sm text-base-content/80">
-      <li><a href="{{ index_path }}" class="flex items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-base-200 hover:text-primary" data-turbo-frame="main-content-frame" data-turbo-action="advance">{% render 'icon', name: 'home', class: 'w-4 h-4' %}{{ 'nav.dashboard' | t }}</a></li>
+      <li><a href="{{ index_path }}" class="flex items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-base-300 hover:text-primary" data-turbo-frame="main-content-frame" data-turbo-action="advance">{% render 'icon', name: 'home', class: 'w-4 h-4' %}{{ 'nav.dashboard' | t }}</a></li>
       {% for nav_channel in nav_channels %}
-        <li><a href="{{ nav_channel.path }}" class="flex items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-base-200 hover:text-primary" data-turbo-frame="main-content-frame" data-turbo-action="advance">{% render 'icon', name: 'boxes', class: 'w-4 h-4' %}{{ nav_channel.link_text }}</a></li>
+        <li><a href="{{ nav_channel.path }}" class="flex items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-base-300 hover:text-primary" data-turbo-frame="main-content-frame" data-turbo-action="advance">{% render 'icon', name: 'boxes', class: 'w-4 h-4' %}{{ nav_channel.link_text }}</a></li>
       {% endfor %}
     </ul>
   </nav>
 
   {% assign tags_count = site.tags | size %}
   {% if tags_count > 0 %}
-    <div class="rounded-2xl border border-base-300 bg-base-100 p-4">
+    <div class="rounded-2xl border border-base-300 bg-base-200 p-4">
       <p class="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-base-content/60">{{ 'generic.all_tags' | t }}</p>
       <ul class="flex flex-wrap gap-2">
         {% for tag in site.tags %}

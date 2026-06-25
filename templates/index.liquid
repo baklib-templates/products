@@ -15,15 +15,12 @@
 {% assign quote_url = site.settings.cta_quote_url | default: '/s/quote' %}
 {% assign quote_label = site.settings.cta_quote_label | default: 'hub.cta.quote' | t %}
 
-<div class="mx-auto w-full max-w-[1280px] px-6 pb-16 pt-10">
+<div class="mx-auto w-full max-w-7xl px-6 pb-16 pt-10">
   {%- comment -%} Hero {%- endcomment -%}
-  <section class="mb-14 max-w-3xl">
-    <p class="mb-3 inline-flex items-center gap-1.5 font-mono text-xs font-medium uppercase tracking-wide text-accent">
-      {% render 'icon', name: 'boxes', class: 'w-4 h-4' %}{{ 'index.eyebrow' | t }}
-    </p>
+  <section class="mb-14">
     <h1 class="font-display text-4xl font-bold leading-none tracking-tight text-base-content md:text-5xl">{{ page.link_text }}</h1>
     {% if page.settings.description != blank %}
-      <div class="ProseMirror prose mt-5 max-w-2xl text-lg text-base-content/70">{{ page.settings.description }}</div>
+      <div class="ProseMirror2 prose2 mt-5 max-w-full text-lg text-base-content/70">{{ page.settings.description }}</div>
     {% else %}
       <p class="mt-5 max-w-2xl text-lg text-base-content/70">{{ 'index.intro' | t }}</p>
     {% endif %}
@@ -48,7 +45,7 @@
           {% when 'industries' %}{% assign terms = industries_terms %}{% assign facet_icon = 'factory' %}{% assign facet_label = 'index.facet.industries' | t %}
           {% when 'scenarios' %}{% assign terms = scenarios_terms %}{% assign facet_icon = 'target' %}{% assign facet_label = 'index.facet.scenarios' | t %}
         {% endcase %}
-        <div class="rounded-2xl border border-base-300 bg-base-100 p-6">
+        <div class="rounded-2xl border border-base-300 bg-base-200 p-6">
           <h3 class="mb-4 inline-flex items-center gap-2 text-sm font-semibold text-base-content">
             <span class="text-primary">{% render 'icon', name: facet_icon, class: 'w-5 h-5' %}</span>{{ facet_label }}
           </h3>
@@ -56,7 +53,7 @@
             {% for term in terms %}
               {% assign term = term | strip %}
               {% if term != blank %}
-                <a href="{{ site.search_path }}?q={{ term | url_encode }}" class="inline-flex items-center rounded-lg bg-base-200 px-2.5 py-1 text-xs text-base-content/80 transition-colors hover:bg-primary/10 hover:text-primary no-underline" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ term }}</a>
+                <a href="{{ site.search_path }}?q={{ term | url_encode }}" class="inline-flex items-center rounded-lg bg-base-300 px-2.5 py-1 text-xs text-base-content/80 transition-colors hover:bg-primary/10 hover:text-primary no-underline" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ term }}</a>
               {% endif %}
             {% endfor %}
           </div>
@@ -76,7 +73,7 @@
       <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {% for channel in channels %}
           {% assign ch_count = channel.pages_in_list | where: 'template_name', 'page' | size %}
-          <a href="{{ channel.path }}" class="group flex flex-col rounded-2xl border border-base-300 bg-base-100 p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md no-underline" data-turbo-frame="main-content-frame" data-turbo-action="advance">
+          <a href="{{ channel.path }}" class="group flex flex-col rounded-2xl border border-base-300 bg-base-200 p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md no-underline" data-turbo-frame="main-content-frame" data-turbo-action="advance">
             <div class="mb-4 flex h-11 w-11 items-center justify-center rounded-lg bg-primary/10 text-primary">{% render 'icon', name: 'boxes', class: 'w-5 h-5' %}</div>
             <h3 class="font-display text-lg font-semibold text-base-content transition-colors group-hover:text-primary">{{ channel.link_text }}</h3>
             {% if channel.settings.description != blank %}

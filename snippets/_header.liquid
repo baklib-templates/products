@@ -29,10 +29,14 @@
         {% endif %}
       </a>
       <nav class="ml-8 hidden items-center gap-8 text-[14px] font-medium text-base-content/60 md:flex" aria-label="Product Hub">
-        <a href="{{ index_path }}" class="transition-colors hover:text-base-content" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ 'nav.dashboard' | t }}</a>
-        {% for nav_channel in nav_channels %}
-          <a href="{{ nav_channel.path }}" class="transition-colors hover:text-base-content" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ nav_channel.link_text }}</a>
-        {% endfor %}
+        {% if site.settings.header_menu_html  %}
+          {{ site.settings.header_menu_html }}
+        {% else %}
+          <a href="{{ index_path }}" class="transition-colors hover:text-base-content" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ 'nav.dashboard' | t }}</a>
+          {% for nav_channel in nav_channels %}
+            <a href="{{ nav_channel.path }}" class="transition-colors hover:text-base-content" data-turbo-frame="main-content-frame" data-turbo-action="advance">{{ nav_channel.link_text }}</a>
+          {% endfor %}
+        {% endif %}
       </nav>
     </div>
 
@@ -57,7 +61,7 @@
             {% endif %}
           </div>
           <div tabindex="0" class="dropdown-content z-[60] mt-2 w-44 space-y-2 rounded-2xl border border-base-300 bg-base-100 p-3 text-sm text-base-content shadow-lg">
-            <div class="line-clamp-1 border-b border-base-200 pb-2 font-medium text-base-content">{{ current_user.name }}</div>
+            <div class="line-clamp-1 border-b border-base-300 pb-2 font-medium text-base-content">{{ current_user.name }}</div>
             {% form_tag 'sign_out' %}
               <button class="inline-flex w-full items-center gap-2 text-left text-base-content/60 hover:text-primary hover:underline">{% render 'icon', name: 'log-out', class: 'w-4 h-4' %}{{ 'generic.buttons.signout' | t }}</button>
             {% endform_tag %}

@@ -10,7 +10,7 @@
   </div>
   <div class="drawer-side z-[60]">
     <label for="header-drawer-right" aria-label="{{ 'generic.buttons.close' | t }}" class="drawer-overlay"></label>
-    <aside class="min-h-full w-80 border-l border-base-300 bg-base-100 p-5 text-base-content shadow-xl">
+    <aside class="min-h-full w-80 border-l border-base-300 bg-base-200 p-5 text-base-content shadow-xl">
       <div class="mb-4 flex items-center justify-between">
         <span class="font-display text-sm font-semibold text-base-content">{{ site.name }}</span>
         <label for="header-drawer-right" class="cursor-pointer text-base-content/50 hover:text-base-content">
@@ -18,19 +18,19 @@
         </label>
       </div>
       <nav class="flex flex-col gap-1 text-sm font-medium" aria-label="Mobile">
-        <a href="{{ index_path }}" class="flex items-center gap-2 rounded-lg px-3 py-2 hover:bg-base-200" data-turbo-frame="main-content-frame" data-turbo-action="advance">{% render 'icon', name: 'home', class: 'w-4 h-4' %}{{ 'nav.dashboard' | t }}</a>
+        <a href="{{ index_path }}" class="flex items-center gap-2 rounded-lg px-3 py-2 hover:bg-base-300" data-turbo-frame="main-content-frame" data-turbo-action="advance">{% render 'icon', name: 'home', class: 'w-4 h-4' %}{{ 'nav.dashboard' | t }}</a>
         {% for nav_channel in nav_channels %}
-          <a href="{{ nav_channel.path }}" class="flex items-center gap-2 rounded-lg px-3 py-2 hover:bg-base-200" data-turbo-frame="main-content-frame" data-turbo-action="advance">{% render 'icon', name: 'boxes', class: 'w-4 h-4' %}{{ nav_channel.link_text }}</a>
+          <a href="{{ nav_channel.path }}" class="flex items-center gap-2 rounded-lg px-3 py-2 hover:bg-base-300" data-turbo-frame="main-content-frame" data-turbo-action="advance">{% render 'icon', name: 'boxes', class: 'w-4 h-4' %}{{ nav_channel.link_text }}</a>
         {% endfor %}
-        <a href="{{ site.search_path }}" class="flex items-center gap-2 rounded-lg px-3 py-2 hover:bg-base-200" data-turbo-frame="main-content-frame" data-turbo-action="advance">{% render 'icon', name: 'search', class: 'w-4 h-4' %}{{ 'generic.placeholders.search' | t }}</a>
+        <a href="{{ site.search_path }}" class="flex items-center gap-2 rounded-lg px-3 py-2 hover:bg-base-300" data-turbo-frame="main-content-frame" data-turbo-action="advance">{% render 'icon', name: 'search', class: 'w-4 h-4' %}{{ 'generic.placeholders.search' | t }}</a>
       </nav>
-      <div class="mt-6 border-t border-base-200 pt-5">
+      <div class="mt-6 border-t border-base-300 pt-5">
         <a href="{{ quote_url }}" data-turbo-frame="main-content-frame" data-turbo-action="advance" class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-content shadow-sm hover:bg-primary/90 no-underline">
           {% render 'icon', name: 'message-square', class: 'w-4 h-4' %}{{ quote_label }}
         </a>
       </div>
       {% if site.settings.header_menu_html != blank %}
-        <div class="mt-6 space-y-2 border-t border-base-200 pt-5 text-sm text-base-content/70">{{ site.settings.header_menu_html }}</div>
+        <div class="mt-6 space-y-2 border-t border-base-300 pt-5 text-sm text-base-content/70">{{ site.settings.header_menu_html }}</div>
       {% endif %}
     </aside>
   </div>

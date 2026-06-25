@@ -29,45 +29,101 @@
         "baklib": {
           "name": "Baklib",
           "colors": {
+            "--theme-color-base-100": "#ffffff",
+            "--theme-color-base-200": "#f8fafc",
+            "--theme-color-base-300": "#e2e8f0",
+            "--theme-color-base-content": "#1e293b",
             "--theme-color-primary": "#0f766e",
+            "--theme-color-primary-content": "#ffffff",
             "--theme-color-secondary": "#c2410c",
+            "--theme-color-secondary-content": "#ffffff",
             "--theme-color-accent": "#0f172a",
+            "--theme-color-accent-content": "#ffffff",
+            "--theme-color-neutral": "#1e293b",
+            "--theme-color-neutral-content": "#ffffff",
             "--theme-color-info": "#38bdf8",
+            "--theme-color-info-content": "#ffffff",
             "--theme-color-success": "#14b8a6",
-            "--theme-color-warning": "#fb923c"
+            "--theme-color-success-content": "#ffffff",
+            "--theme-color-warning": "#fb923c",
+            "--theme-color-warning-content": "#ffffff",
+            "--theme-color-error": "#ef4444",
+            "--theme-color-error-content": "#ffffff"
           }
         },
         "industrial_teal": {
           "name": "Industrial Teal",
           "colors": {
+            "--theme-color-base-100": "#f8fafc",
+            "--theme-color-base-200": "#f1f5f9",
+            "--theme-color-base-300": "#e2e8f0",
+            "--theme-color-base-content": "#0f172a",
             "--theme-color-primary": "#0d9488",
+            "--theme-color-primary-content": "#ffffff",
             "--theme-color-secondary": "#0f172a",
+            "--theme-color-secondary-content": "#ffffff",
             "--theme-color-accent": "#64748b",
+            "--theme-color-accent-content": "#ffffff",
+            "--theme-color-neutral": "#0f172a",
+            "--theme-color-neutral-content": "#ffffff",
             "--theme-color-info": "#0284c7",
+            "--theme-color-info-content": "#ffffff",
             "--theme-color-success": "#16a34a",
-            "--theme-color-warning": "#d97706"
+            "--theme-color-success-content": "#ffffff",
+            "--theme-color-warning": "#d97706",
+            "--theme-color-warning-content": "#ffffff",
+            "--theme-color-error": "#dc2626",
+            "--theme-color-error-content": "#ffffff"
           }
         },
         "graphite": {
           "name": "Graphite",
           "colors": {
+            "--theme-color-base-100": "#fafafa",
+            "--theme-color-base-200": "#f4f4f5",
+            "--theme-color-base-300": "#e4e4e7",
+            "--theme-color-base-content": "#18181b",
             "--theme-color-primary": "#1e293b",
+            "--theme-color-primary-content": "#ffffff",
             "--theme-color-secondary": "#0d9488",
+            "--theme-color-secondary-content": "#ffffff",
             "--theme-color-accent": "#94a3b8",
+            "--theme-color-accent-content": "#1e293b",
+            "--theme-color-neutral": "#18181b",
+            "--theme-color-neutral-content": "#ffffff",
             "--theme-color-info": "#0ea5e9",
+            "--theme-color-info-content": "#ffffff",
             "--theme-color-success": "#22c55e",
-            "--theme-color-warning": "#f59e0b"
+            "--theme-color-success-content": "#ffffff",
+            "--theme-color-warning": "#f59e0b",
+            "--theme-color-warning-content": "#ffffff",
+            "--theme-color-error": "#ef4444",
+            "--theme-color-error-content": "#ffffff"
           }
         },
         "deep_ocean": {
           "name": "Deep Ocean",
           "colors": {
+            "--theme-color-base-100": "#f0f9ff",
+            "--theme-color-base-200": "#e0f2fe",
+            "--theme-color-base-300": "#bae6fd",
+            "--theme-color-base-content": "#0c4a6e",
             "--theme-color-primary": "#0369a1",
+            "--theme-color-primary-content": "#ffffff",
             "--theme-color-secondary": "#0f172a",
+            "--theme-color-secondary-content": "#ffffff",
             "--theme-color-accent": "#64748b",
+            "--theme-color-accent-content": "#ffffff",
+            "--theme-color-neutral": "#0f172a",
+            "--theme-color-neutral-content": "#ffffff",
             "--theme-color-info": "#06b6d4",
+            "--theme-color-info-content": "#ffffff",
             "--theme-color-success": "#16a34a",
-            "--theme-color-warning": "#ea580c"
+            "--theme-color-success-content": "#ffffff",
+            "--theme-color-warning": "#ea580c",
+            "--theme-color-warning-content": "#ffffff",
+            "--theme-color-error": "#e11d48",
+            "--theme-color-error-content": "#ffffff"
           }
         }
       }
